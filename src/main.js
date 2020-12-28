@@ -1,8 +1,60 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from "vue";
+import HelloWorld from "./components/HelloWorld.vue";
+import CrudComposition from "./components/CrudComposition/index.vue";
+import CrudDashboard from "./components/CrudDashboard/index.vue";
+import CrudDetail from "./components/CrudDetail/index.vue";
+import CrudCreate from "./components/CrudCreate/index.vue";
+import CrudUpdate from "./components/CrudUpdate/index.vue";
+import CrudConfirmDialog from "./components/CrudConfirmDialog.vue";
+import SuccessSnackbar from "./components/snackbar/SuccessSnackbar";
+import ErrorSnackbar from "./components/snackbar/ErrorSnackbar";
+import vuetify from "./plugins/vuetify";
+// import "./plugins/vuetify";
+//
+import App from "./App";
 
-Vue.config.productionTip = false
+const components = {
+  HelloWorld,
+  CrudComposition,
+  CrudDashboard,
+  CrudDetail,
+  CrudCreate,
+  CrudUpdate,
+  CrudConfirmDialog,
+  SuccessSnackbar,
+  ErrorSnackbar,
+};
+
+export {
+  HelloWorld,
+  CrudComposition,
+  CrudDashboard,
+  CrudDetail,
+  CrudCreate,
+  CrudUpdate,
+  CrudConfirmDialog,
+  SuccessSnackbar,
+  ErrorSnackbar,
+};
+
+const ComponentLibrary = {
+  install(Vue) {
+    // components
+    for (const componentName in components) {
+      const component = components[componentName];
+
+      Vue.component(component.name, component);
+    }
+  },
+};
+
+export default ComponentLibrary;
+
+if (typeof window !== "undefined" && window.Vue) {
+  window.Vue.use(ComponentLibrary);
+}
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  vuetify, //<-----
+  render: (h) => h(App),
+}).$mount("#app");
