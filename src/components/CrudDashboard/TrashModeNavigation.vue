@@ -4,23 +4,23 @@
       :color="trashMode ? 'normal' : 'success'"
       text
       @click="$emit('update-trash-mode', false)"
-      >Tất cả ({{ normalTotal }})</v-btn
+      >Available ({{ normalTotal }})</v-btn
     >
     <span>|</span>
     <v-btn
       :color="trashMode ? 'success' : 'normal'"
       text
       @click="$emit('update-trash-mode', true)"
-      >Thùng rác ({{ trashTotal }})</v-btn
+      >Trash ({{ trashTotal }})</v-btn
     >
   </v-layout>
 </template>
 
 <script>
-import Vue from 'vue';
+import Vue from "vue";
 
 export default Vue.extend({
-  name: 'trash-mode-navigation',
+  name: "trash-mode-navigation",
   props: {
     trashMode: {
       type: Boolean,

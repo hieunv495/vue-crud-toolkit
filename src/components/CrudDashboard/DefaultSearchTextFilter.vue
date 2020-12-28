@@ -9,14 +9,13 @@
     clearable
     hide-details
     prepend-inner-icon="mdi-magnify"
-    class="ml-8 mr-8"
     @input="$emit('input', $event || '')"
   />
 </template>
 <script >
-import Vue from 'vue';
+import Vue from "vue";
 export default Vue.extend({
-  name: 'default-search-text-filter',
+  name: "default-search-text-filter",
   props: {
     value: {
       type: String,
@@ -28,7 +27,7 @@ export default Vue.extend({
     },
     placeholder: {
       type: String,
-      default: 'Tìm kiếm',
+      default: "Search",
     },
   },
 });

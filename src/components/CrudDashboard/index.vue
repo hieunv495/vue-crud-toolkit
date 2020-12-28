@@ -2,25 +2,31 @@
   <div>
     <slot name="header" v-bind="this">
       <v-layout align-center>
-        <slot name="title" v-bind="this">
-          <h2>{{ title }}</h2>
-        </slot>
-        <slot name="filter" v-bind="this">
-          <default-search-text-filter
-            :value="filter.q"
-            :loading="loading"
-            @input="updateFilter({ q: $event })"
-          />
-        </slot>
-        <slot name="actions" v-bind="this">
-          <!-- <v-spacer /> -->
-          <v-btn v-if="!trashMode" color="success" @click="clickCreate">
-            <v-icon left>mdi-plus</v-icon>{{ createButtonLabel }}
-          </v-btn>
-          <v-btn v-else color="success" @click="clickEmptyTrash">
-            <v-icon left>mdi-delete</v-icon>Dọn dẹp thùng rác
-          </v-btn>
-        </slot>
+        <v-flex shrink>
+          <slot name="header-title" v-bind="this">
+            <div class="text-h5">{{ title }}</div>
+          </slot>
+        </v-flex>
+        <v-flex class="mx-8">
+          <slot name="header-filter" v-bind="this">
+            <!-- <default-search-text-filter
+              :value="filter.q"
+              :loading="loading"
+              @input="updateFilter({ q: $event })"
+            /> -->
+          </slot>
+        </v-flex>
+        <v-flex shrink>
+          <slot name="header-actions" v-bind="this">
+            <!-- <v-spacer /> -->
+            <v-btn v-if="!trashMode" color="success" @click="clickCreate">
+              <v-icon left>mdi-plus</v-icon>{{ createButtonLabel }}
+            </v-btn>
+            <v-btn v-else color="success" @click="clickEmptyTrash">
+              <v-icon left>mdi-delete</v-icon>Empty trash
+            </v-btn>
+          </slot>
+        </v-flex>
       </v-layout>
       <v-divider class="mt-4 mb-4" />
 
@@ -31,11 +37,11 @@
           :trash-total="trashTotal"
           @update-trash-mode="updateTrashMode"
         />
+        <v-divider />
       </slot>
-      <slot v-else name="normal-total" v-bind="this">
+      <!-- <slot v-else name="normal-total" v-bind="this">
         Tổng: {{ normalTotal }}
-      </slot>
-      <v-divider />
+      </slot> -->
     </slot>
 
     <slot v-bind="this">
@@ -46,15 +52,15 @@
     <slot name="footer" v-bind="this">
       <v-row align="center">
         <v-flex shrink>
-          <slot name="statistic" v-bind="this">
+          <slot name="footer-statistic" v-bind="this">
             <v-subheader
               >{{ (page - 1) * limit + 1 }} - {{ page * limit }} /
-              {{ total }} kết quả</v-subheader
+              {{ total }} results</v-subheader
             >
           </slot>
         </v-flex>
         <v-flex>
-          <slot name="pagination" v-bind="this">
+          <slot name="footer-pagination" v-bind="this">
             <v-container>
               <v-row justify="center">
                 <v-container style="max-width: 400px">
@@ -74,16 +80,14 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import getErrorMessage from '../utils/getErrorMessage';
-import DefaultSearchTextFilter from './DefaultSearchTextFilter.vue';
-import TrashModeNavigation from './TrashModeNavigation.vue';
+import Vue from "vue";
+import getErrorMessage from "../utils/getErrorMessage";
+import TrashModeNavigation from "./TrashModeNavigation.vue";
 
 export default Vue.extend({
-  name: 'crud-dashboard',
+  name: "crud-dashboard",
   components: {
     TrashModeNavigation,
-    DefaultSearchTextFilter,
   },
   props: {
     bus: { type: Object, default: null },
@@ -105,7 +109,7 @@ export default Vue.extend({
     },
     getErrorMessage: {
       type: Function,
-      default: getErrorMessage,
+      default: null,
     },
     getListApi: {
       type: Function,
@@ -125,7 +129,7 @@ export default Vue.extend({
     },
     createButtonLabel: {
       type: String,
-      default: 'Thêm mới',
+      default: "Add",
     },
     hasTrash: {
       type: Boolean,
@@ -138,6 +142,7 @@ export default Vue.extend({
       requestId: 0,
       loading: true,
       error: null,
+      errorMessage: null,
       items: [],
       limit: this.defaultLimit,
       page: this.defaultPage,
@@ -153,25 +158,25 @@ export default Vue.extend({
     this.loadData();
 
     if (this.bus) {
-      this.bus.$on('dashboard-refresh', this.refresh);
-      this.bus.$on('dashboard-go-to-page', this.goToPage);
+      this.bus.$on("dashboard-refresh", this.refresh);
+      this.bus.$on("dashboard-go-to-page", this.goToPage);
     }
   },
 
   destroyed() {
     if (this.bus) {
-      this.bus.$off('dashboard-refresh', this.refresh);
-      this.bus.$off('dashboard-go-to-page', this.goToPage);
+      this.bus.$off("dashboard-refresh", this.refresh);
+      this.bus.$off("dashboard-go-to-page", this.goToPage);
     }
   },
 
   methods: {
     clickCreate() {
-      this.$emit('click-create');
+      this.$emit("click-create");
     },
 
     clickEmptyTrash() {
-      this.$emit('click-empty-trash');
+      this.$emit("click-empty-trash");
     },
     updateTrashMode(mode) {
       this.trashMode = mode;
@@ -237,9 +242,12 @@ export default Vue.extend({
           this.page = page;
         }
       } catch (e) {
-        console.log(e);
+        console.error(e);
         if (requestId === this.requestId) {
-          this.error = this.getErrorMessage(e);
+          this.error = e;
+          this.errorMessage = this.getErrorMessage
+            ? this.getErrorMessage(e)
+            : getErrorMessage(e);
         }
       } finally {
         if (requestId === this.requestId) {

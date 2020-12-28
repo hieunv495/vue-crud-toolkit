@@ -33,7 +33,7 @@ const generateDefaultData = (numOfData = 100) => {
   return localData;
 };
 
-let data = generateDefaultData(100);
+let data = generateDefaultData(125);
 
 const normalCount = ({ q } = { q: "" }) =>
   new Promise((resolve) => {

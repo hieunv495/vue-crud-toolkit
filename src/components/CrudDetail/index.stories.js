@@ -5,7 +5,7 @@ import vuetify from "../../plugins/vuetify";
 import CrudDetailExample from "./index.demo";
 
 export default {
-  title: "CRUD/CrudDetail",
+  title: "CRUD/Detail",
   component: CrudDetail,
   // decorators: [
   //   () => ({
