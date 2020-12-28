@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-layout v-if="!id" justify-center align-center style="height: 300px">
+    <v-layout v-if="!id" justify-center align-center style="height: 200px">
       <v-btn color="success" @click="id = '1'">Open detail</v-btn>
     </v-layout>
 
@@ -33,12 +33,14 @@
 
 <script>
 import Vue from "vue";
-import { CrudDetail } from "./index";
+import CrudDetail from "./index";
 import postsApi from "../../apis/posts.api";
 
 export default Vue.extend({
   name: "crud-detail-example",
   components: { CrudDetail },
+
+  props: {},
 
   data() {
     return {

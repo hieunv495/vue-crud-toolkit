@@ -2,6 +2,7 @@
   <v-dialog
     v-if="dialog"
     :value="visible"
+    scrollable
     v-bind="dialogProps"
     @input="$emit('close')"
   >
@@ -28,22 +29,20 @@
   </v-dialog>
   <div v-else-if="visible" :key="key">
     <slot name="header" v-bind="this">
-      <v-container>
-        <v-row align="center">
-          <v-flex shrink>
-            <v-btn color="success" class="mr-8" @click="$emit('close')">
-              <v-icon left>mdi-arrow-left</v-icon>
-              {{ backTitle }}</v-btn
-            >
-          </v-flex>
-          <v-flex>
-            <h1 class="text-h5">{{ title }}</h1>
-          </v-flex>
-          <v-flex shrink>
-            <slot name="actions" v-bind="this" />
-          </v-flex>
-        </v-row>
-      </v-container>
+      <v-layout align="center">
+        <v-flex shrink>
+          <v-btn color="success" class="mr-8" @click="$emit('close')">
+            <v-icon left>mdi-arrow-left</v-icon>
+            {{ backTitle }}</v-btn
+          >
+        </v-flex>
+        <v-flex>
+          <h1 class="text-h5">{{ title }}</h1>
+        </v-flex>
+        <v-flex shrink>
+          <slot name="actions" v-bind="this" />
+        </v-flex>
+      </v-layout>
     </slot>
     <slot v-bind="this" />
   </div>

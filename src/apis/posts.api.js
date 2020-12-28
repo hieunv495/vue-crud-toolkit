@@ -1,15 +1,16 @@
-import faker from 'faker';
-import slugify from 'slugify';
-import { v4 as uuidv4 } from 'uuid';
+import faker from "faker";
+import slugify from "slugify";
+import { v4 as uuidv4 } from "uuid";
 
 const delayTime = 200;
 
 const generateDefaultData = (numOfData = 100) => {
   const localData = [];
+
   for (let i = 0; i < numOfData; i++) {
     const title = faker.lorem.sentence();
     localData.push({
-      id: i + '',
+      id: i + "",
       title,
       description: faker.lorem.paragraph(),
       featuredImage: faker.image.avatar(),
@@ -34,7 +35,7 @@ const generateDefaultData = (numOfData = 100) => {
 
 let data = generateDefaultData(100);
 
-const normalCount = ({ q } = { q: '' }) =>
+const normalCount = ({ q } = { q: "" }) =>
   new Promise((resolve) => {
     setTimeout(() => {
       resolve(
@@ -42,7 +43,7 @@ const normalCount = ({ q } = { q: '' }) =>
       );
     }, delayTime);
   });
-const trashCount = ({ q } = { q: '' }) =>
+const trashCount = ({ q } = { q: "" }) =>
   new Promise((resolve) => {
     setTimeout(() => {
       resolve(
@@ -83,15 +84,19 @@ const getTrashList = ({ q, offset, limit }) =>
   });
 
 const getOne = (id) =>
-  new Promise((resolve) => {
+  new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(data.find((item) => !item.deleted && item.id === id));
+      const item = data.find((item) => !item.deleted && item.id === id);
+      if (!item) {
+        return reject(new Error("404 not found"));
+      }
+      resolve(item);
     }, delayTime);
   });
 
 const create = (formData) =>
   new Promise((resolve) => {
-    console.log('create', formData);
+    console.log("create", formData);
     setTimeout(() => {
       const newItem = {
         id: uuidv4(),
@@ -108,11 +113,11 @@ const create = (formData) =>
 
 const update = (id, formData) =>
   new Promise((resolve, reject) => {
-    console.log('update', id);
+    console.log("update", id);
     setTimeout(() => {
       const index = data.findIndex((item) => !item.deleted && item.id === id);
       if (index < 0) {
-        reject(new Error('404 not found'));
+        reject(new Error("404 not found"));
       }
 
       data[index] = {
@@ -132,7 +137,7 @@ const remove = (id) =>
     setTimeout(() => {
       const index = data.findIndex((item) => !item.deleted && item.id === id);
       if (index < 0) {
-        reject(new Error('404 not found'));
+        reject(new Error("404 not found"));
       }
 
       data[index] = {
@@ -150,7 +155,7 @@ const restore = (id) =>
     setTimeout(() => {
       const index = data.findIndex((item) => item.deleted && item.id === id);
       if (index < 0) {
-        reject(new Error('404 not found'));
+        reject(new Error("404 not found"));
       }
 
       data[index] = {
@@ -168,7 +173,7 @@ const purge = (id) =>
     setTimeout(() => {
       const index = data.findIndex((item) => item.deleted && item.id === id);
       if (index < 0) {
-        reject(new Error('404 not found'));
+        reject(new Error("404 not found"));
       }
 
       data = data.filter((item) => item.id !== id);

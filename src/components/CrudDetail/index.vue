@@ -6,7 +6,12 @@
     :dialog-props="dialogProps"
     @close="$emit('close')"
   >
-    <template #actions>
+    <template v-if="$slots.header" #header>
+      <!-- @slot Custom your header -->
+      <slot name="header" v-bind="this" />
+    </template>
+
+    <template v-if="$slots.actions" #actions>
       <slot name="actions" v-bind="this" />
     </template>
 
@@ -16,14 +21,16 @@
       </slot>
     </template>
     <template v-else>
-      <template v-if="loading" name="loading" v-bind="this">
-        <v-skeleton-loader type="card" />
+      <template v-if="loading">
+        <slot name="loading" v-bind="this">
+          <v-skeleton-loader type="card" />
+        </slot>
       </template>
       <slot v-else-if="error" name="error" v-bind="this">
-        <v-alert type="warning">{{ error.message }}</v-alert>
+        <v-alert type="warning">{{ error }}</v-alert>
       </slot>
       <slot v-else-if="!data" name="empty">
-        <v-alert type="info">Không có dữ liệu</v-alert>
+        <v-alert type="warning">Empty</v-alert>
       </slot>
       <slot v-else v-bind="this">
         <pre>{{ JSON.stringify(data, undefined, 2) }}</pre>
@@ -75,6 +82,7 @@ export default Vue.extend({
       requestId: 0,
       loading: true,
       error: null,
+      errorMessage: null,
       data: null,
     };
   },
@@ -89,16 +97,14 @@ export default Vue.extend({
   },
 
   watch: {
-    visible() {
-      this.loadData();
-    },
     id() {
       this.loadData();
     },
   },
 
   created() {
-    if (this.visible) {
+    console.log(this.$vuetify);
+    if (this.id) {
       this.loadData();
     }
   },
@@ -114,9 +120,12 @@ export default Vue.extend({
           this.data = data;
         }
       } catch (e) {
-        console.log(e);
-        const getMessage = this.getErrorMessage || getErrorMessage;
-        if (requestId === this.requestId) this.error = getMessage(e);
+        console.error(e);
+        if (requestId === this.requestId) {
+          this.error = e;
+          const getMessage = this.getErrorMessage || getErrorMessage;
+          this.errorMessage = getMessage(e);
+        }
       } finally {
         if (requestId === this.requestId) {
           this.loading = false;
