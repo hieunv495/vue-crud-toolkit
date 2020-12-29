@@ -218,9 +218,12 @@ export default Vue.extend({
       this.loadData();
     },
 
-    updatePage(page) {
+    async updatePage(page) {
       this.page = page;
-      this.loadData();
+      await this.loadData();
+
+      window.document.body.scrollTop = 0;
+      window.document.documentElement.scrollTop = 0;
     },
 
     updateLimit(limit) {
