@@ -16,13 +16,23 @@
             /> -->
           </slot>
         </v-flex>
+        <!-- <v-flex shrink>
+          <v-layout justify-center style="width: 40px">
+            <v-progress-circular
+              v-if="loading"
+              size="28"
+              indeterminate
+              color="primary"
+            />
+          </v-layout>
+        </v-flex> -->
         <v-flex shrink>
           <slot name="header-actions" v-bind="this">
             <!-- <v-spacer /> -->
             <v-btn v-if="!trashMode" color="success" @click="clickCreate">
               <v-icon left>mdi-plus</v-icon>{{ createButtonLabel }}
             </v-btn>
-            <v-btn v-else color="success" @click="clickEmptyTrash">
+            <v-btn v-else color="warning" @click="clickEmptyTrash">
               <v-icon left>mdi-delete</v-icon>Empty trash
             </v-btn>
           </slot>
@@ -193,6 +203,11 @@ export default Vue.extend({
 
     updatePage(page) {
       this.page = page;
+      this.loadData();
+    },
+
+    updateLimit(limit) {
+      this.limit = limit;
       this.loadData();
     },
 

@@ -25,7 +25,7 @@ const generateDefaultData = (numOfData = 100) => {
           .fill(null)
           .map(() => faker.random.number()),
       ],
-      deleted: false,
+      deleted: (i + 1) % 4 === 0 ? true : false,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
