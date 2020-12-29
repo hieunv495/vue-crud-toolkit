@@ -1,13 +1,17 @@
 <template>
   <div>
     <slot name="header" v-bind="this">
-      <v-layout align-center>
+      <v-layout align-center wrap style="gap: 16px">
         <v-flex shrink>
           <slot name="header-title" v-bind="this">
-            <div class="text-h5">{{ title }}</div>
+            <v-layout justify-center>
+              <v-flex>
+                <div class="text-h5">{{ title }}</div>
+              </v-flex>
+            </v-layout>
           </slot>
         </v-flex>
-        <v-flex class="mx-8">
+        <v-flex>
           <slot name="header-filter" v-bind="this">
             <!-- <default-search-text-filter
               :value="filter.q"
@@ -49,9 +53,6 @@
         />
         <v-divider />
       </slot>
-      <!-- <slot v-else name="normal-total" v-bind="this">
-        Tổng: {{ normalTotal }}
-      </slot> -->
     </slot>
 
     <slot v-bind="this">
@@ -60,31 +61,47 @@
     </slot>
 
     <slot name="footer" v-bind="this">
-      <v-row align="center">
+      <v-layout align-center wrap>
+        <v-flex shrink class="mr-2">
+          <slot name="footer-limit" v-bind="this">
+            <v-layout align-start>
+              <flex>
+                <v-subheader>Rows per page:</v-subheader>
+              </flex>
+              <v-flex>
+                <v-select
+                  :items="[5, 10, 20, 50, 100]"
+                  :value="limit"
+                  dense
+                  hide-details
+                  style="width: 56px; font-size: 14px"
+                  @input="updateLimit"
+                />
+              </v-flex>
+            </v-layout>
+          </slot>
+        </v-flex>
         <v-flex shrink>
           <slot name="footer-statistic" v-bind="this">
-            <v-subheader
-              >{{ (page - 1) * limit + 1 }} - {{ page * limit }} /
-              {{ total }} results</v-subheader
-            >
+            <v-subheader>
+              {{ (page - 1) * limit + 1 }} - {{ page * limit }} of {{ total }}
+            </v-subheader>
           </slot>
         </v-flex>
         <v-flex>
           <slot name="footer-pagination" v-bind="this">
-            <v-container>
-              <v-row justify="center">
-                <v-container style="max-width: 400px">
-                  <v-pagination
-                    :value="page"
-                    :length="Math.ceil(total / limit) || 1"
-                    @input="updatePage"
-                  />
-                </v-container>
-              </v-row>
-            </v-container>
+            <v-row justify="center">
+              <v-container style="max-width: 400px">
+                <v-pagination
+                  :value="page"
+                  :length="Math.ceil(total / limit) || 1"
+                  @input="updatePage"
+                />
+              </v-container>
+            </v-row>
           </slot>
         </v-flex>
-      </v-row>
+      </v-layout>
     </slot>
   </div>
 </template>

@@ -4,7 +4,7 @@
       :color="trashMode ? 'normal' : 'success'"
       text
       @click="$emit('update-trash-mode', false)"
-      >Available ({{ normalTotal }})</v-btn
+      >Normal ({{ normalTotal }})</v-btn
     >
     <span>|</span>
     <v-btn

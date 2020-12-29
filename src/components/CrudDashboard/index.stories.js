@@ -1,10 +1,10 @@
+import { action } from "@storybook/addon-actions";
 import Vue from "vue";
-import CrudDashboard from "./index.vue";
-import DefaultSearchTextFilter from "./DefaultSearchTextFilter.vue";
-import PostsTable from "./PostsTable";
 import postsApi from "../../apis/posts.api.js";
 import vuetify from "../../plugins/vuetify";
-import { action } from "@storybook/addon-actions";
+import DefaultSearchTextFilter from "./DefaultSearchTextFilter.vue";
+import CrudDashboard from "./index.vue";
+import PostsTable from "./PostsTable";
 
 export default {
   title: "CRUD/Dashboard",
@@ -359,6 +359,62 @@ CustomTrashModeNavigation.parameters = {
   },
 };
 
+// ----------- CUSTOM FOOTER LIMIT -----------
+
+const CustomFooterLimitCode = `
+<crud-dashboard
+  v-bind="$props"
+  @click-create="onClickCreate"
+  @click-empty-trash="onClickEmptyTrash"
+>
+  <template #footer-limit="{limit, updateLimit}">
+    <v-layout align-center>
+      <flex class="mr-2">
+        <v-chip color="success">Rows per page:</v-chip>
+      </flex>
+      <v-flex>
+        <v-select
+          :items="[5, 10, 20, 50, 100]"
+          :value="limit"
+          dense
+          hide-details
+          outlined
+          style="width: 100px; font-size: 14px"
+          @input="updateLimit"
+        />
+      </v-flex>
+    </v-layout>
+  </template>
+  <template #header-filter="{loading, filter, updateFilter}">
+    <default-search-text-filter :loading="loading" :value="filter.q" @input="updateFilter({q: $event})" />
+  </template>
+  <template #default="{ items, trashMode }">
+    <posts-table :items="items" :trash-mode="trashMode" />
+  </template>
+</crud-dashboard>
+`;
+
+const CustomFooterLimitTemplate = (args, { argTypes }) => ({
+  props: Object.keys(argTypes),
+  methods: actionsData,
+  components: { CrudDashboard, PostsTable, DefaultSearchTextFilter },
+  vuetify: vuetify,
+  template: CustomFooterLimitCode,
+});
+
+export const CustomFooterLimit = CustomFooterLimitTemplate.bind({});
+CustomFooterLimit.args = {
+  ...Default.args,
+};
+
+CustomFooterLimit.parameters = {
+  docs: {
+    source: {
+      code: CustomFooterLimitCode,
+    },
+  },
+};
+
 // ----------- CUSTOM FOOTER STATISTIC -----------
 
 const CustomFooterStatisticCode = `
@@ -400,7 +456,7 @@ CustomFooterStatistic.parameters = {
   },
 };
 
-// ----------- CUSTOM FOOTER STATISTIC -----------
+// ----------- CUSTOM FOOTER PAGINATION -----------
 
 const CustomFooterPaginationCode = `
 <crud-dashboard
@@ -461,7 +517,7 @@ const CustomFooterCode = `
   @click-empty-trash="onClickEmptyTrash"
 >
   <template #footer="{page, limit, total, updatePage, updateLimit}">
-      <v-layout justify-center align-center >
+      <v-layout justify-center align-center style="background-color: grey">
         <v-flex shrink>
           <v-text-field 
             :value="page" 
