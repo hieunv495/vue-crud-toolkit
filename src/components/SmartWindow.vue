@@ -29,9 +29,9 @@
   </v-dialog>
   <div v-else-if="visible" :key="key">
     <slot name="header" v-bind="this">
-      <v-layout align="center">
+      <v-layout wrap align="center" style="gap: 16px">
         <v-flex shrink>
-          <v-btn color="success" class="mr-8" @click="$emit('close')">
+          <v-btn color="success" @click="$emit('close')">
             <v-icon left>mdi-arrow-left</v-icon>
             {{ backTitle }}</v-btn
           >

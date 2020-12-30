@@ -1,25 +1,43 @@
+import CustomActionsExample_code from "!!raw-loader!./examples/custom-actions.example.vue";
+import CustomEmptyExample_code from "!!raw-loader!./examples/custom-empty.example.vue";
+import CustomErrorExample_code from "!!raw-loader!./examples/custom-error.example.vue";
+import CustomHeaderExample_code from "!!raw-loader!./examples/custom-header.example.vue";
+import CustomLoadingExample_code from "!!raw-loader!./examples/custom-loading.example.vue";
+import DefaultEmptyExample_code from "!!raw-loader!./examples/default-empty.example.vue";
+import DefaultErrorExample_code from "!!raw-loader!./examples/default-error.example.vue";
+import DefaultLoadingExample_code from "!!raw-loader!./examples/default-loading.example.vue";
+import DefaultExample_code from "!!raw-loader!./examples/default.example.vue";
+// Custom empty
+import CustomActionsExample from "./examples/custom-actions.example.vue";
+// Custom empty
+import CustomEmptyExample from "./examples/custom-empty.example.vue";
+// Custom error
+import CustomErrorExample from "./examples/custom-error.example.vue";
+// Custom header
+import CustomHeaderExample from "./examples/custom-header.example.vue";
+// Custom loading
+import CustomLoadingExample from "./examples/custom-loading.example.vue";
+// Default empty
+import DefaultEmptyExample from "./examples/default-empty.example.vue";
+// Default error
+import DefaultErrorExample from "./examples/default-error.example.vue";
+// Default loading
+import DefaultLoadingExample from "./examples/default-loading.example.vue";
+// Default
+import DefaultExample from "./examples/default.example.vue";
 import CrudDetail from "./index.vue";
-import postsApi from "../../apis/posts.api.js";
-import { action } from "@storybook/addon-actions";
-import vuetify from "../../plugins/vuetify";
-import CrudDetailExample from "./index.demo";
 
 export default {
   title: "CRUD/Detail",
   component: CrudDetail,
-  // decorators: [
-  //   () => ({
-  //     template:
-  //       '<div style="max-height: 400px;overflow: auto"><story/></story></div>',
-  //   }),
-  // ],
+
   argTypes: {
     id: {
       description: "Id of item",
-      control: {
-        type: "select",
-        options: [null, "0", "1", "2"],
-      },
+      // control: {
+      //   type: "select",
+      //   options: [null, "0", "1", "2"],
+      // },
     },
     getOneApi: {
       description:
@@ -28,451 +46,140 @@ export default {
     getErrorMessage: {
       description: "Function get error message when `getOneApi` throw an error",
     },
-    dialog: {},
+    dialog: {
+      control: {
+        type: "boolean",
+      },
+    },
   },
 };
 
-const actionsData = {
-  onClose: action("close"),
-};
-
-const DefaultCode = `
-<crud-detail v-bind="$props" @close="onClose">
-  <template #default="{ data }">
-  <v-text-field :value="data.title" label="Title" disabled />
-  <v-textarea :value="data.description" label="Description" disabled />
-  </template> 
-</crud-detail>
-`;
-
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
-
-  methods: actionsData,
-  components: { CrudDetail },
-  vuetify: vuetify,
-  template: DefaultCode,
-});
-
 // DEFAULT
 
-export const Default = Template.bind({});
-Default.args = {
-  id: "1",
-  title: "Post detail",
-  getOneApi: postsApi.getOne,
-};
-
+export const Default = () => DefaultExample;
 Default.parameters = {
   docs: {
     source: {
-      code: DefaultCode,
+      code: DefaultExample_code,
     },
   },
 };
 
 // DEFAULT LOADING
-
-export const DefaultLoading = Template.bind({});
-DefaultLoading.args = {
-  id: "1",
-  title: "Post detail",
-  getOneApi: () => new Promise(() => {}),
-};
-
+export const DefaultLoading = () => DefaultLoadingExample;
 DefaultLoading.parameters = {
   docs: {
     source: {
-      code: DefaultCode,
+      code: DefaultLoadingExample_code,
     },
   },
 };
 
 // CUSTOM LOADING
-
-const CustomLoadingCode = `
-<crud-detail v-bind="$props" @close="onClose">
-  <template #loading>
-    <v-layout justify-center align-center>
-      <v-progress-circular
-        indeterminate
-        color="primary"
-      />
-    </v-layout>
-  </template>
-  <template #default="{ data }">
-  <v-text-field :value="data.title" label="Title" disabled />
-  <v-textarea :value="data.description" label="Description" disabled />
-  </template> 
-</crud-detail>
-`;
-
-const CustomLoadingTemplate = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
-
-  methods: actionsData,
-  components: { CrudDetail },
-  vuetify: vuetify,
-  template: CustomLoadingCode,
-});
-
-// CUSTOM LOADING
-
-export const CustomLoading = CustomLoadingTemplate.bind({});
-CustomLoading.args = {
-  id: "1",
-  title: "Post detail",
-  getOneApi: () => new Promise(() => {}),
-};
+export const CustomLoading = () => CustomLoadingExample;
 CustomLoading.parameters = {
   docs: {
     source: {
-      code: CustomLoadingCode,
+      code: CustomLoadingExample_code,
     },
   },
 };
 
-// ERROR
-
-export const DefaultError = Template.bind({});
-DefaultError.args = {
-  id: "nothing",
-  title: "Error",
-  getOneApi: postsApi.getOne,
-};
-
+// DEFAULT ERROR
+export const DefaultError = () => DefaultErrorExample;
 DefaultError.parameters = {
   docs: {
     source: {
-      code: DefaultCode,
+      code: DefaultErrorExample_code,
     },
   },
 };
 
 // CUSTOM ERROR
-
-const CustomErrorCode = `
-<crud-detail v-bind="$props" @close="onClose">
-  <template #error="{error, errorMessage}">
-    <div>
-      Error is: '{{errorMessage}}'
-    </div>
-  </template>
-  <template #default="{ data }">
-  <v-text-field :value="data.title" label="Title" disabled />
-  <v-textarea :value="data.description" label="Description" disabled />
-  </template> 
-</crud-detail>
-`;
-
-const CustomErrorTemplate = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
-
-  methods: actionsData,
-  components: { CrudDetail },
-  vuetify: vuetify,
-  template: CustomErrorCode,
-});
-
-export const CustomError = CustomErrorTemplate.bind({});
-CustomError.args = {
-  id: "nothing",
-  title: "Error",
-  getOneApi: postsApi.getOne,
-};
-
+export const CustomError = () => CustomErrorExample;
 CustomError.parameters = {
   docs: {
     source: {
-      code: CustomErrorCode,
+      code: CustomErrorExample_code,
     },
   },
 };
 
-// EMPTY
-
-export const DefaultEmpty = Template.bind({});
-DefaultEmpty.args = {
-  id: "0",
-  title: "Default empty",
-  getOneApi: () => null,
-};
-
+// DEFAULT EMPTY
+export const DefaultEmpty = () => DefaultEmptyExample;
 DefaultEmpty.parameters = {
   docs: {
     source: {
-      code: DefaultCode,
+      code: DefaultEmptyExample_code,
     },
   },
 };
 
 // CUSTOM EMPTY
-
-const CustomEmptyCode = `
-<crud-detail v-bind="$props" @close="onClose">
-  <template #empty>
-    <div style="color: orange">
-      Nothing
-    </div>
-  </template>
-  <template #default="{ data }">
-  <v-text-field :value="data.title" label="Title" disabled />
-  <v-textarea :value="data.description" label="Description" disabled />
-  </template> 
-</crud-detail>
-`;
-
-const CustomEmptyTemplate = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
-
-  methods: actionsData,
-  components: { CrudDetail },
-  vuetify: vuetify,
-  template: CustomEmptyCode,
-});
-
-export const CustomEmpty = CustomEmptyTemplate.bind({});
-CustomEmpty.args = {
-  id: "0",
-  title: "Default empty",
-  getOneApi: () => null,
-};
-
+export const CustomEmpty = () => CustomEmptyExample;
 CustomEmpty.parameters = {
   docs: {
     source: {
-      code: CustomEmptyCode,
+      code: CustomEmptyExample_code,
     },
   },
 };
 
 // WITH DIALOG
 
-export const WithDialog = Template.bind({});
+export const WithDialog = () => DefaultExample;
 WithDialog.args = {
-  id: "1",
-  title: "Post detail with dialog",
-  getOneApi: postsApi.getOne,
   dialog: true,
 };
-
-// CUSTOM ACTIONS
-
-const CustomActionsCode = `
-<crud-detail v-bind="$props" @close="onClose">
-  <template #actions>
-    <v-layout justify-center>
-      <v-btn color="success" class="mr-2" @click="onClose"> Close </v-btn>
-      <v-btn color="success" class="mr-2" @click="onUpdate"> Update </v-btn>
-      <v-btn color="warning" @click="onRemove"> Delete </v-btn>
-    </v-layout>
-  </template>
-  <template #default="{ data }">
-  <v-text-field :value="data.title" label="Title" disabled />
-  <v-textarea :value="data.description" label="Description" disabled />
-  </template> 
-</crud-detail>
-`;
-
-const CustomActionsTemplate = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
-
-  methods: {
-    ...actionsData,
-    onUpdate: action("update"),
-    onRemove: action("remove"),
-  },
-  components: { CrudDetail },
-  vuetify: vuetify,
-  template: CustomActionsCode,
-});
-
-export const CustomActions = CustomActionsTemplate.bind({});
-CustomActions.args = {
-  id: "0",
-  title: "Detail with custom actions",
-  getOneApi: postsApi.getOne,
-};
-
-CustomActions.parameters = {
+WithDialog.parameters = {
   docs: {
     source: {
-      code: CustomActionsCode,
+      code: DefaultExample_code,
     },
   },
 };
 
-export const CustomActionsWithDialog = CustomActionsTemplate.bind({});
-CustomActionsWithDialog.args = {
-  id: "1",
-  title: "Custom action with dialog",
-  getOneApi: postsApi.getOne,
-  dialog: true,
+// CUSTOM ACTIONS
+export const CustomActions = () => CustomActionsExample;
+CustomActions.parameters = {
+  docs: {
+    source: {
+      code: CustomActionsExample_code,
+    },
+  },
 };
 
+export const CustomActionsWithDialog = () => CustomActionsExample;
+CustomActionsWithDialog.args = {
+  dialog: true,
+};
 CustomActionsWithDialog.parameters = {
   docs: {
     source: {
-      code: CustomActionsCode,
+      code: CustomActionsExample_code,
     },
   },
 };
 
 // CUSTOM HEADER
 
-const CustomHeaderTemplateCode = `
-<crud-detail v-bind="$props" @close="onClose">
-  <template #header>
-    <div style="background-color: grey; padding: 8px; color: white">
-      Custom header
-    </div>
-  </template>
-  <template #default="{ data }">
-  <v-text-field :value="data.title" label="Title" disabled />
-  <v-textarea :value="data.description" label="Description" disabled />
-  </template> 
-</crud-detail>
-`;
-
-const CustomHeaderTemplate = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
-
-  methods: {
-    ...actionsData,
-    onUpdate: action("update"),
-    onRemove: action("remove"),
-  },
-  components: { CrudDetail },
-  vuetify: vuetify,
-  template: CustomHeaderTemplateCode,
-});
-
-export const CustomHeader = CustomHeaderTemplate.bind({});
-CustomHeader.args = {
-  id: "1",
-  title: "CustomHeader",
-  getOneApi: postsApi.getOne,
-};
-
+export const CustomHeader = () => CustomHeaderExample;
 CustomHeader.parameters = {
   docs: {
     source: {
-      code: CustomHeaderTemplateCode,
+      code: CustomHeaderExample_code,
     },
   },
 };
 
-export const CustomHeaderWithDialog = CustomHeaderTemplate.bind({});
+export const CustomHeaderWithDialog = () => CustomHeaderExample;
 CustomHeaderWithDialog.args = {
-  id: "1",
-  title: "CustomHeader",
-  getOneApi: postsApi.getOne,
   dialog: true,
 };
-
 CustomHeaderWithDialog.parameters = {
   docs: {
     source: {
-      code: CustomHeaderTemplateCode,
-    },
-  },
-};
-
-// EXAMPLE
-
-const ExampleTemplate = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
-
-  methods: actionsData,
-  components: { CrudDetailExample },
-  vuetify: vuetify,
-  template: '<crud-detail-example v-bind="$props" @close="onClose" />',
-});
-
-export const Example = ExampleTemplate.bind({});
-Example.args = {
-  dialog: false,
-};
-
-Example.argTypes = {
-  id: { control: { disable: true } },
-};
-
-Example.parameters = {
-  docs: {
-    source: {
-      code: `
-  <template>
-    <div>
-      <v-layout v-if="!id" justify-center align-center style="height: 300px">
-        <v-btn color="success" @click="id = '1'">Open detail</v-btn>
-      </v-layout>
-  
-      <crud-detail
-        :id="id"
-        :get-one-api="getOneApi"
-        :dialog="dialog"
-        :title="title"
-        :dialog-props="{
-          maxWidth: dialogMaxWidth,
-          persistent: dialogPersistent,
-        }"
-        @close="id = null"
-      >
-        <template #actions>
-          <v-layout justify-center>
-            <v-btn color="success" class="mr-2" @click="id = null"> Close </v-btn>
-            <v-btn color="success" class="mr-2" @click="update"> Update </v-btn>
-            <v-btn color="warning" @click="remove"> Delete </v-btn>
-          </v-layout>
-        </template>
-  
-        <template #default="{ data }">
-          <v-text-field :value="data.title" label="Title" disabled />
-          <v-textarea :value="data.description" label="Description" disabled />
-        </template>
-      </crud-detail>
-    </div>
-  </template>
-  
-  <script>
-  import Vue from "vue";
-  import CrudDetail from "./index";
-  import postsApi from "../../apis/posts.api";
-  
-  export default Vue.extend({
-    name: "crud-detail-example",
-    components: { CrudDetail },
-  
-    props: {
-  
-    },
-  
-    data() {
-      return {
-        id: null,
-        title: "Detail information",
-        dialog: false,
-        dialogMaxWidth: 600,
-        dialogPersistent: false,
-      };
-    },
-  
-    methods: {
-      getOneApi: postsApi.getOne,
-  
-      update() {
-        alert("Update");
-      },
-      remove() {
-        alert("Remove");
-      },
-    },
-  });
-  </script>
-  
-  <style>
-  </style>`,
+      code: CustomHeaderExample_code,
     },
   },
 };
