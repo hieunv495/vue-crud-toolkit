@@ -64,10 +64,10 @@
       <v-layout align-center wrap>
         <v-flex shrink class="mr-2">
           <slot name="footer-limit" v-bind="this">
-            <v-layout align-start>
-              <flex>
+            <v-layout>
+              <v-flex>
                 <v-subheader>Rows per page:</v-subheader>
-              </flex>
+              </v-flex>
               <v-flex>
                 <v-select
                   :items="[5, 10, 20, 50, 100]"

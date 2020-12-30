@@ -1,4 +1,5 @@
 const path = require("path");
+const deepmerge = require("deepmerge");
 
 module.exports = {
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
@@ -21,6 +22,18 @@ module.exports = {
     //     },
     //   },
     // });
+
+    config.module.rules.push({
+      resolve: {
+        alias: {
+          "vue-crud-toolkit": path.resolve(__dirname, "../src/main.js"),
+          "@": path.resolve(__dirname, "../src"),
+          "~": path.resolve(__dirname, "../src"),
+          vue: "vue/dist/vue.js",
+          vue$: "vue/dist/vue.esm.sjs",
+        },
+      },
+    });
 
     config.module.rules.push({
       test: /\.s(c|a)ss$/,

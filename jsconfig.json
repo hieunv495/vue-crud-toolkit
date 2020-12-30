@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "vue-crud-toolkit": ["src/main.js"],
+      "@/*": ["src/*"],
+      "~/*": ["src/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}

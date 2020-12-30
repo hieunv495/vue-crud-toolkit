@@ -21,30 +21,29 @@
       </slot>
     </template>
 
-    <slot v-if="error" name="error">
-      <v-alert type="error" class="mt-4">{{ error }}</v-alert>
+    <slot v-if="errorMessage" name="error">
+      <v-alert type="error" class="mt-4">{{ errorMessage }}</v-alert>
     </slot>
     <slot v-bind="this" />
   </smart-window>
 </template>
 
 <script>
-import Vue from 'vue';
-import SmartWindow from '../SmartWindow.vue';
-import getErrorMessage from '../utils/getErrorMessage';
+import Vue from "vue";
+import SmartWindow from "../SmartWindow.vue";
+import getErrorMessage from "../utils/getErrorMessage";
 
 export default Vue.extend({
-  name: 'crud-create',
+  name: "crud-create",
   components: { SmartWindow },
   props: {
     createApi: {
       type: Function,
       required: true,
     },
-
     getErrorMessage: {
       type: Function,
-      default: getErrorMessage,
+      default: null,
     },
     getBeginFormData: {
       type: Function,
@@ -71,6 +70,7 @@ export default Vue.extend({
     return {
       loading: false,
       error: null,
+      errorMessage: null,
       beginFormData: this.getBeginFormData(),
       formBus: new Vue(),
     };
@@ -88,7 +88,7 @@ export default Vue.extend({
 
   methods: {
     clickSubmit() {
-      this.formBus.$emit('submit');
+      this.formBus.$emit("submit");
     },
 
     async sendRequest(formData) {
@@ -97,9 +97,12 @@ export default Vue.extend({
 
       try {
         let item = await this.createApi(formData);
-        this.$emit('success', item);
+        this.$emit("success", item);
       } catch (e) {
-        this.error = this.getErrorMessage(e);
+        this.error = e;
+        this.errorMessage = this.getErrorMessage
+          ? this.getErrorMessage(e)
+          : getErrorMessage(e);
       } finally {
         this.loading = false;
       }
