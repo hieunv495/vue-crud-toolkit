@@ -6,6 +6,10 @@
     :dialog-props="dialogProps"
     @close="$emit('close')"
   >
+    <template v-if="$scopedSlots.title" #title>
+      <slot name="title" v-bind="self" />
+    </template>
+
     <template #actions>
       <slot name="actions" v-bind="self">
         <v-layout justify-center align-center>

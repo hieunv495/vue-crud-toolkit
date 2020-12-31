@@ -76,6 +76,9 @@
           bus.$emit('dashboard-go-to-page', 1);
         "
       >
+        <template #title="{ title }">
+          <v-chip color="warning">Custom title: {{ title }} </v-chip>
+        </template>
         <template #default="{ formBus, beginFormData, sendRequest }">
           <h1>This is custom create</h1>
           <post-form
@@ -129,6 +132,10 @@ export default Vue.extend({
     return {
       bus: new Vue(),
     };
+  },
+
+  mounted() {
+    this.bus.$emit("open-create");
   },
 
   methods: {

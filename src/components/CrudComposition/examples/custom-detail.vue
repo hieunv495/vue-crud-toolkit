@@ -58,8 +58,8 @@
         title="Cutom detail"
         @close="bus.$emit('close-detail')"
       >
-        <template #title>
-          <v-chip>Custom title</v-chip>
+        <template #title="{ title }">
+          <v-chip color="warning">Custom title: {{ title }} </v-chip>
         </template>
         <template #default="{ data }">
           <v-alert type="info">This is custom detail page</v-alert>

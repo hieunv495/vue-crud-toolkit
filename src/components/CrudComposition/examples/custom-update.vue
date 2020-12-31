@@ -85,6 +85,9 @@
           bus.$emit('dashboard-refresh');
         "
       >
+        <template #title="{ title }">
+          <v-chip color="warning">Custom title: {{ title }}</v-chip>
+        </template>
         <template #default="{ formBus, beginFormData, sendRequest }">
           <post-form
             :form-bus="formBus"
@@ -129,6 +132,10 @@ export default Vue.extend({
     return {
       bus: new Vue(),
     };
+  },
+
+  mounted() {
+    this.bus.$emit("open-update", "1");
   },
 
   methods: {
