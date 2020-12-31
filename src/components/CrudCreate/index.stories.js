@@ -4,6 +4,12 @@ import DefaultExample from "./examples/default.example.vue";
 import CustomActionsExample from "./examples/custom-actions.example.vue";
 import CustomActionsExample_code from "!!raw-loader!./examples/custom-actions.example.vue";
 
+import DefaultErrorExample from "./examples/default-error.example.vue";
+import DefaultErrorExample_code from "!!raw-loader!./examples/default-error.example.vue";
+
+import CustomErrorExample from "./examples/custom-error.example.vue";
+import CustomErrorExample_code from "!!raw-loader!./examples/custom-error.example.vue";
+
 import CrudCreate from "./index";
 
 export default {
@@ -53,6 +59,26 @@ Default.parameters = {
   docs: {
     source: {
       code: CustomActionsExample_code,
+    },
+  },
+};
+
+// ------------ DEFAULT ERROR ------------
+export const DefaultError = () => DefaultErrorExample;
+DefaultError.parameters = {
+  docs: {
+    source: {
+      code: DefaultErrorExample_code,
+    },
+  },
+};
+
+// ------------ CUSTOM ERROR ------------
+export const CustomError = () => CustomErrorExample;
+CustomError.parameters = {
+  docs: {
+    source: {
+      code: CustomErrorExample_code,
     },
   },
 };

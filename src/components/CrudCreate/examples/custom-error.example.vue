@@ -5,6 +5,7 @@
     </v-layout>
 
     <crud-create
+      ref="crudCreate"
       title="Create new item"
       :visible="visible"
       :create-api="createApi"
@@ -18,17 +19,13 @@
       @success="onSuccess"
     >
       <!-- Add this block  -->
-      <template #actions="{ submit }">
-        <v-layout justify-center>
-          <v-btn color="success" class="mr-2" @click="submit"
-            >Custom submit button</v-btn
-          >
-          <!-- {{ JSON.stringify(parent) }} -->
-        </v-layout>
+      <template #error="{ errorMessage }">
+        <v-alert type="error">
+          This is custom error: '{{ errorMessage }}'
+        </v-alert>
       </template>
       <!-- End  -->
       <template #default="{ formBus, beginFormData, sendRequest }">
-        {{ JSON.stringify(beginFormData) }}
         <post-form
           :form-bus="formBus"
           :begin-form-data="beginFormData"
@@ -42,11 +39,10 @@
 <script>
 import Vue from "vue";
 import { CrudCreate } from "vue-crud-toolkit";
-import postsApi from "@/apis/posts.api";
 import PostForm from "@/components/posts/PostForm.vue";
 
 export default Vue.extend({
-  name: "crud-create-custom-actions-example",
+  name: "crud-create-custom-error-example",
   components: { CrudCreate, PostForm },
   props: {
     dialog: {
@@ -61,8 +57,14 @@ export default Vue.extend({
     };
   },
 
+  mounted() {
+    this.$nextTick(() => {
+      this.$refs.crudCreate.submit();
+    });
+  },
+
   methods: {
-    createApi: postsApi.create,
+    createApi: () => Promise.reject(new Error("Form data invalid")),
     getBeginFormData() {
       return {
         title: "Input your title",

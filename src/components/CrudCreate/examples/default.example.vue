@@ -35,7 +35,7 @@ import postsApi from "@/apis/posts.api";
 import PostForm from "@/components/posts/PostForm.vue";
 
 export default Vue.extend({
-  name: "create-example",
+  name: "crud-create-example",
   components: { CrudCreate, PostForm },
   props: {
     dialog: {

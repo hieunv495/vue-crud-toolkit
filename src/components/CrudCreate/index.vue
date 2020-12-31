@@ -22,7 +22,7 @@
     </template>
 
     <slot v-if="errorMessage" name="error" v-bind="self">
-      <v-alert type="error" class="mt-4">{{ errorMessage }}</v-alert>
+      <v-alert type="error">{{ errorMessage }}</v-alert>
     </slot>
     <slot v-bind="self" />
   </smart-window>
