@@ -48,14 +48,45 @@
       <v-text-field :value="data.title" label="Title" disabled />
       <v-textarea :value="data.description" label="Description" disabled />
     </template>
-
+    <!-- 
     <template #create-content="{ formBus, beginFormData, sendRequest }">
       <post-form
         :form-bus="formBus"
         :begin-form-data="beginFormData"
         :send-request="sendRequest"
       />
+    </template> -->
+
+    <!-- Add this block  -->
+    <template #create="{ createVisible, createDialog }">
+      <crud-create
+        :visible="createVisible"
+        :title="'Custom Create'"
+        :create-api="createApi"
+        :get-begin-form-data="getBeginFormData"
+        :dialog="createDialog"
+        :dialog-props="{
+          maxWidth: 600,
+          persistent: true,
+        }"
+        @close="bus.$emit('close-create')"
+        @success="
+          bus.$emit('close-create');
+          bus.$emit('notify-success', 'Create success!');
+          bus.$emit('dashboard-go-to-page', 1);
+        "
+      >
+        <template #default="{ formBus, beginFormData, sendRequest }">
+          <h1>This is custom create</h1>
+          <post-form
+            :form-bus="formBus"
+            :begin-form-data="beginFormData"
+            :send-request="sendRequest"
+          />
+        </template>
+      </crud-create>
     </template>
+    <!-- End  -->
 
     <template #update-content="{ formBus, beginFormData, sendRequest }">
       <post-form
@@ -69,18 +100,23 @@
 
 <script>
 import Vue from "vue";
-import { CrudComposition, DefaultSearchTextFilter } from "vue-crud-toolkit";
+import {
+  CrudComposition,
+  CrudCreate,
+  DefaultSearchTextFilter,
+} from "vue-crud-toolkit";
 import PostsTable from "@/components/posts/PostsTable";
 import PostForm from "@/components/posts/PostForm";
 import postsApi from "@/apis/posts.api";
 
 export default Vue.extend({
-  name: "crud-composition-default-example",
+  name: "crud-composition-custom-create-example",
   components: {
     CrudComposition,
     DefaultSearchTextFilter,
     PostsTable,
     PostForm,
+    CrudCreate,
   },
   props: {
     dialog: {

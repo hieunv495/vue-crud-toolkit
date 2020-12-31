@@ -43,11 +43,32 @@
         @click-purge="bus.$emit('open-purge', $event.id)"
       />
     </template>
-
+    <!-- 
     <template #detail-content="{ data }">
       <v-text-field :value="data.title" label="Title" disabled />
       <v-textarea :value="data.description" label="Description" disabled />
+    </template> -->
+
+    <!-- Add this block  -->
+    <template #detail="{ detailId, detailDialog }">
+      <crud-detail
+        :id="detailId"
+        :get-one-api="getOneApi"
+        :dialog="detailDialog"
+        title="Cutom detail"
+        @close="bus.$emit('close-detail')"
+      >
+        <template #title>
+          <v-chip>Custom title</v-chip>
+        </template>
+        <template #default="{ data }">
+          <v-alert type="info">This is custom detail page</v-alert>
+          <v-text-field :value="data.title" label="Title" disabled />
+          <v-textarea :value="data.description" label="Description" disabled />
+        </template>
+      </crud-detail>
     </template>
+    <!-- End  -->
 
     <template #create-content="{ formBus, beginFormData, sendRequest }">
       <post-form
@@ -69,18 +90,23 @@
 
 <script>
 import Vue from "vue";
-import { CrudComposition, DefaultSearchTextFilter } from "vue-crud-toolkit";
+import {
+  CrudComposition,
+  CrudDetail,
+  DefaultSearchTextFilter,
+} from "vue-crud-toolkit";
 import PostsTable from "@/components/posts/PostsTable";
 import PostForm from "@/components/posts/PostForm";
 import postsApi from "@/apis/posts.api";
 
 export default Vue.extend({
-  name: "crud-composition-default-example",
+  name: "crud-composition-custom-detail-example",
   components: {
     CrudComposition,
     DefaultSearchTextFilter,
     PostsTable,
     PostForm,
+    CrudDetail,
   },
   props: {
     dialog: {
@@ -93,6 +119,10 @@ export default Vue.extend({
     return {
       bus: new Vue(),
     };
+  },
+
+  mounted() {
+    this.bus.$emit("open-detail", "1");
   },
 
   methods: {

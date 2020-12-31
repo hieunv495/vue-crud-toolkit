@@ -64,23 +64,90 @@
         :send-request="sendRequest"
       />
     </template>
+
+    <!-- Add this block  -->
+    <template #remove="{ removeId }">
+      <crud-confirm-dialog
+        :id="removeId"
+        :visible="!!removeId"
+        :request-api="removeApi"
+        title="Confirm remove"
+        message="Are you sure?"
+        @close="bus.$emit('close-remove')"
+        @success="
+          bus.$emit('close-remove');
+          bus.$emit('notify-success', 'Remove success');
+          bus.$emit('dashboard-refresh');
+        "
+      />
+    </template>
+    <template #restore="{ restoreId }">
+      <crud-confirm-dialog
+        :id="restoreId"
+        :visible="!!restoreId"
+        :request-api="restoreApi"
+        title="Confirm restore"
+        message="Are you sure?"
+        @close="bus.$emit('close-restore')"
+        @success="
+          bus.$emit('close-restore');
+          bus.$emit('notify-success', 'Restore success');
+          bus.$emit('dashboard-refresh');
+        "
+      />
+    </template>
+    <template #purge="{ purgeId }">
+      <crud-confirm-dialog
+        :id="purgeId"
+        :visible="!!purgeId"
+        :request-api="purgeApi"
+        title="Confirm purge"
+        message="Are you sure?"
+        @close="bus.$emit('close-purge')"
+        @success="
+          bus.$emit('close-purge');
+          bus.$emit('notify-success', 'Purge success');
+          bus.$emit('dashboard-refresh');
+        "
+      />
+    </template>
+    <template #empty-trash="{ emptyTrashVisible }">
+      <crud-confirm-dialog
+        :visible="emptyTrashVisible"
+        :request-api="emptyTrashApi"
+        title="Confirm empty trash"
+        message="Are you sure?"
+        @close="bus.$emit('close-empty-trash')"
+        @success="
+          bus.$emit('close-empty-trash');
+          bus.$emit('notify-success', 'Empty trash success');
+          bus.$emit('dashboard-refresh');
+        "
+      />
+    </template>
+    <!-- End  -->
   </crud-composition>
 </template>
 
 <script>
 import Vue from "vue";
-import { CrudComposition, DefaultSearchTextFilter } from "vue-crud-toolkit";
+import {
+  CrudComposition,
+  CrudConfirmDialog,
+  DefaultSearchTextFilter,
+} from "vue-crud-toolkit";
 import PostsTable from "@/components/posts/PostsTable";
 import PostForm from "@/components/posts/PostForm";
 import postsApi from "@/apis/posts.api";
 
 export default Vue.extend({
-  name: "crud-composition-default-example",
+  name: "crud-composition-custom-remove-restore-purge-empty-trash-example",
   components: {
     CrudComposition,
     DefaultSearchTextFilter,
     PostsTable,
     PostForm,
+    CrudConfirmDialog,
   },
   props: {
     dialog: {

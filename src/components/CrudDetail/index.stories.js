@@ -1,3 +1,4 @@
+import CustomTitleExample_code from "!!raw-loader!./examples/custom-title.example.vue";
 import CustomActionsExample_code from "!!raw-loader!./examples/custom-actions.example.vue";
 import CustomEmptyExample_code from "!!raw-loader!./examples/custom-empty.example.vue";
 import CustomErrorExample_code from "!!raw-loader!./examples/custom-error.example.vue";
@@ -7,23 +8,15 @@ import DefaultEmptyExample_code from "!!raw-loader!./examples/default-empty.exam
 import DefaultErrorExample_code from "!!raw-loader!./examples/default-error.example.vue";
 import DefaultLoadingExample_code from "!!raw-loader!./examples/default-loading.example.vue";
 import DefaultExample_code from "!!raw-loader!./examples/default.example.vue";
-// Custom empty
 import CustomActionsExample from "./examples/custom-actions.example.vue";
-// Custom empty
+import CustomTitleExample from "./examples/custom-title.example.vue";
 import CustomEmptyExample from "./examples/custom-empty.example.vue";
-// Custom error
 import CustomErrorExample from "./examples/custom-error.example.vue";
-// Custom header
 import CustomHeaderExample from "./examples/custom-header.example.vue";
-// Custom loading
 import CustomLoadingExample from "./examples/custom-loading.example.vue";
-// Default empty
 import DefaultEmptyExample from "./examples/default-empty.example.vue";
-// Default error
 import DefaultErrorExample from "./examples/default-error.example.vue";
-// Default loading
 import DefaultLoadingExample from "./examples/default-loading.example.vue";
-// Default
 import DefaultExample from "./examples/default.example.vue";
 import CrudDetail from "./index.vue";
 
@@ -135,6 +128,16 @@ WithDialog.parameters = {
   docs: {
     source: {
       code: DefaultExample_code,
+    },
+  },
+};
+
+// CUSTOM TITLE
+export const CustomTitle = () => CustomTitleExample;
+CustomTitle.parameters = {
+  docs: {
+    source: {
+      code: CustomTitleExample_code,
     },
   },
 };

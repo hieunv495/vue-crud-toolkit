@@ -1,6 +1,9 @@
 import DefaultExample from "./examples/default.example.vue";
 import DefaultExample_code from "!!raw-loader!./examples/default.example.vue";
 
+import CustomTitleExample from "./examples/custom-title.example.vue";
+import CustomTitleExample_code from "!!raw-loader!./examples/custom-title.example.vue";
+
 import CustomActionsExample from "./examples/custom-actions.example.vue";
 import CustomActionsExample_code from "!!raw-loader!./examples/custom-actions.example.vue";
 
@@ -42,6 +45,16 @@ Default.parameters = {
   docs: {
     source: {
       code: DefaultExample_code,
+    },
+  },
+};
+
+// ------------ CUSTOM TITLE ------------
+export const CustomTitle = () => CustomTitleExample;
+CustomTitle.parameters = {
+  docs: {
+    source: {
+      code: CustomTitleExample_code,
     },
   },
 };

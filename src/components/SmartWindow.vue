@@ -10,7 +10,9 @@
       <slot name="header" v-bind="self">
         <v-layout align-center>
           <v-flex>
-            <v-card-title>{{ title }}</v-card-title>
+            <slot name="title" v-bind="self">
+              <v-card-title>{{ title }}</v-card-title>
+            </slot>
           </v-flex>
           <v-flex shrink>
             <v-btn icon large @click="$emit('close')">
@@ -37,7 +39,9 @@
           >
         </v-flex>
         <v-flex>
-          <h1 class="text-h5">{{ title }}</h1>
+          <slot name="title" v-bind="self">
+            <h1 class="text-h5">{{ title }}</h1>
+          </slot>
         </v-flex>
         <v-flex shrink>
           <slot name="actions" v-bind="self" />

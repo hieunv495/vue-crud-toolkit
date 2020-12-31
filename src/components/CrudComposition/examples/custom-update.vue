@@ -56,31 +56,67 @@
         :send-request="sendRequest"
       />
     </template>
-
+    <!-- 
     <template #update-content="{ formBus, beginFormData, sendRequest }">
       <post-form
         :form-bus="formBus"
         :begin-form-data="beginFormData"
         :send-request="sendRequest"
       />
+    </template> -->
+
+    <!-- Add this block  -->
+    <template #update="{ updateId, updateDialog }">
+      <crud-update
+        :id="updateId"
+        title="Update post"
+        :get-one-api="getOneApi"
+        :update-api="updateApi"
+        :get-begin-form-data="getBeginFormData"
+        :dialog="updateDialog"
+        :dialog-props="{
+          maxWidth: 600,
+          persistent: true,
+        }"
+        @close="bus.$emit('close-update')"
+        @success="
+          bus.$emit('close-update');
+          bus.$emit('notify-success', 'Update success');
+          bus.$emit('dashboard-refresh');
+        "
+      >
+        <template #default="{ formBus, beginFormData, sendRequest }">
+          <post-form
+            :form-bus="formBus"
+            :begin-form-data="beginFormData"
+            :send-request="sendRequest"
+          />
+        </template>
+      </crud-update>
     </template>
+    <!-- End  -->
   </crud-composition>
 </template>
 
 <script>
 import Vue from "vue";
-import { CrudComposition, DefaultSearchTextFilter } from "vue-crud-toolkit";
+import {
+  CrudComposition,
+  CrudUpdate,
+  DefaultSearchTextFilter,
+} from "vue-crud-toolkit";
 import PostsTable from "@/components/posts/PostsTable";
 import PostForm from "@/components/posts/PostForm";
 import postsApi from "@/apis/posts.api";
 
 export default Vue.extend({
-  name: "crud-composition-default-example",
+  name: "crud-composition-custom-update-example",
   components: {
     CrudComposition,
     DefaultSearchTextFilter,
     PostsTable,
     PostForm,
+    CrudUpdate,
   },
   props: {
     dialog: {

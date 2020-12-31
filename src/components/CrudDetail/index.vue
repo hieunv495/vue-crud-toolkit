@@ -11,6 +11,10 @@
       <slot name="header" v-bind="self" />
     </template>
 
+    <template v-if="$scopedSlots.title" #title>
+      <slot name="title" v-bind="self" />
+    </template>
+
     <template v-if="$scopedSlots.actions" #actions>
       <slot name="actions" v-bind="self" />
     </template>

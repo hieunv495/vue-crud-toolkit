@@ -25,7 +25,7 @@
     create-title="Create new post"
     update-title="Update post"
   >
-    <template #dashboard-header-filter="{ loading, filter, updateFilter }">
+    <!-- <template #dashboard-header-filter="{ loading, filter, updateFilter }">
       <default-search-text-filter
         :loading="loading"
         :value="filter.q"
@@ -43,7 +43,44 @@
         @click-purge="bus.$emit('open-purge', $event.id)"
       />
     </template>
-
+     -->
+    <!-- Add this block  -->
+    <template #dashboard>
+      <crud-dashboard
+        :bus="bus"
+        :default-filter="{ q: '' }"
+        :default-limit="10"
+        :default-page="1"
+        :get-list-api="getListApi"
+        :get-trash-list-api="getTrashListApi"
+        :normal-count-api="normalCountApi"
+        :trash-count-api="trashCountApi"
+        :has-trash="true"
+        title="Custom dashboard"
+        @click-create="bus.$emit('open-create')"
+        @click-empty-trash="bus.$emit('open-empty-trash')"
+      >
+        <template #header-filter="{ loading, filter, updateFilter }">
+          <default-search-text-filter
+            :loading="loading"
+            :value="filter.q"
+            @input="updateFilter({ q: $event })"
+          />
+        </template>
+        <template #default="{ items, trashMode }">
+          <posts-table
+            :items="items"
+            :trash-mode="trashMode"
+            @click-detail="bus.$emit('open-detail', $event.id)"
+            @click-update="bus.$emit('open-update', $event.id)"
+            @click-remove="bus.$emit('open-remove', $event.id)"
+            @click-restore="bus.$emit('open-restore', $event.id)"
+            @click-purge="bus.$emit('open-purge', $event.id)"
+          />
+        </template>
+      </crud-dashboard>
+    </template>
+    <!-- End  -->
     <template #detail-content="{ data }">
       <v-text-field :value="data.title" label="Title" disabled />
       <v-textarea :value="data.description" label="Description" disabled />
@@ -69,18 +106,23 @@
 
 <script>
 import Vue from "vue";
-import { CrudComposition, DefaultSearchTextFilter } from "vue-crud-toolkit";
+import {
+  CrudComposition,
+  CrudDashboard,
+  DefaultSearchTextFilter,
+} from "vue-crud-toolkit";
 import PostsTable from "@/components/posts/PostsTable";
 import PostForm from "@/components/posts/PostForm";
 import postsApi from "@/apis/posts.api";
 
 export default Vue.extend({
-  name: "crud-composition-default-example",
+  name: "crud-composition-custom-dashboard-example",
   components: {
     CrudComposition,
     DefaultSearchTextFilter,
     PostsTable,
     PostForm,
+    CrudDashboard,
   },
   props: {
     dialog: {

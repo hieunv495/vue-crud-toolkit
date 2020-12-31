@@ -10,6 +10,9 @@ import DefaultErrorExample_code from "!!raw-loader!./examples/default-error.exam
 import CustomErrorExample from "./examples/custom-error.example.vue";
 import CustomErrorExample_code from "!!raw-loader!./examples/custom-error.example.vue";
 
+import CustomTitleExample from "./examples/custom-title.example.vue";
+import CustomTitleExample_code from "!!raw-loader!./examples/custom-title.example.vue";
+
 import CrudCreate from "./index";
 
 export default {
@@ -53,7 +56,17 @@ WithDialog.parameters = {
   },
 };
 
-// ------------ DEFAULT ------------
+// ------------ CUSTOM TITLE ------------
+export const CustomTitle = () => CustomTitleExample;
+CustomTitle.parameters = {
+  docs: {
+    source: {
+      code: CustomTitleExample_code,
+    },
+  },
+};
+
+// ------------ CUSTOM ACTIONS ------------
 export const CustomActions = () => CustomActionsExample;
 Default.parameters = {
   docs: {
