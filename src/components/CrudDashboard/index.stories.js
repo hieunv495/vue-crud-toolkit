@@ -38,9 +38,9 @@ export default {
   },
 };
 
-export const Default1 = () => DefaultExample;
+export const Default = () => DefaultExample;
 
-Default1.parameters = {
+Default.parameters = {
   docs: {
     source: {
       code: DefaultExample_code,

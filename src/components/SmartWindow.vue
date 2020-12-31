@@ -7,7 +7,7 @@
     @input="$emit('close')"
   >
     <v-card :key="key">
-      <slot name="header" v-bind="this">
+      <slot name="header" v-bind="self">
         <v-layout align-center>
           <v-flex>
             <v-card-title>{{ title }}</v-card-title>
@@ -20,15 +20,15 @@
         </v-layout>
       </slot>
       <v-card-text>
-        <slot v-bind="this" />
+        <slot v-bind="self" />
       </v-card-text>
       <v-card-actions>
-        <slot name="actions" v-bind="this" />
+        <slot name="actions" v-bind="self" />
       </v-card-actions>
     </v-card>
   </v-dialog>
   <div v-else-if="visible" :key="key">
-    <slot name="header" v-bind="this">
+    <slot name="header" v-bind="self">
       <v-layout wrap align="center" style="gap: 16px">
         <v-flex shrink>
           <v-btn color="success" @click="$emit('close')">
@@ -40,11 +40,11 @@
           <h1 class="text-h5">{{ title }}</h1>
         </v-flex>
         <v-flex shrink>
-          <slot name="actions" v-bind="this" />
+          <slot name="actions" v-bind="self" />
         </v-flex>
       </v-layout>
     </slot>
-    <slot v-bind="this" />
+    <slot v-bind="self" />
   </div>
 </template>
 
@@ -79,6 +79,11 @@ export default Vue.extend({
     return {
       key: 0,
     };
+  },
+  computed: {
+    self() {
+      return this;
+    },
   },
   watch: {
     visible(val) {

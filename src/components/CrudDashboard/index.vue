@@ -1,9 +1,9 @@
 <template>
   <div>
-    <slot name="header" v-bind="this">
+    <slot name="header" v-bind="self">
       <v-layout align-center wrap style="gap: 16px">
         <v-flex shrink>
-          <slot name="header-title" v-bind="this">
+          <slot name="header-title" v-bind="self">
             <v-layout justify-center>
               <v-flex>
                 <div class="text-h5">{{ title }}</div>
@@ -12,7 +12,7 @@
           </slot>
         </v-flex>
         <v-flex>
-          <slot name="header-filter" v-bind="this">
+          <slot name="header-filter" v-bind="self">
             <!-- <default-search-text-filter
               :value="filter.q"
               :loading="loading"
@@ -31,7 +31,7 @@
           </v-layout>
         </v-flex> -->
         <v-flex shrink>
-          <slot name="header-actions" v-bind="this">
+          <slot name="header-actions" v-bind="self">
             <!-- <v-spacer /> -->
             <v-btn v-if="!trashMode" color="success" @click="clickCreate">
               <v-icon left>mdi-plus</v-icon>{{ createButtonLabel }}
@@ -44,7 +44,7 @@
       </v-layout>
       <v-divider class="mt-4 mb-4" />
 
-      <slot v-if="hasTrash" name="trash-mode-navigation" v-bind="this">
+      <slot v-if="hasTrash" name="trash-mode-navigation" v-bind="self">
         <trash-mode-navigation
           :trash-mode="trashMode"
           :normal-total="normalTotal"
@@ -55,15 +55,15 @@
       </slot>
     </slot>
 
-    <slot v-bind="this">
+    <slot v-bind="self">
       Content display
       <pre>{{ JSON.stringify(items, undefined, 2) }}</pre>
     </slot>
 
-    <slot name="footer" v-bind="this">
+    <slot name="footer" v-bind="self">
       <v-layout align-center wrap>
         <v-flex shrink class="mr-2">
-          <slot name="footer-limit" v-bind="this">
+          <slot name="footer-limit" v-bind="self">
             <v-layout>
               <v-flex>
                 <v-subheader>Rows per page:</v-subheader>
@@ -82,14 +82,14 @@
           </slot>
         </v-flex>
         <v-flex shrink>
-          <slot name="footer-statistic" v-bind="this">
+          <slot name="footer-statistic" v-bind="self">
             <v-subheader>
               {{ (page - 1) * limit + 1 }} - {{ page * limit }} of {{ total }}
             </v-subheader>
           </slot>
         </v-flex>
         <v-flex>
-          <slot name="footer-pagination" v-bind="this">
+          <slot name="footer-pagination" v-bind="self">
             <v-row justify="center">
               <v-container style="max-width: 400px">
                 <v-pagination
@@ -179,6 +179,11 @@ export default Vue.extend({
       normalTotal: 0,
       trashTotal: 0,
     };
+  },
+  computed: {
+    self() {
+      return this;
+    },
   },
 
   created() {

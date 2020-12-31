@@ -7,7 +7,7 @@
     @close="$emit('close')"
   >
     <template #actions>
-      <slot name="actions" v-bind="this">
+      <slot name="actions" v-bind="self">
         <v-layout justify-center align-center>
           <v-btn
             :disabled="!beginFormData"
@@ -22,7 +22,7 @@
       </slot>
     </template>
 
-    <template v-if="fetchLoading" name="fetch-loading" v-bind="this">
+    <template v-if="fetchLoading" name="fetch-loading" v-bind="self">
       <v-skeleton-loader type="card" />
     </template>
 
@@ -33,17 +33,17 @@
     <slot v-if="updateError" name="update-error">
       <v-alert type="error" class="mt-4">{{ updateError }}</v-alert>
     </slot>
-    <slot v-if="beginFormData" v-bind="this" />
+    <slot v-if="beginFormData" v-bind="self" />
   </smart-window>
 </template>
 
 <script>
-import Vue from 'vue';
-import SmartWindow from '../SmartWindow.vue';
-import getErrorMessage from '../utils/getErrorMessage';
+import Vue from "vue";
+import SmartWindow from "../SmartWindow.vue";
+import getErrorMessage from "../utils/getErrorMessage";
 
 export default Vue.extend({
-  name: 'crud-update',
+  name: "crud-update",
   components: { SmartWindow },
   props: {
     id: {
@@ -91,6 +91,11 @@ export default Vue.extend({
       formBus: new Vue(),
     };
   },
+  computed: {
+    self() {
+      return this;
+    },
+  },
 
   watch: {
     id(val) {
@@ -112,7 +117,7 @@ export default Vue.extend({
 
   methods: {
     clickSubmit() {
-      this.formBus.$emit('submit');
+      this.formBus.$emit("submit");
     },
 
     async fetchData() {
@@ -143,7 +148,7 @@ export default Vue.extend({
 
       try {
         const result = await this.updateApi(this.id, formData);
-        this.$emit('success', result);
+        this.$emit("success", result);
       } catch (e) {
         if (requestId === this.requestId) {
           this.updateError = this.getErrorMessage(e);

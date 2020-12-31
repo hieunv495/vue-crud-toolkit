@@ -17,7 +17,7 @@
         </slot>
       </v-card-text>
       <v-card-actions>
-        <slot name="actions" v-bind="this">
+        <slot name="actions" v-bind="self">
           <v-layout justify-end>
             <v-btn color="darken-1" text class="mr-2" @click="$emit('close')">
               {{ cancelButtonLabel }}
@@ -38,18 +38,18 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import getErrorMessage from './utils/getErrorMessage';
+import Vue from "vue";
+import getErrorMessage from "./utils/getErrorMessage";
 
 export default Vue.extend({
-  name: 'crud-confirm-dialog',
+  name: "crud-confirm-dialog",
   props: {
     id: { type: [String, Number], default: null },
     visible: { type: Boolean, required: true },
     title: { type: String, required: true },
     message: { type: String, required: true },
-    cancelButtonLabel: { type: String, default: 'Cancel' },
-    acceptButtonLabel: { type: String, default: 'Accept' },
+    cancelButtonLabel: { type: String, default: "Cancel" },
+    acceptButtonLabel: { type: String, default: "Accept" },
     requestApi: { type: Function, required: true },
     getErrorMessage: { type: Function, default: getErrorMessage },
   },
@@ -59,6 +59,12 @@ export default Vue.extend({
       loading: false,
       error: null,
     };
+  },
+
+  computed: {
+    self() {
+      return this;
+    },
   },
 
   watch: {
@@ -78,7 +84,7 @@ export default Vue.extend({
       this.loading = true;
       try {
         const result = await this.requestApi(this.id);
-        this.$emit('success', result);
+        this.$emit("success", result);
       } catch (error) {
         this.error = this.getErrorMessage(error);
       } finally {

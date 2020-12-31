@@ -8,31 +8,31 @@
   >
     <template v-if="$slots.header" #header>
       <!-- @slot Custom your header -->
-      <slot name="header" v-bind="this" />
+      <slot name="header" v-bind="self" />
     </template>
 
     <template v-if="$slots.actions" #actions>
-      <slot name="actions" v-bind="this" />
+      <slot name="actions" v-bind="self" />
     </template>
 
     <template v-if="rawData">
-      <slot v-bind="this">
+      <slot v-bind="self">
         <pre>{{ JSON.stringify(rawData, undefined, 2) }}</pre>
       </slot>
     </template>
     <template v-else>
       <template v-if="loading">
-        <slot name="loading" v-bind="this">
+        <slot name="loading" v-bind="self">
           <v-skeleton-loader type="card" />
         </slot>
       </template>
-      <slot v-else-if="error" name="error" v-bind="this">
+      <slot v-else-if="error" name="error" v-bind="self">
         <v-alert type="warning">{{ error }}</v-alert>
       </slot>
       <slot v-else-if="!data" name="empty">
         <v-alert type="warning">Empty</v-alert>
       </slot>
-      <slot v-else v-bind="this">
+      <slot v-else v-bind="self">
         <pre>{{ JSON.stringify(data, undefined, 2) }}</pre>
       </slot>
     </template>
@@ -88,11 +88,8 @@ export default Vue.extend({
   },
 
   computed: {
-    vuetify() {
-      return this.$vuetify;
-    },
-    icons() {
-      return this.$vuetify.icons.component;
+    self() {
+      return this;
     },
   },
 
@@ -103,7 +100,6 @@ export default Vue.extend({
   },
 
   created() {
-    console.log(this.$vuetify);
     if (this.id) {
       this.loadData();
     }
