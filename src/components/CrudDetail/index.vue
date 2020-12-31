@@ -58,7 +58,7 @@ export default Vue.extend({
     },
     getErrorMessage: {
       type: Function,
-      default: null,
+      default: getErrorMessage,
     },
     rawData: {
       type: Object,
@@ -82,7 +82,6 @@ export default Vue.extend({
       requestId: 0,
       loading: true,
       error: null,
-      errorMessage: null,
       data: null,
     };
   },
@@ -90,6 +89,9 @@ export default Vue.extend({
   computed: {
     self() {
       return this;
+    },
+    errorMessage() {
+      return this.error && this.getErrorMessage(this.error);
     },
   },
 
@@ -119,8 +121,6 @@ export default Vue.extend({
         console.error(e);
         if (requestId === this.requestId) {
           this.error = e;
-          const getMessage = this.getErrorMessage || getErrorMessage;
-          this.errorMessage = getMessage(e);
         }
       } finally {
         if (requestId === this.requestId) {

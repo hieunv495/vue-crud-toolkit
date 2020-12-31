@@ -43,7 +43,7 @@ export default Vue.extend({
     },
     getErrorMessage: {
       type: Function,
-      default: null,
+      default: getErrorMessage,
     },
     getBeginFormData: {
       type: Function,
@@ -70,7 +70,6 @@ export default Vue.extend({
     return {
       loading: false,
       error: null,
-      errorMessage: null,
       beginFormData: this.getBeginFormData(),
       formBus: new Vue(),
     };
@@ -79,6 +78,9 @@ export default Vue.extend({
   computed: {
     self() {
       return this;
+    },
+    errorMessage() {
+      return this.error && this.getErrorMessage(this.error);
     },
   },
 
@@ -105,10 +107,8 @@ export default Vue.extend({
         let item = await this.createApi(formData);
         this.$emit("success", item);
       } catch (e) {
+        console.error(e);
         this.error = e;
-        this.errorMessage = this.getErrorMessage
-          ? this.getErrorMessage(e)
-          : getErrorMessage(e);
       } finally {
         this.loading = false;
       }

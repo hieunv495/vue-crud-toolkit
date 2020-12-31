@@ -136,7 +136,7 @@ export default Vue.extend({
     },
     getErrorMessage: {
       type: Function,
-      default: null,
+      default: getErrorMessage,
     },
     getListApi: {
       type: Function,
@@ -169,7 +169,6 @@ export default Vue.extend({
       requestId: 0,
       loading: true,
       error: null,
-      errorMessage: null,
       items: [],
       limit: this.defaultLimit,
       page: this.defaultPage,
@@ -183,6 +182,9 @@ export default Vue.extend({
   computed: {
     self() {
       return this;
+    },
+    errorMessage() {
+      return this.error && this.getErrorMessage(this.error);
     },
   },
 
@@ -285,9 +287,6 @@ export default Vue.extend({
         console.error(e);
         if (requestId === this.requestId) {
           this.error = e;
-          this.errorMessage = this.getErrorMessage
-            ? this.getErrorMessage(e)
-            : getErrorMessage(e);
         }
       } finally {
         if (requestId === this.requestId) {

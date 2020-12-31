@@ -2,18 +2,18 @@
   <v-dialog :value="visible" max-width="400" @input="$emit('close')">
     <v-card>
       <v-card-title class="headline">
-        <slot name="title" :title="title">
+        <slot name="title" v-bind="self">
           {{ title }}
         </slot>
       </v-card-title>
       <v-card-text>
-        <slot name="message" :message="message">
+        <slot name="message" v-bind="self">
           {{ message }}
         </slot>
       </v-card-text>
       <v-card-text>
-        <slot v-if="error" name="error" :error="error">
-          <v-alert type="error">{{ error }}</v-alert>
+        <slot v-if="errorMessage" name="error" v-bind="self">
+          <v-alert type="error">{{ errorMessage }}</v-alert>
         </slot>
       </v-card-text>
       <v-card-actions>
@@ -26,7 +26,7 @@
               :loading="loading"
               color="warning darken-1"
               text
-              @click="request"
+              @click="sendRequest"
             >
               {{ acceptButtonLabel }}
             </v-btn>
@@ -65,6 +65,9 @@ export default Vue.extend({
     self() {
       return this;
     },
+    errorMessage() {
+      return this.error && this.getErrorMessage(this.error);
+    },
   },
 
   watch: {
@@ -80,13 +83,14 @@ export default Vue.extend({
       this.loading = false;
       this.error = null;
     },
-    async request() {
+    async sendRequest() {
       this.loading = true;
       try {
         const result = await this.requestApi(this.id);
         this.$emit("success", result);
       } catch (error) {
-        this.error = this.getErrorMessage(error);
+        console.error(error);
+        this.error = error;
       } finally {
         this.loading = false;
       }
