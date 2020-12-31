@@ -7,13 +7,13 @@
     @close="$emit('close')"
   >
     <template #actions>
-      <slot name="actions" v-bind="this">
+      <slot name="actions" v-bind="self">
         <v-layout justify-center align-center>
           <v-btn
             :loading="loading"
             color="success"
             class="mr-8"
-            @click="clickSubmit"
+            @click="submit"
           >
             <v-icon left>mdi-content-save</v-icon>Save
           </v-btn>
@@ -21,10 +21,10 @@
       </slot>
     </template>
 
-    <slot v-if="errorMessage" name="error">
+    <slot v-if="errorMessage" name="error" v-bind="self">
       <v-alert type="error" class="mt-4">{{ errorMessage }}</v-alert>
     </slot>
-    <slot v-bind="this" />
+    <slot v-bind="self" />
   </smart-window>
 </template>
 
@@ -76,6 +76,12 @@ export default Vue.extend({
     };
   },
 
+  computed: {
+    self() {
+      return this;
+    },
+  },
+
   watch: {
     visible(val) {
       if (val) {
@@ -87,7 +93,7 @@ export default Vue.extend({
   },
 
   methods: {
-    clickSubmit() {
+    submit() {
       this.formBus.$emit("submit");
     },
 
