@@ -14,7 +14,7 @@
             :loading="updateLoading"
             color="success"
             class="mr-8"
-            @click="clickSubmit"
+            @click="submit"
           >
             <v-icon left>mdi-content-save</v-icon>Save
           </v-btn>
@@ -26,12 +26,12 @@
       <v-skeleton-loader type="card" />
     </template>
 
-    <slot v-if="fetchError" name="fetch-error">
-      <v-alert type="error" class="mt-4">{{ fetchError }}</v-alert>
+    <slot v-if="fetchErrorMessage" name="fetch-error" v-bind="self">
+      <v-alert type="error">{{ fetchErrorMessage }}</v-alert>
     </slot>
 
-    <slot v-if="updateError" name="update-error">
-      <v-alert type="error" class="mt-4">{{ updateError }}</v-alert>
+    <slot v-if="updateErrorMessage" name="update-error" v-bind="self">
+      <v-alert type="error">{{ updateErrorMessage }}</v-alert>
     </slot>
     <slot v-if="beginFormData" v-bind="self" />
   </smart-window>
@@ -95,6 +95,12 @@ export default Vue.extend({
     self() {
       return this;
     },
+    fetchErrorMessage() {
+      return this.fetchError && this.getErrorMessage(this.fetchError);
+    },
+    updateErrorMessage() {
+      return this.updateError && this.getErrorMessage(this.updateError);
+    },
   },
 
   watch: {
@@ -116,7 +122,7 @@ export default Vue.extend({
   },
 
   methods: {
-    clickSubmit() {
+    submit() {
       this.formBus.$emit("submit");
     },
 
@@ -131,8 +137,9 @@ export default Vue.extend({
           this.beginFormData = this.getBeginFormData(this.fetchedData);
         }
       } catch (e) {
+        console.error(e);
         if (requestId === this.requestId) {
-          this.fetchError = this.getErrorMessage(e);
+          this.fetchError = e;
         }
       } finally {
         if (requestId === this.requestId) {
@@ -150,8 +157,9 @@ export default Vue.extend({
         const result = await this.updateApi(this.id, formData);
         this.$emit("success", result);
       } catch (e) {
+        console.error(e);
         if (requestId === this.requestId) {
-          this.updateError = this.getErrorMessage(e);
+          this.updateError = e;
         }
       } finally {
         if (requestId === this.requestId) {

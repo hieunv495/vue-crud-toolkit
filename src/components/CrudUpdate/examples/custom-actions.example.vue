@@ -1,52 +1,53 @@
 <template>
   <div>
-    <v-layout v-if="!visible" justify-center align-center style="height: 300px">
-      <v-btn color="success" @click="visible = true">Open Create</v-btn>
+    <v-layout v-if="!id" justify-center align-center style="height: 300px">
+      <v-btn color="success" @click="id = '1'">Open Update</v-btn>
     </v-layout>
 
-    <crud-create
-      title="Create new item"
-      :visible="visible"
-      :create-api="createApi"
+    <crud-update
+      :id="id"
+      title="Update post"
+      :get-one-api="getOneApi"
+      :update-api="updateApi"
       :get-begin-form-data="getBeginFormData"
       :dialog="dialog"
       :dialog-props="{
         maxWidth: 600,
         persistent: false,
       }"
-      @close="visible = false"
+      @close="id = null"
       @success="onSuccess"
     >
       <!-- Add this block  -->
       <template #actions="{ submit }">
         <v-layout justify-center>
-          <v-btn color="success" class="mr-2" @click="submit"
+          <v-btn color="warning" class="mr-2" @click="submit"
             >Custom submit button</v-btn
           >
         </v-layout>
       </template>
       <!-- End  -->
+
       <template #default="{ formBus, beginFormData, sendRequest }">
-        {{ JSON.stringify(beginFormData) }}
         <post-form
           :form-bus="formBus"
           :begin-form-data="beginFormData"
           :send-request="sendRequest"
         />
       </template>
-    </crud-create>
+    </crud-update>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-import { CrudCreate } from "vue-crud-toolkit";
+import { CrudUpdate } from "vue-crud-toolkit";
 import postsApi from "@/apis/posts.api";
 import PostForm from "@/components/posts/PostForm.vue";
 
 export default Vue.extend({
-  name: "crud-create-custom-actions-example",
-  components: { CrudCreate, PostForm },
+  name: "crud-update-custom-actions-example",
+  components: { CrudUpdate, PostForm },
   props: {
     dialog: {
       type: Boolean,
@@ -56,21 +57,22 @@ export default Vue.extend({
 
   data() {
     return {
-      visible: true,
+      id: "1",
     };
   },
 
   methods: {
-    createApi: postsApi.create,
-    getBeginFormData() {
-      return {
-        title: "Input your title",
-        description: "Input your description",
-      };
+    updateApi: postsApi.update,
+    getOneApi: postsApi.getOne,
+
+    getBeginFormData(fetchedData) {
+      return JSON.parse(JSON.stringify(fetchedData));
     },
     onSuccess() {
-      alert("Create success");
-      this.visible = false;
+      this.id = null;
+      this.$nextTick(() => {
+        alert("Update success");
+      });
     },
   },
 });

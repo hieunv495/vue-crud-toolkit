@@ -40,7 +40,7 @@ Default.parameters = {
   },
 };
 
-// ------------ DEFAULT ------------
+// ------------ WITH DIALOG ------------
 export const WithDialog = () => DefaultExample;
 WithDialog.args = {
   dialog: true,
