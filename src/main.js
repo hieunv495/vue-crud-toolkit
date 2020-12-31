@@ -5,7 +5,7 @@ import CrudDashboard from "./components/CrudDashboard/index.vue";
 import CrudDetail from "./components/CrudDetail/index.vue";
 import CrudCreate from "./components/CrudCreate/index.vue";
 import CrudUpdate from "./components/CrudUpdate/index.vue";
-import CrudConfirmDialog from "./components/CrudConfirmDialog.vue";
+import CrudConfirmDialog from "./components/CrudConfirmDialog/index.vue";
 import SuccessSnackbar from "./components/snackbar/SuccessSnackbar";
 import ErrorSnackbar from "./components/snackbar/ErrorSnackbar";
 import DefaultSearchTextFilter from "./components/CrudDashboard/DefaultSearchTextFilter";

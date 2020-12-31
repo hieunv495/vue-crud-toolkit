@@ -1,8 +1,63 @@
 <template>
   <div>
-    <slot v-if="detailDialog" name="detail" v-bind="self" />
-    <slot v-if="createDialog" name="create" v-bind="self" />
-    <slot v-if="updateDialog" name="update" v-bind="self" />
+    <slot v-if="detailDialog" name="detail" v-bind="self">
+      <crud-detail
+        v-if="$scopedSlots['detail-content']"
+        :id="detailId"
+        :get-one-api="getOneApi"
+        :dialog="detailDialog"
+        :dialog-props="detailDialogProps"
+        :title="detailTitle"
+        @close="bus.$emit('close-detail')"
+      >
+        <template #default="detail">
+          <slot name="detail-content" v-bind="detail" />
+        </template>
+      </crud-detail>
+    </slot>
+    <slot v-if="createDialog" name="create" v-bind="self">
+      <crud-create
+        v-if="$scopedSlots['create-content']"
+        :visible="createVisible"
+        :title="createTitle"
+        :create-api="createApi"
+        :get-begin-form-data="getBeginFormData"
+        :dialog="createDialog"
+        :dialog-props="createDialogProps"
+        @close="bus.$emit('close-create')"
+        @success="
+          bus.$emit('close-create');
+          bus.$emit('notify-success', 'Create success!');
+          bus.$emit('dashboard-go-to-page', 1);
+        "
+      >
+        <template #default="create">
+          <slot name="create-content" v-bind="create" />
+        </template>
+      </crud-create>
+    </slot>
+    <slot v-if="updateDialog" name="update" v-bind="self">
+      <crud-update
+        v-if="$scopedSlots['update-content']"
+        :id="updateId"
+        :title="updateTitle"
+        :get-one-api="getOneApi"
+        :update-api="updateApi"
+        :get-begin-form-data="getBeginFormData"
+        :dialog="updateDialog"
+        :dialog-props="updateDialogProps"
+        @close="bus.$emit('close-update')"
+        @success="
+          bus.$emit('close-update');
+          bus.$emit('notify-success', 'Update success');
+          bus.$emit('dashboard-refresh');
+        "
+      >
+        <template #default="update">
+          <slot name="update-content" v-bind="update" />
+        </template>
+      </crud-update>
+    </slot>
 
     <slot name="success-dialog" v-bind="self">
       <success-snackbar
@@ -23,17 +78,16 @@
 
     <slot name="remove" v-bind="self">
       <crud-confirm-dialog
-        v-if="removeApi"
         :id="removeId"
         :visible="!!removeId"
         :request-api="removeApi"
-        title="Xác nhận xóa?"
-        message="Sau khi xóa dữ liệu sẽ được chuyển vào thùng rác"
-        accept-button-label="Xóa"
-        @close="closeRemove"
+        title="Confirm remove?"
+        message="Are you sure?"
+        accept-button-label="remove"
+        @close="bus.$emit('close-remove')"
         @success="
-          closeRemove();
-          notifySuccess('Remove success');
+          bus.$emit('close-remove');
+          bus.$emit('notify-success', 'Remove success');
           bus.$emit('dashboard-refresh');
         "
       />
@@ -41,34 +95,32 @@
 
     <slot name="restore" v-bind="self">
       <crud-confirm-dialog
-        v-if="restoreApi"
         :id="restoreId"
         :visible="!!restoreId"
         :request-api="restoreApi"
-        title="Xác nhận khôi phục?"
-        message="Sau khi khôi phục dữ liệu sẽ được sử dụng bình thường"
-        accept-button-label="Khôi phục"
-        @close="closeRestore"
+        title="Confirm restore?"
+        message="Are you sure?"
+        accept-button-label="Restore"
+        @close="bus.$emit('close-restore')"
         @success="
-          closeRestore();
-          notifySuccess('Restore success');
+          bus.$emit('close-restore');
+          bus.$emit('notify-success', 'Restore success');
           bus.$emit('dashboard-refresh');
         "
       />
     </slot>
     <slot name="purge" v-bind="self">
       <crud-confirm-dialog
-        v-if="purgeApi"
         :id="purgeId"
         :visible="!!purgeId"
         :request-api="purgeApi"
-        title="Xác nhận dọn dẹp?"
-        message="Sau khi dọn dẹp dữ liệu sẽ bị xóa khỏi hệ thống"
-        accept-button-abel="Dọn dẹp"
-        @close="closePurge"
+        title="Confirm purge?"
+        message="Are you sure?"
+        accept-button-abel="Purge"
+        @close="bus.$emit('close-purge')"
         @success="
-          closePurge();
-          notifySuccess('Purge success');
+          bus.$emit('close-purge');
+          bus.$emit('notify-success', 'Purge success');
           bus.$emit('dashboard-refresh');
         "
       />
@@ -76,16 +128,15 @@
 
     <slot name="empty-trash" v-bind="self">
       <crud-confirm-dialog
-        v-if="emptyTrashApi"
         :visible="emptyTrashVisible"
         :request-api="emptyTrashApi"
-        title="Xác nhận dọn dẹp thùng rác?"
-        message="Sau khi dọn dẹp dữ liệu sẽ bị xóa khỏi hệ thống"
-        accept-button-label="Dọn dẹp"
-        @close="closeEmptyTrash"
+        title="Confirm empty trash?"
+        message="Are you sure?"
+        accept-button-label="Empty trash"
+        @close="bus.$emit('close-empty-trash')"
         @success="
-          closeEmptyTrash();
-          notifySuccess('Empty trash success');
+          bus.$emit('close-empty-trash');
+          bus.$emit('notify-success', 'Empty trash success');
           bus.$emit('dashboard-refresh');
         "
       />
@@ -93,17 +144,114 @@
 
     <v-window :value="page">
       <v-window-item value="DASHBOARD">
-        <slot name="dashboard" v-bind="self" />
+        <slot name="dashboard" v-bind="self">
+          <crud-dashboard
+            v-if="$scopedSlots['dashboard-content']"
+            :bus="bus"
+            :default-filter="defaultFilter"
+            :default-limit="defaultLimit"
+            :default-page="defaultPage"
+            :get-list-api="getListApi"
+            :get-trash-list-api="getTrashListApi"
+            :normal-count-api="normalCountApi"
+            :trash-count-api="trashCountApi"
+            :has-trash="hasTrash"
+            :title="dashboardTitle"
+            @click-create="bus.$emit('open-create')"
+            @click-empty-trash="bus.$emit('open-empty-trash')"
+          >
+            <template #header-filter="dashboard">
+              <slot name="dashboard-header-filter" v-bind="dashboard" />
+            </template>
+            <template #default="dashboard">
+              <slot name="dashboard-content" v-bind="dashboard" />
+            </template>
+          </crud-dashboard>
+        </slot>
       </v-window-item>
 
-      <v-window-item v-if="!detailDialog" value="DETAIL">
-        <slot v-if="page === 'DETAIL'" name="detail" v-bind="self" />
+      <v-window-item
+        v-if="
+          !detailDialog &&
+          ($scopedSlots['detail'] || $scopedSlots['detail-content'])
+        "
+        value="DETAIL"
+      >
+        <slot v-if="page === 'DETAIL'" name="detail" v-bind="self">
+          <crud-detail
+            v-if="$scopedSlots['detail-content']"
+            :id="detailId"
+            :get-one-api="getOneApi"
+            :dialog="detailDialog"
+            :title="detailTitle"
+            @close="bus.$emit('close-detail')"
+          >
+            <template #default="detail">
+              <slot name="detail-content" v-bind="detail">
+                Detail content
+              </slot>
+            </template>
+          </crud-detail>
+        </slot>
       </v-window-item>
-      <v-window-item v-if="!createDialog" value="CREATE">
-        <slot v-if="page === 'CREATE'" name="create" v-bind="self" />
+      <v-window-item
+        v-if="
+          !createDialog &&
+          ($scopedSlots['create'] || $scopedSlots['create-content'])
+        "
+        value="CREATE"
+      >
+        <slot v-if="page === 'CREATE'" name="create" v-bind="self">
+          <crud-create
+            v-if="$scopedSlots['create-content']"
+            :visible="createVisible"
+            :title="createTitle"
+            :create-api="createApi"
+            :get-begin-form-data="getBeginFormData"
+            :dialog="createDialog"
+            :dialog-props="createDialogProps"
+            @close="bus.$emit('close-create')"
+            @success="
+              bus.$emit('close-create');
+              bus.$emit('notify-success', 'Create success!');
+              bus.$emit('dashboard-go-to-page', 1);
+            "
+          >
+            <template #default="create">
+              <slot name="create-content" v-bind="create" />
+            </template>
+          </crud-create>
+        </slot>
       </v-window-item>
-      <v-window-item v-if="!updateDialog" value="UPDATE">
-        <slot v-if="page === 'UPDATE'" name="update" v-bind="self" />
+      <v-window-item
+        v-if="
+          !updateDialog &&
+          ($scopedSlots['update'] || $scopedSlots['update-content'])
+        "
+        value="UPDATE"
+      >
+        <slot v-if="page === 'UPDATE'" name="update" v-bind="self">
+          <crud-update
+            v-if="$scopedSlots['update-content']"
+            :id="updateId"
+            :title="updateTitle"
+            :get-one-api="getOneApi"
+            :update-api="updateApi"
+            :get-begin-form-data="getBeginFormData"
+            :dialog="updateDialog"
+            :dialog-props="updateDialogProps"
+            @close="bus.$emit('close-update')"
+            @success="
+              bus.$emit('close-update');
+              bus.$emit('notify-success', 'Update success');
+              bus.$emit('dashboard-refresh');
+            "
+          >
+            <template #default="update">
+              <slot name="update-content" v-bind="update" />
+            </template>
+          </crud-update>
+        </slot>
       </v-window-item>
     </v-window>
   </div>
@@ -113,7 +261,11 @@
 import Vue from "vue";
 import SuccessSnackbar from "../snackbar/SuccessSnackbar.vue";
 import ErrorSnackbar from "../snackbar/ErrorSnackbar.vue";
-import CrudConfirmDialog from "../CrudConfirmDialog.vue";
+import CrudDashboard from "../CrudDashboard";
+import CrudDetail from "../CrudDetail";
+import CrudCreate from "../CrudCreate";
+import CrudUpdate from "../CrudUpdate";
+import CrudConfirmDialog from "../CrudConfirmDialog";
 
 export default Vue.extend({
   name: "crud-composition",
@@ -121,13 +273,36 @@ export default Vue.extend({
     SuccessSnackbar,
     ErrorSnackbar,
     CrudConfirmDialog,
+    CrudDashboard,
+    CrudDetail,
+    CrudCreate,
+    CrudUpdate,
   },
 
   props: {
-    bus: { type: Object, default: null },
+    bus: { type: Object, required: true },
+    dashboardTitle: { type: String, default: null },
+    hasTrash: { type: Boolean, default: true },
+    defaultFilter: { type: Object, default: () => ({}) },
+    defaultPage: { type: Number, default: 1 },
+    defaultLimit: { type: Number, default: 5 },
+    getBeginFormData: { type: Function, default: null },
     detailDialog: { type: Boolean, default: false },
+    detailDialogProps: { type: Object, default: null },
+    detailTitle: { type: String, default: null },
     createDialog: { type: Boolean, default: false },
+    createDialogProps: { type: Object, default: null },
+    createTitle: { type: String, default: null },
     updateDialog: { type: Boolean, default: false },
+    updateDialogProps: { type: Object, default: null },
+    updateTitle: { type: String, default: null },
+    getListApi: { type: Function, default: null },
+    getTrashListApi: { type: Function, default: null },
+    normalCountApi: { type: Function, default: null },
+    trashCountApi: { type: Function, default: null },
+    getOneApi: { type: Function, default: null },
+    createApi: { type: Function, default: null },
+    updateApi: { type: Function, default: null },
     removeApi: { type: Function, default: null },
     restoreApi: { type: Function, default: null },
     purgeApi: { type: Function, default: null },

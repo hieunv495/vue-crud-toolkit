@@ -6,12 +6,12 @@
     :dialog-props="dialogProps"
     @close="$emit('close')"
   >
-    <template v-if="$slots.header" #header>
+    <template v-if="$scopedSlots.header" #header>
       <!-- @slot Custom your header -->
       <slot name="header" v-bind="self" />
     </template>
 
-    <template v-if="$slots.actions" #actions>
+    <template v-if="$scopedSlots.actions" #actions>
       <slot name="actions" v-bind="self" />
     </template>
 

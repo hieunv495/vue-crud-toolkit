@@ -39,7 +39,7 @@
 
 <script>
 import Vue from "vue";
-import getErrorMessage from "./utils/getErrorMessage";
+import getErrorMessage from "../utils/getErrorMessage";
 
 export default Vue.extend({
   name: "crud-confirm-dialog",

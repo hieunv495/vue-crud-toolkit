@@ -1,7 +1,17 @@
 <template>
   <v-form ref="form" v-model="valid">
-    <v-text-field v-model="formData.title" label="Title" />
-    <v-textarea v-model="formData.description" label="Description" />
+    <v-text-field
+      v-model="formData.title"
+      :rules="[rules.required]"
+      aria-required
+      label="Title"
+    />
+    <v-textarea
+      v-model="formData.description"
+      :rules="[rules.required]"
+      aria-required
+      label="Description"
+    />
   </v-form>
 </template> 
 
@@ -23,6 +33,9 @@ export default Vue.extend({
     return {
       valid: false,
       formData: JSON.parse(JSON.stringify(this.beginFormData)),
+      rules: {
+        required: (value) => !!value || "This field is required",
+      },
     };
   },
 
