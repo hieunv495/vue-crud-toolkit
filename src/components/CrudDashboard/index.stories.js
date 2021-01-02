@@ -26,6 +26,9 @@ import NofilterExample from "./examples/CrudDashboard.no-filter.example";
 import NoTrashExample from "./examples/CrudDashboard.no-trash.example";
 import CrudDashboard from "./index.vue";
 
+import WithRouterExample from "./examples/CrudDashboard.with-router.example";
+import WithRouterExample_code from "!!raw-loader!./examples/CrudDashboard.with-router.example";
+
 export default {
   title: "CRUD/Dashboard",
   component: CrudDashboard,
@@ -38,12 +41,22 @@ export default {
   },
 };
 
+// ----------- DEFAULT ------------
 export const Default = () => DefaultExample;
-
 Default.parameters = {
   docs: {
     source: {
       code: DefaultExample_code,
+    },
+  },
+};
+
+// ----------- WITH ROUTER ------------
+export const WithRouter = () => WithRouterExample;
+WithRouter.parameters = {
+  docs: {
+    source: {
+      code: WithRouterExample_code,
     },
   },
 };

@@ -110,6 +110,7 @@
 import Vue from "vue";
 import getErrorMessage from "../utils/getErrorMessage";
 import TrashModeNavigation from "./TrashModeNavigation.vue";
+import SyncSearchParams from "@/components/utils/SyncSearchParams";
 
 export default Vue.extend({
   name: "crud-dashboard",
@@ -117,6 +118,10 @@ export default Vue.extend({
     TrashModeNavigation,
   },
   props: {
+    router: {
+      type: Boolean,
+      default: false,
+    },
     bus: { type: Object, default: null },
     title: {
       type: String,
@@ -177,6 +182,7 @@ export default Vue.extend({
       trashMode: false,
       normalTotal: 0,
       trashTotal: 0,
+      syncSearchParams: null,
     };
   },
   computed: {
@@ -189,7 +195,52 @@ export default Vue.extend({
   },
 
   created() {
-    this.loadData();
+    if (this.router) {
+      this.syncSearchParams = new SyncSearchParams({
+        historyPush: false,
+        paramTypes: {
+          page: {
+            type: "number",
+            default: this.defaultPage,
+          },
+          limit: {
+            type: "number",
+            default: this.defaultLimit,
+          },
+          filter: {
+            type: "json",
+            default: this.defaultFilter,
+          },
+          "trash-mode": {
+            type: "json",
+            default: false,
+          },
+        },
+        paramsGetter: () => ({
+          page: this.page,
+          limit: this.limit,
+          filter: this.filter,
+          "trash-mode": this.trashMode,
+        }),
+        paramsSetter: async (params) => {
+          const isPageChange = this.page !== params.page;
+
+          this.page = params.page;
+          this.limit = params.limit;
+          this.filter = params.filter;
+          this.trashMode = params["trash-mode"];
+          await this.loadData();
+
+          if (!isPageChange) {
+            this.onLoadNewPageSuccess();
+          }
+        },
+      });
+
+      this.loadData();
+    } else {
+      this.loadData();
+    }
 
     if (this.bus) {
       this.bus.$on("dashboard-refresh", this.refresh);
@@ -198,6 +249,10 @@ export default Vue.extend({
   },
 
   destroyed() {
+    if (this.syncSearchParams) {
+      this.syncSearchParams.destroy();
+    }
+
     if (this.bus) {
       this.bus.$off("dashboard-refresh", this.refresh);
       this.bus.$off("dashboard-go-to-page", this.goToPage);
@@ -216,38 +271,55 @@ export default Vue.extend({
       this.trashMode = mode;
       this.page = 1;
       this.filter = this.defaultFilter;
+      if (this.router) {
+        this.syncSearchParams.push();
+      }
       this.loadData();
     },
 
     updateFilter(filter) {
       this.filter = filter;
       this.page = 1;
+      if (this.router) {
+        this.syncSearchParams.push();
+      }
       this.loadData();
     },
 
     async updatePage(page) {
       this.page = page;
+
+      if (this.router) {
+        this.syncSearchParams.push();
+      }
+
       await this.loadData();
 
+      this.onLoadNewPageSuccess();
+    },
+
+    onLoadNewPageSuccess() {
       window.document.body.scrollTop = 0;
       window.document.documentElement.scrollTop = 0;
     },
 
     updateLimit(limit) {
       this.limit = limit;
+      if (this.router) {
+        this.syncSearchParams.push();
+      }
       this.loadData();
     },
 
     goToPage(page) {
-      return this.loadData(page);
+      this.updatePage(page);
     },
 
     refresh() {
       return this.loadData();
     },
 
-    async loadData(page) {
-      page = page || this.page;
+    async loadData() {
       this.loading = true;
       this.error = null;
 
@@ -265,7 +337,7 @@ export default Vue.extend({
         const getListItemsPromise = get({
           ...this.filter,
           limit: this.limit,
-          offset: (page - 1) * this.limit,
+          offset: (this.page - 1) * this.limit,
         });
         const getNormalTotalPromise = this.normalCountApi();
         const getTrashTotalPromise = this.hasTrash ? this.trashCountApi() : 0;
@@ -281,7 +353,6 @@ export default Vue.extend({
           this.total = total;
           this.normalTotal = normalTotal;
           this.trashTotal = trashTotal;
-          this.page = page;
         }
       } catch (e) {
         console.error(e);

@@ -147,6 +147,7 @@
         <slot name="dashboard" v-bind="self">
           <crud-dashboard
             v-if="$scopedSlots['dashboard-content']"
+            :router="router"
             :bus="bus"
             :default-filter="defaultFilter"
             :default-limit="defaultLimit"
@@ -266,6 +267,7 @@ import CrudDetail from "../CrudDetail";
 import CrudCreate from "../CrudCreate";
 import CrudUpdate from "../CrudUpdate";
 import CrudConfirmDialog from "../CrudConfirmDialog";
+import SyncSearchParams from "@/components/utils/SyncSearchParams";
 
 export default Vue.extend({
   name: "crud-composition",
@@ -354,8 +356,57 @@ export default Vue.extend({
 
   created() {
     if (this.router) {
-      this.subscribeHistory();
-      this.detectSearchParamsChange();
+      this.syncSearchParams = new SyncSearchParams({
+        historyPush: true,
+        paramTypes: {
+          "detail-id": {
+            type: "json",
+            default: null,
+          },
+          "create-visible": {
+            type: "json",
+            default: false,
+          },
+          "update-id": {
+            type: "json",
+            default: null,
+          },
+          "remove-id": {
+            type: "json",
+            default: null,
+          },
+          "restore-id": {
+            type: "json",
+            default: null,
+          },
+          "purge-id": {
+            type: "json",
+            default: null,
+          },
+          "empty-trash-visible": {
+            type: "json",
+            default: false,
+          },
+        },
+        paramsGetter: () => ({
+          "detail-id": this.detailId,
+          "create-visible": this.createVisible,
+          "update-id": this.updateId,
+          "remove-id": this.removeId,
+          "restore-id": this.restoreId,
+          "purge-id": this.purgeId,
+          "empty-trash-visible": this.emptyTrashVisible,
+        }),
+        paramsSetter: async (params) => {
+          this.detailId = params["detail-id"];
+          this.createVisible = params["create-visible"];
+          this.updateId = params["update-id"];
+          this.removeId = params["remove-id"];
+          this.restoreId = params["restore-id"];
+          this.purgeId = params["purge-id"];
+          this.emptyTrashVisible = params["empty-trash-visible"];
+        },
+      });
     }
 
     if (this.bus) {
@@ -379,8 +430,8 @@ export default Vue.extend({
   },
 
   destroyed() {
-    if (this.router) {
-      this.unSubscribeHistory();
+    if (this.syncSearchParams) {
+      this.syncSearchParams.destroy();
     }
 
     if (this.bus) {
@@ -404,52 +455,6 @@ export default Vue.extend({
   },
 
   methods: {
-    subscribeHistory() {
-      window.addEventListener("popstate", this.detectSearchParamsChange);
-    },
-    unSubscribeHistory() {
-      window.removeEventListener("popstate", this.detectSearchParamsChange);
-    },
-
-    setSearchParams(params) {
-      const queryParams = new URLSearchParams(window.location.search);
-      Object.keys(params).forEach((key) => {
-        queryParams.set(key, params[key]);
-      });
-      window.history.pushState(null, null, "?" + queryParams.toString());
-      const queryStringChange = new Event("popstate");
-      window.dispatchEvent(queryStringChange);
-    },
-
-    deleteSearchParam(keys) {
-      const queryParams = new URLSearchParams(window.location.search);
-      keys.forEach((key) => {
-        queryParams.delete(key);
-      });
-      window.history.pushState(null, null, "?" + queryParams.toString());
-    },
-
-    detectSearchParamsChange() {
-      const queryParams = new URLSearchParams(window.location.search);
-      this.detailId = queryParams.get("detail-id") || null;
-      try {
-        this.createVisible =
-          JSON.parse(queryParams.get("create-visible")) || false;
-      } catch (e) {
-        console.warn(e);
-      }
-      this.updateId = queryParams.get("update-id") || null;
-      this.removeId = queryParams.get("remove-id") || null;
-      this.restoreId = queryParams.get("restore-id") || null;
-      this.purgeId = queryParams.get("purge-id") || null;
-      try {
-        this.emptyTrashVisible =
-          JSON.parse(queryParams.get("empty-trash-visible")) || false;
-      } catch (e) {
-        console.warn(e);
-      }
-    },
-
     notifySuccess(message) {
       this.notification.success.message = message;
       this.notification.success.visible = true;
@@ -459,95 +464,100 @@ export default Vue.extend({
       this.notification.error.visible = true;
     },
     openDetail(id) {
-      if (this.router) {
-        this.setSearchParams({ "detail-id": id });
-      }
       this.detailId = id;
+      if (this.router) {
+        this.syncSearchParams.push();
+      }
     },
     closeDetail() {
+      this.detailId = null;
       if (this.router) {
         window.history.back();
       }
-      this.detailId = null;
     },
 
     openCreate() {
-      if (this.router) {
-        this.setSearchParams({ "create-visible": true });
-      }
       this.createVisible = true;
+      if (this.router) {
+        this.syncSearchParams.push();
+      }
     },
     closeCreate() {
-      if (this.router) {
-        window.history.back();
-      }
       this.createVisible = false;
+      if (this.router) {
+        this.syncSearchParams.push();
+        // window.history.back();
+      }
     },
 
     openUpdate(id) {
-      if (this.router) {
-        this.setSearchParams({ "update-id": id });
-      }
       this.updateId = id;
+      if (this.router) {
+        this.syncSearchParams.push();
+      }
     },
     closeUpdate() {
-      if (this.router) {
-        window.history.back();
-      }
-
       this.updateId = null;
+      if (this.router) {
+        this.syncSearchParams.push();
+        // window.history.back();
+      }
     },
 
     openRemove(id) {
-      if (this.router) {
-        this.setSearchParams({ "remove-id": id });
-      }
       this.removeId = id;
+      if (this.router) {
+        this.syncSearchParams.push();
+      }
     },
     closeRemove() {
-      if (this.router) {
-        window.history.back();
-      }
       this.removeId = null;
+      if (this.router) {
+        this.syncSearchParams.push();
+        // window.history.back();
+      }
     },
 
     openRestore(id) {
-      if (this.router) {
-        this.setSearchParams({ "restore-id": id });
-      }
       this.restoreId = id;
+      if (this.router) {
+        this.syncSearchParams.push();
+      }
     },
     closeRestore() {
-      if (this.router) {
-        window.history.back();
-      }
       this.restoreId = null;
+      if (this.router) {
+        this.syncSearchParams.push();
+        // window.history.back();
+      }
     },
 
     openPurge(id) {
-      if (this.router) {
-        this.setSearchParams({ "purge-id": id });
-      }
       this.purgeId = id;
+      if (this.router) {
+        this.syncSearchParams.push();
+      }
     },
     closePurge() {
-      if (this.router) {
-        window.history.back();
-      }
       this.purgeId = null;
+      if (this.router) {
+        this.syncSearchParams.push();
+        // window.history.back();
+      }
     },
 
     openEmptyTrash() {
-      if (this.router) {
-        this.setSearchParams({ "empty-trash-visible": true });
-      }
       this.emptyTrashVisible = true;
+      if (this.router) {
+        this.syncSearchParams.push();
+      }
     },
     closeEmptyTrash() {
-      if (this.router) {
-        window.history.back();
-      }
       this.emptyTrashVisible = false;
+      if (this.router) {
+        this.syncSearchParams.push();
+        // window.history.back();
+      }
     },
   },
 });
