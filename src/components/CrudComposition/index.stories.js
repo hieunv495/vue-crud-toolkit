@@ -1,6 +1,9 @@
 import DefaultExample_code from "!!raw-loader!./examples/default.vue";
 import DefaultExample from "./examples/default.vue";
 
+import WithRouterExample_code from "!!raw-loader!./examples/with-router.vue";
+import WithRouterExample from "./examples/with-router.vue";
+
 import CustomExample from "./examples/custom.vue";
 import CustomExample_code from "!!raw-loader!./examples/custom.vue";
 
@@ -47,7 +50,7 @@ Default.parameters = {
   },
 };
 
-// ------------ DEFAULT ------------
+// ------------ WITH DIALOG ------------
 export const WithDialog = () => DefaultExample;
 WithDialog.args = {
   dialog: true,
@@ -56,6 +59,16 @@ WithDialog.parameters = {
   docs: {
     source: {
       code: DefaultExample_code,
+    },
+  },
+};
+
+// ------------ WITH ROUTER ------------
+export const WithRouter = () => WithRouterExample;
+Default.parameters = {
+  docs: {
+    source: {
+      code: WithRouterExample_code,
     },
   },
 };

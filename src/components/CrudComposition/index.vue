@@ -280,6 +280,10 @@ export default Vue.extend({
   },
 
   props: {
+    router: {
+      type: Boolean,
+      default: false,
+    },
     bus: { type: Object, required: true },
     dashboardTitle: { type: String, default: null },
     hasTrash: { type: Boolean, default: true },
@@ -338,8 +342,22 @@ export default Vue.extend({
       return "DASHBOARD";
     },
   },
+  watch: {
+    router() {
+      if (this.router) {
+        this.subscribeHistory();
+      } else {
+        this.unSubscribeHistory();
+      }
+    },
+  },
 
   created() {
+    if (this.router) {
+      this.subscribeHistory();
+      this.detectSearchParamsChange();
+    }
+
     if (this.bus) {
       this.bus.$on("notify-success", this.notifySuccess);
       this.bus.$on("notify-error", this.notifyError);
@@ -361,6 +379,10 @@ export default Vue.extend({
   },
 
   destroyed() {
+    if (this.router) {
+      this.unSubscribeHistory();
+    }
+
     if (this.bus) {
       this.bus.$off("notify-success", this.notifySuccess);
       this.bus.$off("notify-error", this.notifyError);
@@ -382,6 +404,47 @@ export default Vue.extend({
   },
 
   methods: {
+    subscribeHistory() {
+      window.addEventListener("popstate", this.detectSearchParamsChange);
+    },
+    unSubscribeHistory() {
+      window.removeEventListener("popstate", this.detectSearchParamsChange);
+    },
+
+    setSearchParams(params) {
+      const queryParams = new URLSearchParams(window.location.search);
+      Object.keys(params).forEach((key) => {
+        queryParams.set(key, params[key]);
+      });
+      window.history.pushState(null, null, "?" + queryParams.toString());
+      const queryStringChange = new Event("popstate");
+      window.dispatchEvent(queryStringChange);
+    },
+
+    deleteSearchParam(keys) {
+      const queryParams = new URLSearchParams(window.location.search);
+      keys.forEach((key) => {
+        queryParams.delete(key);
+      });
+      window.history.pushState(null, null, "?" + queryParams.toString());
+    },
+
+    detectSearchParamsChange() {
+      const queryParams = new URLSearchParams(window.location.search);
+      this.detailId = queryParams.get("detail-id") || null;
+      try {
+        this.createVisible =
+          JSON.parse(queryParams.get("create-visible")) || false;
+      } catch (e) {
+        console.warn(e);
+      }
+      this.updateId = queryParams.get("update-id") || null;
+      this.removeId = queryParams.get("remove-id") || null;
+      this.restoreId = queryParams.get("restore-id") || null;
+      this.purgeId = queryParams.get("purge-id") || null;
+      this.emptyTrashVisible == queryParams.get("empty-trash-visible") || null;
+    },
+
     notifySuccess(message) {
       this.notification.success.message = message;
       this.notification.success.visible = true;
@@ -391,51 +454,94 @@ export default Vue.extend({
       this.notification.error.visible = true;
     },
     openDetail(id) {
+      if (this.router) {
+        this.setSearchParams({ "detail-id": id });
+      }
       this.detailId = id;
     },
     closeDetail() {
+      if (this.router) {
+        window.history.back();
+      }
       this.detailId = null;
     },
 
     openCreate() {
+      if (this.router) {
+        this.setSearchParams({ "create-visible": true });
+      }
       this.createVisible = true;
     },
     closeCreate() {
+      if (this.router) {
+        window.history.back();
+      }
       this.createVisible = false;
     },
 
     openUpdate(id) {
+      if (this.router) {
+        this.setSearchParams({ "update-id": id });
+      }
       this.updateId = id;
     },
     closeUpdate() {
+      if (this.router) {
+        window.history.back();
+      }
+
       this.updateId = null;
     },
 
     openRemove(id) {
+      if (this.router) {
+        this.setSearchParams({ "remove-id": id });
+      }
       this.removeId = id;
     },
     closeRemove() {
+      if (this.router) {
+        window.history.back();
+      }
       this.removeId = null;
     },
 
     openRestore(id) {
+      if (this.router) {
+        this.setSearchParams({ "restore-id": id });
+      }
       this.restoreId = id;
     },
     closeRestore() {
+      if (this.router) {
+        window.history.back();
+      }
       this.restoreId = null;
     },
 
     openPurge(id) {
+      if (this.router) {
+        this.setSearchParams({ "purge-id": id });
+      }
       this.purgeId = id;
     },
     closePurge() {
+      if (this.router) {
+        window.history.back();
+      }
       this.purgeId = null;
     },
 
     openEmptyTrash() {
+      if (this.router) {
+        this.setSearchParams({ "empty-trash-visible": true });
+      }
       this.emptyTrashVisible = true;
     },
     closeEmptyTrash() {
+      if (this.router) {
+        window.history.back();
+      }
       this.emptyTrashVisible = false;
     },
   },
