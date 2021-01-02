@@ -1,32 +1,8 @@
 <template>
   <div>
-    <v-layout align-center style="gap: 16px" class="mb-2">
-      <v-flex shrink>
-        <v-btn icon color="success" @click="back">
-          <v-icon>mdi-arrow-left</v-icon>
-        </v-btn>
-      </v-flex>
-      <v-flex shrink>
-        <v-btn icon color="success" @click="forward">
-          <v-icon>mdi-arrow-right</v-icon>
-        </v-btn>
-      </v-flex>
-      <v-flex shrink>
-        <v-btn icon color="success" @click="refresh">
-          <v-icon>mdi-refresh</v-icon>
-        </v-btn>
-      </v-flex>
-      <v-flex>
-        <v-text-field
-          :value="href"
-          hide-details=""
-          readonly
-          outlined
-          dense
-          style="font-size: 12px"
-        />
-      </v-flex>
-    </v-layout>
+    <browser-navigation />
+
+    <v-divider class="my-2" />
 
     <crud-composition
       router
@@ -103,6 +79,7 @@ import Vue from "vue";
 import { CrudComposition, DefaultSearchTextFilter } from "vue-crud-toolkit";
 import PostsTable from "@/components/posts/PostsTable";
 import PostForm from "@/components/posts/PostForm";
+import BrowserNavigation from "@/components/BrowserNavigation";
 import postsApi from "@/apis/posts.api";
 
 export default Vue.extend({
@@ -112,6 +89,7 @@ export default Vue.extend({
     DefaultSearchTextFilter,
     PostsTable,
     PostForm,
+    BrowserNavigation,
   },
   props: {
     dialog: {
@@ -123,16 +101,7 @@ export default Vue.extend({
   data() {
     return {
       bus: new Vue(),
-      href: window.location.href,
     };
-  },
-
-  created() {
-    window.addEventListener("popstate", this.updateHref);
-  },
-
-  destroyed() {
-    window.removeEventListener("popstate", this.updateHref);
   },
 
   methods: {
@@ -156,19 +125,6 @@ export default Vue.extend({
         title: "",
         description: "",
       };
-    },
-
-    updateHref() {
-      this.href = window.location.href;
-    },
-    back() {
-      window.history.back();
-    },
-    forward() {
-      window.history.forward();
-    },
-    refresh() {
-      window.location.reload();
     },
   },
 });

@@ -442,7 +442,12 @@ export default Vue.extend({
       this.removeId = queryParams.get("remove-id") || null;
       this.restoreId = queryParams.get("restore-id") || null;
       this.purgeId = queryParams.get("purge-id") || null;
-      this.emptyTrashVisible == queryParams.get("empty-trash-visible") || null;
+      try {
+        this.emptyTrashVisible =
+          JSON.parse(queryParams.get("empty-trash-visible")) || false;
+      } catch (e) {
+        console.warn(e);
+      }
     },
 
     notifySuccess(message) {
