@@ -94,6 +94,12 @@ export default Vue.extend({
       if (val) this.key++;
     },
   },
+
+  methods: {
+    close() {
+      this.$emit("close");
+    },
+  },
 });
 </script>
 
