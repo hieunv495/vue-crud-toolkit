@@ -14,7 +14,7 @@
       <tbody>
         <tr v-for="item in items" :key="item._id">
           <td>
-            <v-img src="https://placehold.it/50" width="50px" />
+            <v-img src="https://placehold.it/50x25" width="50px" />
           </td>
           <td>
             <b

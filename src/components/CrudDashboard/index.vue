@@ -31,6 +31,11 @@
           </v-layout>
         </v-flex> -->
         <v-flex shrink>
+          <v-btn :loading="loading" icon @click="loadData">
+            <v-icon color="success">mdi-refresh</v-icon>
+          </v-btn>
+        </v-flex>
+        <v-flex shrink>
           <slot name="header-actions" v-bind="self">
             <!-- <v-spacer /> -->
             <v-btn v-if="!trashMode" color="success" @click="clickCreate">
