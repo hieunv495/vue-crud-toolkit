@@ -3,11 +3,11 @@
     <template #default>
       <thead>
         <tr>
-          <th class="text-left">Ảnh</th>
-          <th class="text-left">Trang</th>
-          <th class="text-left">Mô tả</th>
-          <th class="text-left">Lượt xem</th>
-          <th class="text-left">Chỉnh sửa cuối</th>
+          <th class="text-left">Image</th>
+          <th class="text-left">Title</th>
+          <th class="text-left">Description</th>
+          <th class="text-left">View</th>
+          <th class="text-left">Last updated</th>
           <th class="text-left">Options</th>
         </tr>
       </thead>
@@ -29,7 +29,7 @@
           <td>
             <item-options
               :trash-mode="trashMode"
-              @click-view="$emit('click-view', item)"
+              @click-detail="$emit('click-detail', item)"
               @click-update="$emit('click-update', item)"
               @click-remove="$emit('click-remove', item)"
               @click-restore="$emit('click-restore', item)"
@@ -43,15 +43,15 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import moment from 'moment';
-import ItemOptions from './ItemOptions';
+import Vue from "vue";
+import moment from "moment";
+import ItemOptions from "./ItemOptions";
 export default Vue.extend({
-  name: 'posts-table',
+  name: "posts-table",
   components: { ItemOptions },
   filters: {
     date: (value) => {
-      return moment(value).format('HH:mm DD/MM/YYYY');
+      return moment(value).format("HH:mm DD/MM/YYYY");
     },
   },
   props: {
