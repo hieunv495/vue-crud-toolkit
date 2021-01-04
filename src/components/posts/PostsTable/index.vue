@@ -14,7 +14,7 @@
       <tbody>
         <tr v-for="item in items" :key="item._id">
           <td>
-            <!-- <v-img :src="item.thumbnailImage" width="50px" /> -->
+            <v-img src="https://placehold.it/50" width="50px" />
           </td>
           <td>
             <b
@@ -46,6 +46,7 @@
 import Vue from "vue";
 import moment from "moment";
 import ItemOptions from "./ItemOptions";
+
 export default Vue.extend({
   name: "posts-table",
   components: { ItemOptions },
