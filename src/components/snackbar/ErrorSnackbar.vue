@@ -14,16 +14,14 @@
 </template>
 
 <script>
-import Vue from 'vue';
-
-export default Vue.extend({
-  name: 'error-snackbar',
+export default {
+  name: "error-snackbar",
   props: {
     value: { type: Boolean, required: true },
-    message: { type: String, default: 'An error occur!' },
+    message: { type: String, default: "An error occur!" },
     timeout: { type: Number, required: true },
   },
-});
+};
 </script>
 
 <style>

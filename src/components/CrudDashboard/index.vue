@@ -112,12 +112,11 @@
 </template>
 
 <script>
-import Vue from "vue";
 import getErrorMessage from "../utils/getErrorMessage";
 import TrashModeNavigation from "./TrashModeNavigation.vue";
 import SyncSearchParams from "@/components/utils/SyncSearchParams";
 
-export default Vue.extend({
+export default {
   name: "crud-dashboard",
   components: {
     TrashModeNavigation,
@@ -371,7 +370,7 @@ export default Vue.extend({
       }
     },
   },
-});
+};
 </script>
 
 <style>

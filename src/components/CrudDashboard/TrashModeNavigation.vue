@@ -17,9 +17,7 @@
 </template>
 
 <script>
-import Vue from "vue";
-
-export default Vue.extend({
+export default {
   name: "trash-mode-navigation",
   props: {
     trashMode: {
@@ -36,7 +34,7 @@ export default Vue.extend({
       required: true,
     },
   },
-});
+};
 </script>
 
 <style>

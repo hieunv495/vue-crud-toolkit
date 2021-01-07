@@ -38,10 +38,9 @@
 </template>
 
 <script>
-import Vue from "vue";
 import getErrorMessage from "../utils/getErrorMessage";
 
-export default Vue.extend({
+export default {
   name: "crud-confirm-dialog",
   props: {
     id: { type: [String, Number], default: null },
@@ -96,7 +95,7 @@ export default Vue.extend({
       }
     },
   },
-});
+};
 </script>
 
 <style>

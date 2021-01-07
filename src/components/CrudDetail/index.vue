@@ -44,11 +44,10 @@
 </template>
 
 <script>
-import Vue from "vue";
 import SmartWindow from "../SmartWindow";
 import getErrorMessage from "../utils/getErrorMessage";
 
-export default Vue.extend({
+export default {
   name: "crud-detail",
   components: { SmartWindow },
   props: {
@@ -133,7 +132,7 @@ export default Vue.extend({
       }
     },
   },
-});
+};
 </script>
 
 <style>

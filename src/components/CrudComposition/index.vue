@@ -259,7 +259,7 @@
 </template>
 
 <script>
-import Vue from "vue";
+// import Vue from "vue";
 import SuccessSnackbar from "../snackbar/SuccessSnackbar.vue";
 import ErrorSnackbar from "../snackbar/ErrorSnackbar.vue";
 import CrudDashboard from "../CrudDashboard";
@@ -269,7 +269,7 @@ import CrudUpdate from "../CrudUpdate";
 import CrudConfirmDialog from "../CrudConfirmDialog";
 import SyncSearchParams from "@/components/utils/SyncSearchParams";
 
-export default Vue.extend({
+export default {
   name: "crud-composition",
   components: {
     SuccessSnackbar,
@@ -560,6 +560,6 @@ export default Vue.extend({
       }
     },
   },
-});
+};
 </script>
 

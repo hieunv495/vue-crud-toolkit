@@ -14,14 +14,14 @@
 </template>
 
 <script>
-import Vue from 'vue';
-export default Vue.extend({
+// import Vue from "vue";
+export default {
   props: {
     value: { type: Boolean, required: true },
-    message: { type: String, default: 'Success!' },
+    message: { type: String, default: "Success!" },
     timeout: { type: Number, required: true },
   },
-});
+};
 </script>
 
 <style>

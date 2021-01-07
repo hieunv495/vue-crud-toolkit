@@ -53,8 +53,7 @@
 </template>
 
 <script>
-import Vue from "vue";
-export default Vue.extend({
+export default {
   name: "smart-window",
   props: {
     visible: {
@@ -100,7 +99,7 @@ export default Vue.extend({
       this.$emit("close");
     },
   },
-});
+};
 </script>
 
 <style>

@@ -13,8 +13,7 @@
   />
 </template>
 <script >
-import Vue from "vue";
-export default Vue.extend({
+export default {
   name: "default-search-text-filter",
   props: {
     value: {
@@ -30,5 +29,5 @@ export default Vue.extend({
       default: "Search",
     },
   },
-});
+};
 </script>

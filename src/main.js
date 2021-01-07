@@ -1,5 +1,3 @@
-// import Vue from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
 import CrudComposition from "./components/CrudComposition/index.vue";
 import CrudDashboard from "./components/CrudDashboard/index.vue";
 import CrudDetail from "./components/CrudDetail/index.vue";
@@ -9,26 +7,20 @@ import CrudConfirmDialog from "./components/CrudConfirmDialog/index.vue";
 import SuccessSnackbar from "./components/snackbar/SuccessSnackbar";
 import ErrorSnackbar from "./components/snackbar/ErrorSnackbar";
 import DefaultSearchTextFilter from "./components/CrudDashboard/DefaultSearchTextFilter";
-// import vuetify from "./plugins/vuetify";
-// import "./plugins/vuetify";
-//
-// import App from "./App";
 
 const components = {
-  HelloWorld,
-  CrudComposition,
-  CrudDashboard,
-  CrudDetail,
-  CrudCreate,
-  CrudUpdate,
-  CrudConfirmDialog,
-  SuccessSnackbar,
-  ErrorSnackbar,
-  DefaultSearchTextFilter,
+  "crud-composition": CrudComposition,
+  "crud-dashboard": CrudDashboard,
+  "crud-detail": CrudDetail,
+  "crud-create": CrudCreate,
+  "crud-update": CrudUpdate,
+  "crud-confirm-dialog": CrudConfirmDialog,
+  "success-snackbar": SuccessSnackbar,
+  "error-snackbar": ErrorSnackbar,
+  "default-search-text-filter": DefaultSearchTextFilter,
 };
 
 export {
-  HelloWorld,
   CrudComposition,
   CrudDashboard,
   CrudDetail,
@@ -44,9 +36,7 @@ const ComponentLibrary = {
   install(Vue) {
     // components
     for (const componentName in components) {
-      const component = components[componentName];
-
-      Vue.component(component.name, component);
+      Vue.component(componentName, components[componentName]);
     }
   },
 };
