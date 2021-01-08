@@ -362,30 +362,37 @@ export default {
           "detail-id": {
             type: "json",
             default: null,
+            cleanDefault: true,
           },
           "create-visible": {
             type: "json",
             default: false,
+            cleanDefault: true,
           },
           "update-id": {
             type: "json",
             default: null,
+            cleanDefault: true,
           },
           "remove-id": {
             type: "json",
             default: null,
+            cleanDefault: true,
           },
           "restore-id": {
             type: "json",
             default: null,
+            cleanDefault: true,
           },
           "purge-id": {
             type: "json",
             default: null,
+            cleanDefault: true,
           },
           "empty-trash-visible": {
             type: "json",
             default: false,
+            cleanDefault: true,
           },
         },
         paramsGetter: () => ({

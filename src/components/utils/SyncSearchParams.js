@@ -40,7 +40,11 @@ export default class SyncSearchParams {
     const routerParams = getSearchParams(this.paramTypes);
 
     if (!deepEqual(params, routerParams)) {
-      setSearchParams(params, this.historyPush);
+      setSearchParams({
+        params,
+        paramTypes: this.paramTypes,
+        push: this.historyPush,
+      });
       return true;
     }
     return false;

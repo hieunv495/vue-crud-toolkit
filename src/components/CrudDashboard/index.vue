@@ -206,18 +206,22 @@ export default {
           page: {
             type: "number",
             default: this.defaultPage,
+            cleanDefault: true,
           },
           limit: {
             type: "number",
             default: this.defaultLimit,
+            cleanDefault: true,
           },
           filter: {
             type: "json",
             default: this.defaultFilter,
+            cleanDefault: true,
           },
           "trash-mode": {
             type: "json",
             default: false,
+            cleanDefault: true,
           },
         },
         paramsGetter: () => ({
