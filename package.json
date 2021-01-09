@@ -1,6 +1,6 @@
 {
   "name": "vue-crud-toolkit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Vue crud toolkit",
   "author": "Hieunv495",
@@ -91,5 +91,17 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/hieunv495/vue-crud-toolkit.git"
-  }
+  },
+  "keywords": [
+    "vue",
+    "vuetify",
+    "crud",
+    "toolkit",
+    "tool",
+    "admin",
+    "manager",
+    "cms",
+    "fast",
+    "builder"
+  ]
 }
