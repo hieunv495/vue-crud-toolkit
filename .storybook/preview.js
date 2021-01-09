@@ -19,6 +19,7 @@ export const parameters = {
         [
           "Introduction",
           "Install",
+          "Data request structure",
           "Composition",
           "Dashboard",
           "Detail",

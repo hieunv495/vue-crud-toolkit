@@ -1,0 +1,57 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="CRUD/Data request structure" />
+
+## Data request structure
+
+** \* This is very important!**
+
+You can inject your data request apis to vue-crud-toolkit to make your crud application.
+
+Your apis should have the following structure:
+
+```typescript
+// Get list items
+type GetListApi = ({
+  offset,
+  limit,
+  ...filter
+}: any) => Promise<{
+  items: any[];
+  total: number;
+}>;
+
+// Get list items in the trash
+type GetTrashListApi = ({
+  offset,
+  limit,
+  ...filter
+}: any) => Promise<{
+  items: any[];
+  total: number;
+}>;
+
+// Count items
+type NormalCountApi = (filter: any) => Promise<number>;
+
+// Count items in the trash
+type TrashCountApi = (filter) => Promise<number>;
+
+// Create new item
+type CreateApi = (data: any) => Promise<any>;
+
+// Update item
+type UpdateApi = (id: string | number, data: any) => Promise<any>;
+
+// Remove item
+type RemoveApi = (id: string | number) => Promise<any>;
+
+// Restore item
+type RestoreApi = (id: string | number) => Promise<any>;
+
+// Purge item
+type PurgeApi = (id: string | number) => Promise<any>;
+
+// Empty trash
+type EmptyTrashApi = () => Promise<any>;
+```
