@@ -55,6 +55,12 @@ To check out [live examples](https://hieunv495.github.io/vue-crud-toolkit) and [
 git clone git@github.com:hieunv495/vue-crud-toolkit.git
 ```
 
+## Changelog
+
+### 1.0.0
+
+First release
+
 ## Authors
 
 [hieunv495](https://github.com/hieunv495)

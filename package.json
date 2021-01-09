@@ -85,7 +85,7 @@
   "bugs": {
     "url": "https://github.com/hieunv495/vue-crud-toolkit/issues"
   },
-  "homepage": "",
+  "homepage": "https://hieunv495.github.io/vue-crud-toolkit",
   "jsdelivr": "dist/vue-crud-toolkit.umd.min.js",
   "license": "MIT",
   "repository": {
