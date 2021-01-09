@@ -18,6 +18,7 @@ export const parameters = {
         "CRUD",
         [
           "Introduction",
+          "Install",
           "Composition",
           "Dashboard",
           "Detail",
