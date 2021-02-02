@@ -42,7 +42,7 @@ export default {
   name: "crud-create",
   components: { SmartWindow },
   props: {
-    createApi: {
+    apiCreate: {
       type: Function,
       required: true,
     },
@@ -117,7 +117,7 @@ export default {
       this.error = null;
 
       try {
-        let item = await this.createApi(formData);
+        let item = await this.apiCreate(formData);
         this.$emit("success", item);
       } catch (e) {
         console.error(e);

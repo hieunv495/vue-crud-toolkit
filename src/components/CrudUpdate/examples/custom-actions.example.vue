@@ -7,8 +7,8 @@
     <crud-update
       :id="id"
       title="Update post"
-      :get-one-api="getOneApi"
-      :update-api="updateApi"
+      :api-get-one="apiGetOne"
+      :api-update="apiUpdate"
       :get-begin-form-data="getBeginFormData"
       :dialog="dialog"
       :dialog-props="{
@@ -61,8 +61,8 @@ export default {
   },
 
   methods: {
-    updateApi: postsApi.update,
-    getOneApi: postsApi.getOne,
+    apiUpdate: postsApi.update,
+    apiGetOne: postsApi.getOne,
 
     getBeginFormData(fetchedData) {
       return JSON.parse(JSON.stringify(fetchedData));

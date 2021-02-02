@@ -7,7 +7,7 @@
     <crud-create
       title="Create new item"
       :visible="visible"
-      :create-api="createApi"
+      :api-create="apiCreate"
       :get-begin-form-data="getBeginFormData"
       :dialog="dialog"
       :dialog-props="{
@@ -60,7 +60,7 @@ export default {
   },
 
   methods: {
-    createApi: postsApi.create,
+    apiCreate: postsApi.create,
     getBeginFormData() {
       return {
         title: "Input your title",
@@ -72,7 +72,7 @@ export default {
       this.visible = false;
     },
   },
-}
+};
 </script>
 
 <style>

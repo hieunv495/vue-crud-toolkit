@@ -8,8 +8,8 @@
       ref="crudUpdate"
       :id="id"
       title="Update post"
-      :get-one-api="getOneApi"
-      :update-api="updateApi"
+      :api-get-one="apiGetOne"
+      :api-update="apiUpdate"
       :get-begin-form-data="getBeginFormData"
       :dialog="dialog"
       :dialog-props="{
@@ -67,8 +67,8 @@ export default {
   },
 
   methods: {
-    getOneApi: postsApi.getOne,
-    updateApi: () => Promise.reject(new Error("Form data invalid")),
+    apiGetOne: postsApi.getOne,
+    apiUpdate: () => Promise.reject(new Error("Form data invalid")),
 
     getBeginFormData(fetchedData) {
       console.log(fetchedData);
@@ -81,7 +81,7 @@ export default {
       });
     },
   },
-}
+};
 </script>
 
 <style>

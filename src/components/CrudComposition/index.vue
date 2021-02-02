@@ -4,7 +4,7 @@
       <crud-detail
         v-if="$scopedSlots['detail-content']"
         :id="detailId"
-        :get-one-api="getOneApi"
+        :api-get-one="apiGetOne"
         :dialog="detailDialog"
         :dialog-props="detailDialogProps"
         :title="detailTitle"
@@ -21,7 +21,7 @@
         v-if="$scopedSlots['create-content']"
         :visible="createVisible"
         :title="createTitle"
-        :create-api="createApi"
+        :api-create="apiCreate"
         :get-begin-form-data="getBeginFormData"
         :dialog="createDialog"
         :dialog-props="createDialogProps"
@@ -44,8 +44,8 @@
         v-if="$scopedSlots['update-content']"
         :id="updateId"
         :title="updateTitle"
-        :get-one-api="getOneApi"
-        :update-api="updateApi"
+        :api-get-one="apiGetOne"
+        :api-update="apiUpdate"
         :get-begin-form-data="getBeginFormData"
         :dialog="updateDialog"
         :dialog-props="updateDialogProps"
@@ -85,7 +85,7 @@
       <crud-confirm-dialog
         :id="removeId"
         :visible="!!removeId"
-        :request-api="removeApi"
+        :request-api="apiRemove"
         :title="textRemoveTitle"
         :message="textRemoveMessage"
         :accept-button-label="textRemoveAcceptButtonLabel"
@@ -102,7 +102,7 @@
       <crud-confirm-dialog
         :id="restoreId"
         :visible="!!restoreId"
-        :request-api="restoreApi"
+        :request-api="apiRestore"
         :title="textRestoreTitle"
         :message="textRestoreMessage"
         :accept-button-label="textRestoreAcceptButtonLabel"
@@ -118,7 +118,7 @@
       <crud-confirm-dialog
         :id="purgeId"
         :visible="!!purgeId"
-        :request-api="purgeApi"
+        :request-api="apiPurge"
         :title="textPurgeTitle"
         :message="textPurgeMessage"
         :accept-button-label="textPurgeAcceptButtonLabel"
@@ -134,7 +134,7 @@
     <slot name="empty-trash" v-bind="self">
       <crud-confirm-dialog
         :visible="emptyTrashVisible"
-        :request-api="emptyTrashApi"
+        :request-api="apiEmptyTrash"
         :title="textEmptyTrashTitle"
         :message="textEmptyTrashMessage"
         :accept-button-label="textEmptyTrashAcceptButtonLabel"
@@ -157,10 +157,10 @@
             :default-filter="defaultFilter"
             :default-page="defaultPage"
             :default-perPage="defaultPerPage"
-            :get-pagination-api="getPaginationApi"
-            :get-trash-pagination-api="getTrashPaginationApi"
-            :normal-count-api="normalCountApi"
-            :trash-count-api="trashCountApi"
+            :api-normal-pagination="apiNormalPagination"
+            :api-trash-pagination="apiTrashPagination"
+            :api-normal-count="apiNormalCount"
+            :api-trash-count="apiTrashCount"
             :has-trash="hasTrash"
             :title="dashboardTitle"
             :text-create="textCreate"
@@ -191,7 +191,7 @@
           <crud-detail
             v-if="$scopedSlots['detail-content']"
             :id="detailId"
-            :get-one-api="getOneApi"
+            :api-get-one="apiGetOne"
             :dialog="detailDialog"
             :title="detailTitle"
             :text-back="textBack"
@@ -217,7 +217,7 @@
             v-if="$scopedSlots['create-content']"
             :visible="createVisible"
             :title="createTitle"
-            :create-api="createApi"
+            :api-create="apiCreate"
             :get-begin-form-data="getBeginFormData"
             :dialog="createDialog"
             :dialog-props="createDialogProps"
@@ -248,8 +248,8 @@
             v-if="$scopedSlots['update-content']"
             :id="updateId"
             :title="updateTitle"
-            :get-one-api="getOneApi"
-            :update-api="updateApi"
+            :api-get-one="apiGetOne"
+            :api-update="apiUpdate"
             :get-begin-form-data="getBeginFormData"
             :dialog="updateDialog"
             :dialog-props="updateDialogProps"
@@ -317,18 +317,17 @@ export default {
     updateDialogProps: { type: Object, default: null },
     updateTitle: { type: String, default: null },
 
-
-    getPaginationApi: { type: Function, default: null },
-    getTrashPaginationApi: { type: Function, default: null },
-    normalCountApi: { type: Function, default: null },
-    trashCountApi: { type: Function, default: null },
-    getOneApi: { type: Function, default: null },
-    createApi: { type: Function, default: null },
-    updateApi: { type: Function, default: null },
-    removeApi: { type: Function, default: null },
-    restoreApi: { type: Function, default: null },
-    purgeApi: { type: Function, default: null },
-    emptyTrashApi: { type: Function, default: null },
+    apiNormalPagination: { type: Function, default: null },
+    apiTrashPagination: { type: Function, default: null },
+    apiNormalCount: { type: Function, default: null },
+    apiTrashCount: { type: Function, default: null },
+    apiGetOne: { type: Function, default: null },
+    apiCreate: { type: Function, default: null },
+    apiUpdate: { type: Function, default: null },
+    apiRemove: { type: Function, default: null },
+    apiRestore: { type: Function, default: null },
+    apiPurge: { type: Function, default: null },
+    apiEmptyTrash: { type: Function, default: null },
 
     textCreate: {
       type: String,
@@ -358,7 +357,6 @@ export default {
       type: String,
       default: "Save",
     },
-
 
     textRemoveTitle: {
       type: String,

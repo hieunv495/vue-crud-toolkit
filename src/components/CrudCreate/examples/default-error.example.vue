@@ -8,7 +8,7 @@
       ref="crudCreate"
       title="Create new item"
       :visible="visible"
-      :create-api="createApi"
+      :api-create="apiCreate"
       :get-begin-form-data="getBeginFormData"
       :dialog="dialog"
       :dialog-props="{
@@ -56,7 +56,7 @@ export default {
   },
 
   methods: {
-    createApi: () => Promise.reject(new Error("Form data invalid")),
+    apiCreate: () => Promise.reject(new Error("Form data invalid")),
     getBeginFormData() {
       return {
         title: "Input your title",
@@ -68,7 +68,7 @@ export default {
       this.visible = false;
     },
   },
-}
+};
 </script>
 
 <style>

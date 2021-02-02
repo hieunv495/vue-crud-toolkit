@@ -63,7 +63,8 @@ First release
 
 ### 2.0.0
 
-Update new api request structure
+- Update new api request structure
+- Add custom text feature
 
 ## Authors
 

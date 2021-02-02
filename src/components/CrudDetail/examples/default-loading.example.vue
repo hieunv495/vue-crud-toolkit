@@ -7,7 +7,7 @@
     <crud-detail
       title="Post detail"
       :id="id"
-      :get-one-api="getOneApi"
+      :api-get-one="apiGetOne"
       :dialog="dialog"
       :dialog-props="{
         maxWidth: 600,
@@ -41,9 +41,9 @@ export default {
     };
   },
   methods: {
-    getOneApi: () => new Promise(() => {}),
+    apiGetOne: () => new Promise(() => {}),
   },
-}
+};
 </script>
 
 <style>

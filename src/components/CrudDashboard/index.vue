@@ -150,19 +150,19 @@ export default {
       type: Function,
       default: getErrorMessage,
     },
-    getPaginationApi: {
+    apiNormalPagination: {
       type: Function,
       required: true,
     },
-    getTrashPaginationApi: {
+    apiTrashPagination: {
       type: Function,
       required: true,
     },
-    normalCountApi: {
+    apiNormalCount: {
       type: Function,
       required: true,
     },
-    trashCountApi: {
+    apiTrashCount: {
       type: Function,
       required: true,
     },
@@ -353,10 +353,10 @@ export default {
         let get = null;
         if (this.hasTrash) {
           get = this.trashMode
-            ? this.getTrashPaginationApi
-            : this.getPaginationApi;
+            ? this.apiTrashPagination
+            : this.apiNormalPagination;
         } else {
-          get = this.getPaginationApi;
+          get = this.apiNormalPagination;
         }
 
         const getPaginationPromise = get({
@@ -364,8 +364,8 @@ export default {
           page: this.page,
           perPage: this.perPage,
         });
-        const getNormalTotalPromise = this.normalCountApi();
-        const getTrashTotalPromise = this.hasTrash ? this.trashCountApi() : 0;
+        const getNormalTotalPromise = this.apiNormalCount();
+        const getTrashTotalPromise = this.hasTrash ? this.apiTrashCount() : 0;
 
         const [{ items, count }, normalTotal, trashTotal] = await Promise.all([
           getPaginationPromise,

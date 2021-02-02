@@ -9,17 +9,17 @@
     :default-page="1"
     :default-per-page="5"
     :get-begin-form-data="getBeginFormData"
-    :get-pagination-api="getPaginationApi"
-    :get-trash-pagination-api="getTrashPaginationApi"
-    :normal-count-api="normalCountApi"
-    :trash-count-api="trashCountApi"
-    :get-one-api="getOneApi"
-    :create-api="createApi"
-    :update-api="updateApi"
-    :remove-api="removeApi"
-    :restore-api="restoreApi"
-    :purge-api="purgeApi"
-    :empty-trash-api="emptyTrashApi"
+    :api-normal-pagination="apiNormalPagination"
+    :api-trash-pagination="apiTrashPagination"
+    :api-normal-count="apiNormalCount"
+    :api-trash-count="apiTrashCount"
+    :api-get-one="apiGetOne"
+    :api-create="apiCreate"
+    :api-update="apiUpdate"
+    :api-remove="apiRemove"
+    :api-restore="apiRestore"
+    :api-purge="apiPurge"
+    :api-empty-trash="apiEmptyTrash"
     detailTitle="Post detail"
     dashboard-title="Post manager"
     create-title="Create new post"
@@ -51,10 +51,10 @@
         :default-filter="{ q: '' }"
         :default-page="1"
         :default-per-page="10"
-        :get-pagination-api="getPaginationApi"
-        :get-trash-pagination-api="getTrashPaginationApi"
-        :normal-count-api="normalCountApi"
-        :trash-count-api="trashCountApi"
+        :api-normal-pagination="apiNormalPagination"
+        :api-trash-pagination="apiTrashPagination"
+        :api-normal-count="apiNormalCount"
+        :api-trash-count="apiTrashCount"
         :has-trash="true"
         title="Custom dashboard"
         @click-create="bus.$emit('open-create')"
@@ -138,17 +138,17 @@ export default {
   },
 
   methods: {
-    getPaginationApi: postsApi.getPagination,
-    getTrashPaginationApi: postsApi.getTrashPagination,
-    normalCountApi: postsApi.normalCount,
-    trashCountApi: postsApi.trashCount,
-    getOneApi: postsApi.getOne,
-    createApi: postsApi.create,
-    updateApi: postsApi.update,
-    removeApi: postsApi.remove,
-    restoreApi: postsApi.restore,
-    purgeApi: postsApi.purge,
-    emptyTrashApi: postsApi.emptyTrash,
+    apiNormalPagination: postsApi.getPagination,
+    apiTrashPagination: postsApi.getTrashPagination,
+    apiNormalCount: postsApi.normalCount,
+    apiTrashCount: postsApi.trashCount,
+    apiGetOne: postsApi.getOne,
+    apiCreate: postsApi.create,
+    apiUpdate: postsApi.update,
+    apiRemove: postsApi.remove,
+    apiRestore: postsApi.restore,
+    apiPurge: postsApi.purge,
+    apiEmptyTrash: postsApi.emptyTrash,
 
     getBeginFormData(fetchedData) {
       if (fetchedData) {

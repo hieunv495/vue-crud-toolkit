@@ -6,7 +6,7 @@
 
     <crud-detail
       :id="id"
-      :get-one-api="getOneApi"
+      :api-get-one="apiGetOne"
       :dialog="dialog"
       :title="title"
       :dialog-props="{
@@ -52,7 +52,7 @@ export default {
   },
 
   methods: {
-    getOneApi: postsApi.getOne,
+    apiGetOne: postsApi.getOne,
 
     update() {
       alert("Update");
@@ -61,7 +61,7 @@ export default {
       alert("Remove");
     },
   },
-}
+};
 </script>
 
 <style>

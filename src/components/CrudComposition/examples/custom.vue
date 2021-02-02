@@ -11,10 +11,10 @@
         :default-filter="{ q: '' }"
         :default-page="1"
         :default-per-page="5"
-        :get-pagination-api="getPaginationApi"
-        :get-trash-pagination-api="getTrashPaginationApi"
-        :normal-count-api="normalCountApi"
-        :trash-count-api="trashCountApi"
+        :api-normal-pagination="apiNormalPagination"
+        :api-trash-pagination="apiTrashPagination"
+        :api-normal-count="apiNormalCount"
+        :api-trash-count="apiTrashCount"
         :has-trash="true"
         title="Quản lý bài viết"
         @click-create="bus.$emit('open-create')"
@@ -44,7 +44,7 @@
     <template #detail="{ detailId, detailDialog }">
       <crud-detail
         :id="detailId"
-        :get-one-api="getOneApi"
+        :api-get-one="apiGetOne"
         :dialog="detailDialog"
         title="Post detail"
         @close="bus.$emit('close-detail')"
@@ -60,7 +60,7 @@
       <crud-create
         :visible="createVisible"
         :title="'Create'"
-        :create-api="createApi"
+        :api-create="apiCreate"
         :get-begin-form-data="getBeginFormData"
         :dialog="createDialog"
         :dialog-props="{
@@ -87,8 +87,8 @@
       <crud-update
         :id="updateId"
         title="Update post"
-        :get-one-api="getOneApi"
-        :update-api="updateApi"
+        :api-get-one="apiGetOne"
+        :api-update="apiUpdate"
         :get-begin-form-data="getBeginFormData"
         :dialog="updateDialog"
         :dialog-props="{
@@ -115,7 +115,7 @@
       <crud-confirm-dialog
         :id="removeId"
         :visible="!!removeId"
-        :request-api="removeApi"
+        :request-api="apiRemove"
         title="Confirm remove"
         message="Are you sure?"
         @close="bus.$emit('close-remove')"
@@ -130,7 +130,7 @@
       <crud-confirm-dialog
         :id="restoreId"
         :visible="!!restoreId"
-        :request-api="restoreApi"
+        :request-api="apiRestore"
         title="Confirm restore"
         message="Are you sure?"
         @close="bus.$emit('close-restore')"
@@ -145,7 +145,7 @@
       <crud-confirm-dialog
         :id="purgeId"
         :visible="!!purgeId"
-        :request-api="purgeApi"
+        :request-api="apiPurge"
         title="Confirm purge"
         message="Are you sure?"
         @close="bus.$emit('close-purge')"
@@ -159,7 +159,7 @@
     <template #empty-trash="{ emptyTrashVisible }">
       <crud-confirm-dialog
         :visible="emptyTrashVisible"
-        :request-api="emptyTrashApi"
+        :request-api="apiEmptyTrash"
         title="Confirm empty trash"
         message="Are you sure?"
         @close="bus.$emit('close-empty-trash')"
@@ -208,17 +208,17 @@ export default {
   },
 
   methods: {
-    getPaginationApi: postsApi.getPagination,
-    getTrashPaginationApi: postsApi.getTrashPagination,
-    normalCountApi: postsApi.normalCount,
-    trashCountApi: postsApi.trashCount,
-    getOneApi: postsApi.getOne,
-    createApi: postsApi.create,
-    updateApi: postsApi.update,
-    removeApi: postsApi.remove,
-    restoreApi: postsApi.restore,
-    purgeApi: postsApi.purge,
-    emptyTrashApi: postsApi.emptyTrash,
+    apiNormalPagination: postsApi.getPagination,
+    apiTrashPagination: postsApi.getTrashPagination,
+    apiNormalCount: postsApi.normalCount,
+    apiTrashCount: postsApi.trashCount,
+    apiGetOne: postsApi.getOne,
+    apiCreate: postsApi.create,
+    apiUpdate: postsApi.update,
+    apiRemove: postsApi.remove,
+    apiRestore: postsApi.restore,
+    apiPurge: postsApi.purge,
+    apiEmptyTrash: postsApi.emptyTrash,
 
     getBeginFormData(fetchedData) {
       if (fetchedData) {

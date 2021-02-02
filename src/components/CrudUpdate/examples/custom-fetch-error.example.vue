@@ -7,8 +7,8 @@
     <crud-update
       :id="id"
       title="Update post"
-      :get-one-api="getOneApi"
-      :update-api="updateApi"
+      :api-get-one="apiGetOne"
+      :api-update="apiUpdate"
       :get-begin-form-data="getBeginFormData"
       :dialog="dialog"
       :dialog-props="{
@@ -57,8 +57,8 @@ export default {
   },
 
   methods: {
-    getOneApi: () => Promise.reject(new Error("404 not found")),
-    updateApi: () => Promise.reject(new Error("Form data invalid")),
+    apiGetOne: () => Promise.reject(new Error("404 not found")),
+    apiUpdate: () => Promise.reject(new Error("Form data invalid")),
 
     getBeginFormData(fetchedData) {
       return JSON.parse(JSON.stringify(fetchedData));
@@ -70,7 +70,7 @@ export default {
       });
     },
   },
-}
+};
 </script>
 
 <style>

@@ -15,10 +15,10 @@
       :default-filter="{ q: '' }"
       :default-page="1"
       :default-per-page="5"
-      :get-pagination-api="getPaginationApi"
-      :get-trash-pagination-api="getTrashPaginationApi"
-      :normal-count-api="normalCountApi"
-      :trash-count-api="trashCountApi"
+      :api-normal-pagination="apiNormalPagination"
+      :api-trash-pagination="apiTrashPagination"
+      :api-normal-count="apiNormalCount"
+      :api-trash-count="apiTrashCount"
       :has-trash="true"
       title="Quản lý bài viết"
       @click-create="onClickCreate"
@@ -49,10 +49,10 @@ export default {
   },
 
   methods: {
-    getPaginationApi: postsApi.getPagination,
-    getTrashPaginationApi: postsApi.getTrashPagination,
-    normalCountApi: postsApi.normalCount,
-    trashCountApi: postsApi.trashCount,
+    apiNormalPagination: postsApi.getPagination,
+    apiTrashPagination: postsApi.getTrashPagination,
+    apiNormalCount: postsApi.normalCount,
+    apiTrashCount: postsApi.trashCount,
     onClickCreate() {
       alert("Open Create");
     },

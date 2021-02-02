@@ -56,7 +56,7 @@ export default {
       type: [String, Number],
       default: null,
     },
-    getOneApi: {
+    apiGetOne: {
       type: Function,
       required: true,
     },
@@ -121,7 +121,7 @@ export default {
       try {
         this.loading = true;
         this.error = null;
-        const data = await this.getOneApi(this.id);
+        const data = await this.apiGetOne(this.id);
         if (requestId === this.requestId) {
           this.data = data;
         }

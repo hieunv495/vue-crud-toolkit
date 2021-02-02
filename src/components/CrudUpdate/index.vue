@@ -55,11 +55,11 @@ export default {
       type: [String, Number],
       default: null,
     },
-    getOneApi: {
+    apiGetOne: {
       type: Function,
       required: true,
     },
-    updateApi: {
+    apiUpdate: {
       type: Function,
       required: true,
     },
@@ -144,7 +144,7 @@ export default {
       this.fetchLoading = true;
       this.fetchError = null;
       try {
-        const result = await this.getOneApi(this.id);
+        const result = await this.apiGetOne(this.id);
         if (requestId === this.requestId) {
           this.fetchedData = result;
           this.beginFormData = this.getBeginFormData(this.fetchedData);
@@ -167,7 +167,7 @@ export default {
       this.updateError = null;
 
       try {
-        const result = await this.updateApi(this.id, formData);
+        const result = await this.apiUpdate(this.id, formData);
         this.$emit("success", result);
       } catch (e) {
         console.error(e);
