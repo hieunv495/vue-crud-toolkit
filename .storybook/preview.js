@@ -21,6 +21,7 @@ export const parameters = {
           "Install",
           "Data request structure",
           "Form structure",
+          "Table structure",
           "Composition",
           "Dashboard",
           "Detail",
