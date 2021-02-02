@@ -31,10 +31,9 @@
 </template>
 
 <script>
-import Vue from "vue";
 import { CrudDetail } from "vue-crud-toolkit";
 
-export default Vue.extend({
+export default {
   name: "crud-detail-custom-loading-example",
   components: { CrudDetail },
   props: {
@@ -51,7 +50,7 @@ export default Vue.extend({
   methods: {
     getOneApi: () => new Promise(() => {}),
   },
-});
+}
 </script>
 
 <style>

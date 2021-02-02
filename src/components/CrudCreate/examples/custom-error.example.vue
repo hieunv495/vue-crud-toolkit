@@ -37,11 +37,10 @@
 </template>
 
 <script>
-import Vue from "vue";
 import { CrudCreate } from "vue-crud-toolkit";
 import PostForm from "@/components/posts/PostForm.vue";
 
-export default Vue.extend({
+export default {
   name: "crud-create-custom-error-example",
   components: { CrudCreate, PostForm },
   props: {
@@ -76,7 +75,7 @@ export default Vue.extend({
       this.visible = false;
     },
   },
-});
+}
 </script>
 
 <style>

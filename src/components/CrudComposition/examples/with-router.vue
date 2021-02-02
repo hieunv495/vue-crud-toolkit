@@ -82,7 +82,7 @@ import PostForm from "@/components/posts/PostForm";
 import BrowserNavigation from "@/components/BrowserNavigation";
 import postsApi from "@/apis/posts.api";
 
-export default Vue.extend({
+export default {
   name: "crud-composition-with-router-example",
   components: {
     CrudComposition,
@@ -127,7 +127,7 @@ export default Vue.extend({
       };
     },
   },
-});
+};
 </script>
 
 <style>

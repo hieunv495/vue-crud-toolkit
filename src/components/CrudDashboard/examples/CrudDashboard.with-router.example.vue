@@ -38,7 +38,7 @@ import PostsTable from "@/components/posts/PostsTable/index.vue";
 import postsApi from "@/apis/posts.api";
 import BrowserNavigation from "@/components/BrowserNavigation";
 
-export default Vue.extend({
+export default {
   name: "crud-dashboard-with-router-example",
   components: {
     CrudDashboard,
@@ -63,7 +63,7 @@ export default Vue.extend({
       alert("Empty trash");
     },
   },
-});
+};
 </script>
 
 <style>

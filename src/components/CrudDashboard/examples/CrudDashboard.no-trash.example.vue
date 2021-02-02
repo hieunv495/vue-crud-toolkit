@@ -32,7 +32,7 @@ import { CrudDashboard, DefaultSearchTextFilter } from "vue-crud-toolkit";
 import PostsTable from "@/components/posts/PostsTable/index.vue";
 import postsApi from "@/apis/posts.api";
 
-export default Vue.extend({
+export default {
   name: "crud-dashboard-no-trash-example",
   components: {
     CrudDashboard,
@@ -56,7 +56,7 @@ export default Vue.extend({
       alert("Empty trash");
     },
   },
-});
+};
 </script>
 
 <style>

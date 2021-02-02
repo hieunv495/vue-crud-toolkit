@@ -188,7 +188,7 @@ import PostsTable from "@/components/posts/PostsTable";
 import PostForm from "@/components/posts/PostForm";
 import postsApi from "@/apis/posts.api";
 
-export default Vue.extend({
+export default {
   components: {
     CrudComposition,
     CrudDashboard,
@@ -230,7 +230,7 @@ export default Vue.extend({
       };
     },
   },
-});
+};
 </script>
 
 <style>

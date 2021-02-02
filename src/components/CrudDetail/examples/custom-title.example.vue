@@ -29,11 +29,10 @@
 </template>
 
 <script>
-import Vue from "vue";
 import { CrudDetail } from "vue-crud-toolkit";
 import postsApi from "@/apis/posts.api";
 
-export default Vue.extend({
+export default {
   name: "crud-detail-custom-title-example",
   components: { CrudDetail },
   props: {
@@ -56,7 +55,7 @@ export default Vue.extend({
       alert("Remove");
     },
   },
-});
+}
 </script>
 
 <style>

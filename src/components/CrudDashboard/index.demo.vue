@@ -37,7 +37,7 @@ import { CrudDashboard } from "@/lib";
 import PostsTable from "@/docs/components/posts/PostsTable";
 import postsApi from "../../apis/posts.api";
 
-export default Vue.extend({
+export default {
   name: "dashboard-example",
   components: { CrudDashboard, PostsTable },
 
@@ -67,7 +67,7 @@ export default Vue.extend({
       this.bus.$emit("dashboard-go-to-page", this.page);
     },
   },
-});
+};
 </script>
 
 <style>

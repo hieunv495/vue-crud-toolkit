@@ -41,8 +41,7 @@
 </template>
 
 <script>
-import Vue from "vue";
-export default Vue.extend({
+export default {
   name: "browser-navigation",
 
   data() {
@@ -73,7 +72,7 @@ export default Vue.extend({
       window.location.reload();
     },
   },
-});
+};
 </script>
 
 <style>

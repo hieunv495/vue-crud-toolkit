@@ -43,11 +43,10 @@
 </template>
 
 <script>
-import Vue from "vue";
 import moment from "moment";
 import ItemOptions from "./ItemOptions";
 
-export default Vue.extend({
+export default {
   name: "posts-table",
   components: { ItemOptions },
   filters: {
@@ -65,7 +64,7 @@ export default Vue.extend({
       required: true,
     },
   },
-});
+}
 </script>
 
 <style>

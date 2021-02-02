@@ -40,12 +40,11 @@
 </template>
 
 <script>
-import Vue from "vue";
 import { CrudUpdate } from "vue-crud-toolkit";
 import postsApi from "@/apis/posts.api";
 import PostForm from "@/components/posts/PostForm.vue";
 
-export default Vue.extend({
+export default {
   name: "crud-update-custom-actions-example",
   components: { CrudUpdate, PostForm },
   props: {
@@ -75,7 +74,7 @@ export default Vue.extend({
       });
     },
   },
-});
+};
 </script>
 
 <style>

@@ -112,7 +112,7 @@ import PostsTable from "@/components/posts/PostsTable";
 import PostForm from "@/components/posts/PostForm";
 import postsApi from "@/apis/posts.api";
 
-export default Vue.extend({
+export default {
   name: "crud-composition-custom-create-example",
   components: {
     CrudComposition,
@@ -161,7 +161,7 @@ export default Vue.extend({
       };
     },
   },
-});
+};
 </script>
 
 <style>

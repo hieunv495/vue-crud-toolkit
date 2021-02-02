@@ -31,11 +31,10 @@
 </template>
 
 <script>
-import Vue from "vue";
 import { CrudDetail } from "vue-crud-toolkit";
 import postsApi from "@/apis/posts.api";
 
-export default Vue.extend({
+export default {
   name: "crud-detail-custom-header-example",
   components: { CrudDetail },
   props: {
@@ -52,7 +51,7 @@ export default Vue.extend({
   methods: {
     getOneApi: postsApi.getOne,
   },
-});
+}
 </script>
 
 <style>

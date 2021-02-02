@@ -29,12 +29,11 @@
 </template>
 
 <script>
-import Vue from "vue";
 import CrudCreate from "./index";
 import postsApi from "../../apis/posts.api";
 import PostForm from "./PostForm.vue";
 
-export default Vue.extend({
+export default {
   name: "create-example",
   components: { CrudCreate, PostForm },
 
@@ -57,7 +56,7 @@ export default Vue.extend({
       this.visible = false;
     },
   },
-});
+};
 </script>
 
 <style>
