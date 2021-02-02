@@ -22,6 +22,9 @@ import CustomUpdateExample_code from "!!raw-loader!./examples/custom-update.vue"
 import CustomRemoveRestorePurgeEmptyTrashExample from "./examples/custom-remove-restore-purge-empty-trash.vue";
 import CustomRemoveRestorePurgeEmptyTrashExample_code from "!!raw-loader!./examples/custom-remove-restore-purge-empty-trash.vue";
 
+import CustomTextExample from "./examples/custom-text.vue";
+import CustomTextExample_code from "!!raw-loader!./examples/custom-text.vue";
+
 import CrudComposition from "./index";
 
 export default {
@@ -130,6 +133,16 @@ CustomRemoveRestorePurgeEmptyTrash.parameters = {
   docs: {
     source: {
       code: CustomRemoveRestorePurgeEmptyTrashExample_code,
+    },
+  },
+};
+
+// ------------ CUSTOM TEXT ------------
+export const CustomText = () => CustomTextExample;
+CustomText.parameters = {
+  docs: {
+    source: {
+      code: CustomTextExample_code,
     },
   },
 };

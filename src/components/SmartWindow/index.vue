@@ -15,7 +15,7 @@
             </slot>
           </v-flex>
           <v-flex shrink>
-            <v-btn icon large @click="$emit('close')">
+            <v-btn icon large @click="$emit('close')" title="Close">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-flex>
@@ -35,7 +35,7 @@
         <v-flex shrink>
           <v-btn color="success" @click="$emit('close')">
             <v-icon left>mdi-arrow-left</v-icon>
-            {{ backTitle }}</v-btn
+            {{ textBack }}</v-btn
           >
         </v-flex>
         <v-flex>
@@ -64,10 +64,7 @@ export default {
       type: String,
       default: null,
     },
-    backTitle: {
-      type: String,
-      default: "Back",
-    },
+
     dialog: {
       type: Boolean,
       default: false,
@@ -75,6 +72,10 @@ export default {
     dialogProps: {
       type: Object,
       default: () => ({}),
+    },
+    textBack: {
+      type: String,
+      default: "Back",
     },
   },
 

@@ -4,6 +4,7 @@
     :title="title"
     :dialog="dialog"
     :dialog-props="dialogProps"
+    :text-back="textBack"
     @close="$emit('close')"
   >
     <template v-if="$scopedSlots.title" #title>
@@ -20,7 +21,7 @@
             class="mr-8"
             @click="submit"
           >
-            <v-icon left>mdi-content-save</v-icon>Save
+            <v-icon left>mdi-content-save</v-icon>{{ textUpdateSubmit }}
           </v-btn>
         </v-layout>
       </slot>
@@ -81,6 +82,14 @@ export default {
     dialogProps: {
       type: Object,
       default: () => ({}),
+    },
+    textBack: {
+      type: String,
+      default: "Back",
+    },
+    textUpdateSubmit: {
+      type: String,
+      default: "Save",
     },
   },
   data() {

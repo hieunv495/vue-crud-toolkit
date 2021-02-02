@@ -19,6 +19,9 @@ import DefaultUpdateErrorExample_code from "!!raw-loader!./examples/default-upda
 import CustomUpdateErrorExample from "./examples/custom-update-error.example.vue";
 import CustomUpdateErrorExample_code from "!!raw-loader!./examples/custom-update-error.example.vue";
 
+import CustomTextExample from "./examples/custom-text.example.vue";
+import CustomTextExample_code from "!!raw-loader!./examples/custom-text.example.vue";
+
 import CrudUpdate from "./index";
 
 export default {
@@ -105,6 +108,16 @@ CustomUpdateError.parameters = {
   docs: {
     source: {
       code: CustomUpdateErrorExample_code,
+    },
+  },
+};
+
+// ------------ CUSTOM TEXT ------------
+export const CustomText = () => CustomTextExample;
+CustomText.parameters = {
+  docs: {
+    source: {
+      code: CustomTextExample_code,
     },
   },
 };

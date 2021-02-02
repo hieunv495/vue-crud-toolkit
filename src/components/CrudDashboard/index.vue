@@ -39,10 +39,10 @@
           <slot name="header-actions" v-bind="self">
             <!-- <v-spacer /> -->
             <v-btn v-if="!trashMode" color="success" @click="clickCreate">
-              <v-icon left>mdi-plus</v-icon>{{ createButtonLabel }}
+              <v-icon left>mdi-plus</v-icon>{{ textCreate }}
             </v-btn>
             <v-btn v-else color="warning" @click="clickEmptyTrash">
-              <v-icon left>mdi-delete</v-icon>Empty trash
+              <v-icon left>mdi-delete</v-icon>{{ textEmptyTrash }}
             </v-btn>
           </slot>
         </v-flex>
@@ -54,6 +54,8 @@
           :trash-mode="trashMode"
           :normal-total="normalTotal"
           :trash-total="trashTotal"
+          :text-normal="textNormal"
+          :text-trash="textTrash"
           @update-trash-mode="updateTrashMode"
         />
         <v-divider />
@@ -164,13 +166,25 @@ export default {
       type: Function,
       required: true,
     },
-    createButtonLabel: {
-      type: String,
-      default: "Add",
-    },
     hasTrash: {
       type: Boolean,
       default: true,
+    },
+    textCreate: {
+      type: String,
+      default: "Add",
+    },
+    textNormal: {
+      type: String,
+      default: "Normal",
+    },
+    textTrash: {
+      type: String,
+      default: "Trash",
+    },
+    textEmptyTrash: {
+      type: String,
+      default: "Empty trash",
     },
   },
 

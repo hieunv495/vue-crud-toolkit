@@ -13,6 +13,9 @@ import CustomErrorExample_code from "!!raw-loader!./examples/custom-error.exampl
 import CustomTitleExample from "./examples/custom-title.example.vue";
 import CustomTitleExample_code from "!!raw-loader!./examples/custom-title.example.vue";
 
+import CustomTextExample from "./examples/custom-text.example.vue";
+import CustomTextExample_code from "!!raw-loader!./examples/custom-text.example.vue";
+
 import CrudCreate from "./index";
 
 export default {
@@ -92,6 +95,16 @@ CustomError.parameters = {
   docs: {
     source: {
       code: CustomErrorExample_code,
+    },
+  },
+};
+
+// ------------ CUSTOM TEXT ------------
+export const CustomText = () => CustomTextExample;
+CustomText.parameters = {
+  docs: {
+    source: {
+      code: CustomTextExample_code,
     },
   },
 };

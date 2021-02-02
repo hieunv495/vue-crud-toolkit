@@ -8,6 +8,7 @@
         :dialog="detailDialog"
         :dialog-props="detailDialogProps"
         :title="detailTitle"
+        :text-back="textBack"
         @close="bus.$emit('close-detail')"
       >
         <template #default="detail">
@@ -24,6 +25,8 @@
         :get-begin-form-data="getBeginFormData"
         :dialog="createDialog"
         :dialog-props="createDialogProps"
+        :text-back="textBack"
+        :text-create-submit="textCreateSubmit"
         @close="bus.$emit('close-create')"
         @success="
           bus.$emit('close-create');
@@ -46,6 +49,8 @@
         :get-begin-form-data="getBeginFormData"
         :dialog="updateDialog"
         :dialog-props="updateDialogProps"
+        :text-back="textBack"
+        :text-update-submit="textUpdateSubmit"
         @close="bus.$emit('close-update')"
         @success="
           bus.$emit('close-update');
@@ -81,9 +86,9 @@
         :id="removeId"
         :visible="!!removeId"
         :request-api="removeApi"
-        title="Confirm remove?"
-        message="Are you sure?"
-        accept-button-label="remove"
+        :title="textRemoveTitle"
+        :message="textRemoveMessage"
+        :accept-button-label="textRemoveAcceptButtonLabel"
         @close="bus.$emit('close-remove')"
         @success="
           bus.$emit('close-remove');
@@ -98,9 +103,9 @@
         :id="restoreId"
         :visible="!!restoreId"
         :request-api="restoreApi"
-        title="Confirm restore?"
-        message="Are you sure?"
-        accept-button-label="Restore"
+        :title="textRestoreTitle"
+        :message="textRestoreMessage"
+        :accept-button-label="textRestoreAcceptButtonLabel"
         @close="bus.$emit('close-restore')"
         @success="
           bus.$emit('close-restore');
@@ -114,9 +119,9 @@
         :id="purgeId"
         :visible="!!purgeId"
         :request-api="purgeApi"
-        title="Confirm purge?"
-        message="Are you sure?"
-        accept-button-abel="Purge"
+        :title="textPurgeTitle"
+        :message="textPurgeMessage"
+        :accept-button-label="textPurgeAcceptButtonLabel"
         @close="bus.$emit('close-purge')"
         @success="
           bus.$emit('close-purge');
@@ -130,9 +135,9 @@
       <crud-confirm-dialog
         :visible="emptyTrashVisible"
         :request-api="emptyTrashApi"
-        title="Confirm empty trash?"
-        message="Are you sure?"
-        accept-button-label="Empty trash"
+        :title="textEmptyTrashTitle"
+        :message="textEmptyTrashMessage"
+        :accept-button-label="textEmptyTrashAcceptButtonLabel"
         @close="bus.$emit('close-empty-trash')"
         @success="
           bus.$emit('close-empty-trash');
@@ -158,6 +163,10 @@
             :trash-count-api="trashCountApi"
             :has-trash="hasTrash"
             :title="dashboardTitle"
+            :text-create="textCreate"
+            :text-normal="textNormal"
+            :text-trash="textTrash"
+            :text-empty-trash="textEmptyTrash"
             @click-create="bus.$emit('open-create')"
             @click-empty-trash="bus.$emit('open-empty-trash')"
           >
@@ -185,6 +194,7 @@
             :get-one-api="getOneApi"
             :dialog="detailDialog"
             :title="detailTitle"
+            :text-back="textBack"
             @close="bus.$emit('close-detail')"
           >
             <template #default="detail">
@@ -211,6 +221,8 @@
             :get-begin-form-data="getBeginFormData"
             :dialog="createDialog"
             :dialog-props="createDialogProps"
+            :text-back="textBack"
+            :text-create-submit="textCreateSubmit"
             @close="bus.$emit('close-create')"
             @success="
               bus.$emit('close-create');
@@ -241,6 +253,8 @@
             :get-begin-form-data="getBeginFormData"
             :dialog="updateDialog"
             :dialog-props="updateDialogProps"
+            :text-back="textBack"
+            :text-update-submit="textUpdateSubmit"
             @close="bus.$emit('close-update')"
             @success="
               bus.$emit('close-update');
@@ -302,6 +316,8 @@ export default {
     updateDialog: { type: Boolean, default: false },
     updateDialogProps: { type: Object, default: null },
     updateTitle: { type: String, default: null },
+
+
     getPaginationApi: { type: Function, default: null },
     getTrashPaginationApi: { type: Function, default: null },
     normalCountApi: { type: Function, default: null },
@@ -313,6 +329,88 @@ export default {
     restoreApi: { type: Function, default: null },
     purgeApi: { type: Function, default: null },
     emptyTrashApi: { type: Function, default: null },
+
+    textCreate: {
+      type: String,
+      default: "Add",
+    },
+    textNormal: {
+      type: String,
+      default: "Normal",
+    },
+    textTrash: {
+      type: String,
+      default: "Trash",
+    },
+    textEmptyTrash: {
+      type: String,
+      default: "Empty trash",
+    },
+    textBack: {
+      type: String,
+      default: "Back",
+    },
+    textCreateSubmit: {
+      type: String,
+      default: "Save",
+    },
+    textUpdateSubmit: {
+      type: String,
+      default: "Save",
+    },
+
+
+    textRemoveTitle: {
+      type: String,
+      default: "Confirm remove",
+    },
+    textRemoveMessage: {
+      type: String,
+      default: "Are you sure?",
+    },
+    textRemoveAcceptButtonLabel: {
+      type: String,
+      default: "Remove",
+    },
+
+    textRestoreTitle: {
+      type: String,
+      default: "Confirm restore",
+    },
+    textRestoreMessage: {
+      type: String,
+      default: "Are you sure?",
+    },
+    textRestoreAcceptButtonLabel: {
+      type: String,
+      default: "Restore",
+    },
+
+    textPurgeTitle: {
+      type: String,
+      default: "Confirm purge",
+    },
+    textPurgeMessage: {
+      type: String,
+      default: "Are you sure?",
+    },
+    textPurgeAcceptButtonLabel: {
+      type: String,
+      default: "Purge",
+    },
+
+    textEmptyTrashTitle: {
+      type: String,
+      default: "Confirm empty trash",
+    },
+    textEmptyTrashMessage: {
+      type: String,
+      default: "Are you sure?",
+    },
+    textEmptyTrashAcceptButtonLabel: {
+      type: String,
+      default: "Empty trash",
+    },
   },
 
   data() {

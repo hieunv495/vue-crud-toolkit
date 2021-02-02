@@ -20,6 +20,9 @@ import DefaultLoadingExample from "./examples/default-loading.example.vue";
 import DefaultExample from "./examples/default.example.vue";
 import CrudDetail from "./index.vue";
 
+import CustomTextExample from "./examples/custom-text.example.vue";
+import CustomTextExample_code from "!!raw-loader!./examples/custom-text.example.vue";
+
 export default {
   title: "CRUD/Detail",
   component: CrudDetail,
@@ -183,6 +186,16 @@ CustomHeaderWithDialog.parameters = {
   docs: {
     source: {
       code: CustomHeaderExample_code,
+    },
+  },
+};
+
+// CUSTOM TEXT
+export const CustomText = () => CustomTextExample;
+CustomText.parameters = {
+  docs: {
+    source: {
+      code: CustomTextExample_code,
     },
   },
 };

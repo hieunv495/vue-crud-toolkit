@@ -26,6 +26,9 @@ import NofilterExample from "./examples/CrudDashboard.no-filter.example";
 import NoTrashExample from "./examples/CrudDashboard.no-trash.example";
 import CrudDashboard from "./index.vue";
 
+import CustomTextExample from "./examples/CrudDashboard.custom-text.example";
+import CustomTextExample_code from "!!raw-loader!./examples/CrudDashboard.custom-text.example";
+
 import WithRouterExample from "./examples/CrudDashboard.with-router.example";
 import WithRouterExample_code from "!!raw-loader!./examples/CrudDashboard.with-router.example";
 
@@ -179,6 +182,16 @@ CustomFooter.parameters = {
   docs: {
     source: {
       code: CustomFooterExample_code,
+    },
+  },
+};
+
+// ----------- DEFAULT ------------
+export const CustomText = () => CustomTextExample;
+CustomText.parameters = {
+  docs: {
+    source: {
+      code: CustomTextExample_code,
     },
   },
 };

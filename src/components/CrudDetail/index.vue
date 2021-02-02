@@ -4,6 +4,7 @@
     :title="title"
     :dialog="dialog"
     :dialog-props="dialogProps"
+    :text-back="textBack"
     @close="$emit('close')"
   >
     <template v-if="$scopedSlots.header" #header>
@@ -78,6 +79,10 @@ export default {
     dialogProps: {
       type: Object,
       default: () => ({}),
+    },
+    textBack: {
+      type: String,
+      default: "Back",
     },
   },
   data() {

@@ -4,14 +4,14 @@
       :color="trashMode ? 'normal' : 'success'"
       text
       @click="$emit('update-trash-mode', false)"
-      >Normal ({{ normalTotal }})</v-btn
+      >{{ textNormal }} ({{ normalTotal }})</v-btn
     >
     <span>|</span>
     <v-btn
       :color="trashMode ? 'success' : 'normal'"
       text
       @click="$emit('update-trash-mode', true)"
-      >Trash ({{ trashTotal }})</v-btn
+      >{{ textTrash }} ({{ trashTotal }})</v-btn
     >
   </v-layout>
 </template>
@@ -32,6 +32,14 @@ export default {
     trashTotal: {
       type: Number,
       required: true,
+    },
+    textNormal: {
+      type: String,
+      default: "Normal",
+    },
+    textTrash: {
+      type: String,
+      default: "Trash",
     },
   },
 };
