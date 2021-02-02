@@ -150,10 +150,10 @@
             :router="router"
             :bus="bus"
             :default-filter="defaultFilter"
-            :default-limit="defaultLimit"
             :default-page="defaultPage"
-            :get-list-api="getListApi"
-            :get-trash-list-api="getTrashListApi"
+            :default-perPage="defaultPerPage"
+            :get-pagination-api="getPaginationApi"
+            :get-trash-pagination-api="getTrashPaginationApi"
             :normal-count-api="normalCountApi"
             :trash-count-api="trashCountApi"
             :has-trash="hasTrash"
@@ -291,7 +291,7 @@ export default {
     hasTrash: { type: Boolean, default: true },
     defaultFilter: { type: Object, default: () => ({}) },
     defaultPage: { type: Number, default: 1 },
-    defaultLimit: { type: Number, default: 5 },
+    defaultPerPage: { type: Number, default: 5 },
     getBeginFormData: { type: Function, default: null },
     detailDialog: { type: Boolean, default: false },
     detailDialogProps: { type: Object, default: null },
@@ -302,8 +302,8 @@ export default {
     updateDialog: { type: Boolean, default: false },
     updateDialogProps: { type: Object, default: null },
     updateTitle: { type: String, default: null },
-    getListApi: { type: Function, default: null },
-    getTrashListApi: { type: Function, default: null },
+    getPaginationApi: { type: Function, default: null },
+    getTrashPaginationApi: { type: Function, default: null },
     normalCountApi: { type: Function, default: null },
     trashCountApi: { type: Function, default: null },
     getOneApi: { type: Function, default: null },

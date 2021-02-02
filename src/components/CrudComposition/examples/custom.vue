@@ -9,10 +9,10 @@
       <crud-dashboard
         :bus="bus"
         :default-filter="{ q: '' }"
-        :default-limit="5"
         :default-page="1"
-        :get-list-api="getListApi"
-        :get-trash-list-api="getTrashListApi"
+        :default-per-page="5"
+        :get-pagination-api="getPaginationApi"
+        :get-trash-pagination-api="getTrashPaginationApi"
         :normal-count-api="normalCountApi"
         :trash-count-api="trashCountApi"
         :has-trash="true"
@@ -208,8 +208,8 @@ export default Vue.extend({
   },
 
   methods: {
-    getListApi: postsApi.getList,
-    getTrashListApi: postsApi.getTrashList,
+    getPaginationApi: postsApi.getPagination,
+    getTrashPaginationApi: postsApi.getTrashPagination,
     normalCountApi: postsApi.normalCount,
     trashCountApi: postsApi.trashCount,
     getOneApi: postsApi.getOne,

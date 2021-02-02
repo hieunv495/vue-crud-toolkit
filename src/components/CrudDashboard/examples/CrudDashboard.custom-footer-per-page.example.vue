@@ -3,17 +3,17 @@
     :bus="bus"
     title="Post manager"
     :default-filter="{ q: '' }"
-    :default-limit="5"
     :default-page="1"
-    :get-list-api="getListApi"
-    :get-trash-list-api="getTrashListApi"
+    :default-per-page="5"
+    :get-pagination-api="getPaginationApi"
+    :get-trash-pagination-api="getTrashPaginationApi"
     :normal-count-api="normalCountApi"
     :trash-count-api="trashCountApi"
     @click-create="onClickCreate"
     @click-empty-trash="onClickEmptyTrash"
   >
     <!-- Add this block -->
-    <template #footer-limit="{ limit, updateLimit }">
+    <template #footer-per-page="{ perPage, updatePerPage }">
       <v-layout align-center>
         <v-flex class="mr-2">
           <v-chip color="success">Rows per page:</v-chip>
@@ -21,12 +21,12 @@
         <v-flex>
           <v-select
             :items="[5, 10, 20, 50, 100]"
-            :value="limit"
+            :value="perPage"
             dense
             hide-details
             outlined
             style="width: 100px; font-size: 14px"
-            @input="updateLimit"
+            @input="updatePerPage"
           />
         </v-flex>
       </v-layout>
@@ -52,7 +52,7 @@ import PostsTable from "@/components/posts/PostsTable/index.vue";
 import postsApi from "@/apis/posts.api";
 
 export default Vue.extend({
-  name: "crud-dashboard-custom-footer-limit-example",
+  name: "crud-dashboard-custom-footer-per-page-example",
   components: {
     CrudDashboard,
     DefaultSearchTextFilter,
@@ -64,8 +64,8 @@ export default Vue.extend({
     };
   },
   methods: {
-    getListApi: postsApi.getList,
-    getTrashListApi: postsApi.getTrashList,
+    getPaginationApi: postsApi.getPagination,
+    getTrashPaginationApi: postsApi.getTrashPagination,
     normalCountApi: postsApi.normalCount,
     trashCountApi: postsApi.trashCount,
     onClickCreate() {

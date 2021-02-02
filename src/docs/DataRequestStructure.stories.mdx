@@ -11,24 +11,52 @@ You can inject your data request apis to vue-crud-toolkit to make your crud appl
 Your apis should have the following structure:
 
 ```typescript
-// Get list items
-type GetListApi = ({
-  offset,
-  limit,
-  ...filter
-}: any) => Promise<{
+// Get list items with pagination
+type GetPaginationApi = ({
+  page,
+  perPage,
+  filter,
+  sort,
+}: {
+  page: number;
+  perPage: number;
+  filter: any;
+  sort: any;
+}) => Promise<{
+  count: number;
   items: any[];
-  total: number;
+  pageInfo: {
+    currentPage: number;
+    perPage: number;
+    pageCount: number;
+    itemCount: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  };
 }>;
 
-// Get list items in the trash
-type GetTrashListApi = ({
-  offset,
-  limit,
-  ...filter
-}: any) => Promise<{
+// Get list items with pagination in the trash
+type GetTrashPaginationApi = ({
+  page,
+  perPage,
+  filter,
+  sort,
+}: {
+  page: number;
+  perPage: number;
+  filter: any;
+  sort: any;
+}) => Promise<{
+  count: number;
   items: any[];
-  total: number;
+  pageInfo: {
+    currentPage: number;
+    perPage: number;
+    pageCount: number;
+    itemCount: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  };
 }>;
 
 // Count items

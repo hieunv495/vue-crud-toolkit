@@ -61,6 +61,10 @@ git clone git@github.com:hieunv495/vue-crud-toolkit.git
 
 First release
 
+### 2.0.0
+
+Update new api request structure
+
 ## Authors
 
 [hieunv495](https://github.com/hieunv495)

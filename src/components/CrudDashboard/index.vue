@@ -68,7 +68,7 @@
     <slot name="footer" v-bind="self">
       <v-layout align-center wrap>
         <v-flex shrink class="mr-2">
-          <slot name="footer-limit" v-bind="self">
+          <slot name="footer-per-page" v-bind="self">
             <v-layout>
               <v-flex>
                 <v-subheader>Rows per page:</v-subheader>
@@ -76,11 +76,11 @@
               <v-flex>
                 <v-select
                   :items="[5, 10, 20, 50, 100]"
-                  :value="limit"
+                  :value="perPage"
                   dense
                   hide-details
                   style="width: 56px; font-size: 14px"
-                  @input="updateLimit"
+                  @input="updatePerPage"
                 />
               </v-flex>
             </v-layout>
@@ -89,7 +89,8 @@
         <v-flex shrink>
           <slot name="footer-statistic" v-bind="self">
             <v-subheader>
-              {{ (page - 1) * limit + 1 }} - {{ page * limit }} of {{ total }}
+              {{ (page - 1) * perPage + 1 }} - {{ page * perPage }} of
+              {{ count }}
             </v-subheader>
           </slot>
         </v-flex>
@@ -99,7 +100,7 @@
               <v-container style="max-width: 400px">
                 <v-pagination
                   :value="page"
-                  :length="Math.ceil(total / limit) || 1"
+                  :length="Math.ceil(count / perPage) || 1"
                   @input="updatePage"
                 />
               </v-container>
@@ -135,23 +136,23 @@ export default {
       type: Object,
       default: () => ({}),
     },
-    defaultLimit: {
-      type: Number,
-      default: 10,
-    },
     defaultPage: {
       type: Number,
       default: 1,
+    },
+    defaultPerPage: {
+      type: Number,
+      default: 10,
     },
     getErrorMessage: {
       type: Function,
       default: getErrorMessage,
     },
-    getListApi: {
+    getPaginationApi: {
       type: Function,
       required: true,
     },
-    getTrashListApi: {
+    getTrashPaginationApi: {
       type: Function,
       required: true,
     },
@@ -178,10 +179,10 @@ export default {
       requestId: 0,
       loading: true,
       error: null,
+      count: 0,
       items: [],
-      limit: this.defaultLimit,
+      perPage: this.defaultPerPage,
       page: this.defaultPage,
-      total: 0,
       filter: this.defaultFilter,
       trashMode: false,
       normalTotal: 0,
@@ -208,9 +209,9 @@ export default {
             default: this.defaultPage,
             cleanDefault: true,
           },
-          limit: {
+          perPage: {
             type: "number",
-            default: this.defaultLimit,
+            default: this.defaultPerPage,
             cleanDefault: true,
           },
           filter: {
@@ -226,7 +227,7 @@ export default {
         },
         paramsGetter: () => ({
           page: this.page,
-          limit: this.limit,
+          perPage: this.perPage,
           filter: this.filter,
           "trash-mode": this.trashMode,
         }),
@@ -234,7 +235,7 @@ export default {
           const isPageChange = this.page !== params.page;
 
           this.page = params.page;
-          this.limit = params.limit;
+          this.perPage = params.perPage;
           this.filter = params.filter;
           this.trashMode = params["trash-mode"];
           await this.loadData();
@@ -311,8 +312,8 @@ export default {
       window.document.documentElement.scrollTop = 0;
     },
 
-    updateLimit(limit) {
-      this.limit = limit;
+    updatePerPage(perPage) {
+      this.perPage = perPage;
       if (this.router) {
         this.syncSearchParams.push();
       }
@@ -337,28 +338,30 @@ export default {
       try {
         let get = null;
         if (this.hasTrash) {
-          get = this.trashMode ? this.getTrashListApi : this.getListApi;
+          get = this.trashMode
+            ? this.getTrashPaginationApi
+            : this.getPaginationApi;
         } else {
-          get = this.getListApi;
+          get = this.getPaginationApi;
         }
 
-        const getListItemsPromise = get({
-          ...this.filter,
-          limit: this.limit,
-          offset: (this.page - 1) * this.limit,
+        const getPaginationPromise = get({
+          filter: this.filter,
+          page: this.page,
+          perPage: this.perPage,
         });
         const getNormalTotalPromise = this.normalCountApi();
         const getTrashTotalPromise = this.hasTrash ? this.trashCountApi() : 0;
 
-        const [{ items, total }, normalTotal, trashTotal] = await Promise.all([
-          getListItemsPromise,
+        const [{ items, count }, normalTotal, trashTotal] = await Promise.all([
+          getPaginationPromise,
           getNormalTotalPromise,
           getTrashTotalPromise,
         ]);
 
         if (requestId === this.requestId) {
           this.items = items;
-          this.total = total;
+          this.count = count;
           this.normalTotal = normalTotal;
           this.trashTotal = trashTotal;
         }

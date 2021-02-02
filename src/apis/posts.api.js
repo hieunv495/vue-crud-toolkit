@@ -52,32 +52,36 @@ const trashCount = ({ q } = { q: "" }) =>
     }, delayTime);
   });
 
-const getList = ({ q, offset, limit }) =>
+const getPagination = ({ page, perPage, filter: { q } }) =>
   new Promise((resolve) => {
     setTimeout(() => {
+      const offset = (page - 1) * perPage;
+      const limit = perPage;
       const items = data.filter(
         (item) => !item.deleted && item.title.search(q) >= 0
       );
 
-      const total = items.length;
+      const count = items.length;
       resolve({
-        total,
+        count,
         items: items.slice(offset, offset + limit),
       });
     }, delayTime);
   });
 
-const getTrashList = ({ q, offset, limit }) =>
+const getTrashPagination = ({ page, perPage, filter: { q } }) =>
   new Promise((resolve) => {
     setTimeout(() => {
+      const offset = (page - 1) * perPage;
+      const limit = perPage;
       const items = data.filter(
         (item) => item.deleted && item.title.search(q) >= 0
       );
 
-      const total = items.length;
+      const count = items.length;
 
       resolve({
-        total,
+        count,
         items: items.slice(offset, offset + limit),
       });
     }, delayTime);
@@ -193,8 +197,8 @@ const emptyTrash = () =>
 export default {
   normalCount,
   trashCount,
-  getList,
-  getTrashList,
+  getPagination,
+  getTrashPagination,
   getOne,
   create,
   update,

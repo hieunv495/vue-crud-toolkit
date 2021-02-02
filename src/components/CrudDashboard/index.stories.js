@@ -1,6 +1,6 @@
 import BuildInHeaderFilterExample_code from "!!raw-loader!./examples/CrudDashboard.build-in-header-filter.example";
 import CustomContentExample_code from "!!raw-loader!./examples/CrudDashboard.custom-content.example";
-import CustomFooterLimitExample_code from "!!raw-loader!./examples/CrudDashboard.custom-footer-limit.example";
+import CustomFooterPerPageExample_code from "!!raw-loader!./examples/CrudDashboard.custom-footer-per-page.example";
 import CustomFooterPaginationExample_code from "!!raw-loader!./examples/CrudDashboard.custom-footer-pagination.example";
 import CustomFooterStatisticExample_code from "!!raw-loader!./examples/CrudDashboard.custom-footer-statistic.example";
 import CustomFooterExample_code from "!!raw-loader!./examples/CrudDashboard.custom-footer.example";
@@ -13,7 +13,7 @@ import NoFilterExample_code from "!!raw-loader!./examples/CrudDashboard.no-filte
 import NoTrashExample_code from "!!raw-loader!./examples/CrudDashboard.no-trash.example";
 import BuildInHeaderFilterExample from "./examples/CrudDashboard.build-in-header-filter.example";
 import CustomContentExample from "./examples/CrudDashboard.custom-content.example";
-import CustomFooterLimitExample from "./examples/CrudDashboard.custom-footer-limit.example";
+import CustomFooterPerPageExample from "./examples/CrudDashboard.custom-footer-per-page.example";
 import CustomFooterPaginationExample from "./examples/CrudDashboard.custom-footer-pagination.example";
 import CustomFooterStatisticExample from "./examples/CrudDashboard.custom-footer-statistic.example";
 import CustomFooterExample from "./examples/CrudDashboard.custom-footer.example";
@@ -143,12 +143,12 @@ CustomTrashModeNavigation.parameters = {
   },
 };
 
-// ----------- CUSTOM FOOTER LIMIT -----------
-export const CustomFooterLimit = () => CustomFooterLimitExample;
-CustomFooterLimit.parameters = {
+// ----------- CUSTOM FOOTER PER PAGE -----------
+export const CustomFooterPerPage = () => CustomFooterPerPageExample;
+CustomFooterPerPage.parameters = {
   docs: {
     source: {
-      code: CustomFooterLimitExample_code,
+      code: CustomFooterPerPageExample_code,
     },
   },
 };

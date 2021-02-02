@@ -3,17 +3,17 @@
     :bus="bus"
     title="Post manager"
     :default-filter="{ q: '' }"
-    :default-limit="5"
     :default-page="1"
-    :get-list-api="getListApi"
-    :get-trash-list-api="getTrashListApi"
+    :default-per-page="5"
+    :get-pagination-api="getPaginationApi"
+    :get-trash-pagination-api="getTrashPaginationApi"
     :normal-count-api="normalCountApi"
     :trash-count-api="trashCountApi"
     @click-create="onClickCreate"
     @click-empty-trash="onClickEmptyTrash"
   >
     <!-- Add this block  -->
-    <template #footer="{ page, limit, total, updatePage, updateLimit }">
+    <template #footer="{ page, perPage, count, updatePage, updatePerPage }">
       <v-layout justify-center align-center style="background-color: grey">
         <v-flex shrink>
           <v-text-field
@@ -25,13 +25,13 @@
         </v-flex>
         <v-flex shrink>
           <v-text-field
-            :value="limit"
+            :value="perPage"
             type="number"
-            @input="updateLimit(parseInt($event))"
-            label="Limit"
+            @input="updatePerPage(parseInt($event))"
+            label="PerPage"
           />
         </v-flex>
-        <v-flex shrink> Total: {{ total }} </v-flex>
+        <v-flex shrink> Total: {{ count }} </v-flex>
       </v-layout>
     </template>
     <!-- End  -->
@@ -67,8 +67,8 @@ export default Vue.extend({
     };
   },
   methods: {
-    getListApi: postsApi.getList,
-    getTrashListApi: postsApi.getTrashList,
+    getPaginationApi: postsApi.getPagination,
+    getTrashPaginationApi: postsApi.getTrashPagination,
     normalCountApi: postsApi.normalCount,
     trashCountApi: postsApi.trashCount,
     onClickCreate() {

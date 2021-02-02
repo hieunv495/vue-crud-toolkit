@@ -3,18 +3,18 @@
     :bus="bus"
     title="Post manager"
     :default-filter="{ q: '' }"
-    :default-limit="5"
     :default-page="1"
-    :get-list-api="getListApi"
-    :get-trash-list-api="getTrashListApi"
+    :default-per-page="5"
+    :get-pagination-api="getPaginationApi"
+    :get-trash-pagination-api="getTrashPaginationApi"
     :normal-count-api="normalCountApi"
     :trash-count-api="trashCountApi"
     @click-create="onClickCreate"
     @click-empty-trash="onClickEmptyTrash"
   >
     <!-- Add this block  -->
-    <template #footer-statistic="{ page, total }">
-      Current page: {{ page }} | Total items: {{ total }}
+    <template #footer-statistic="{ page, count }">
+      Current page: {{ page }} | Total items: {{ count }}
     </template>
     <!-- End  -->
     <template #header-filter="{ loading, filter, updateFilter }">
@@ -49,8 +49,8 @@ export default Vue.extend({
     };
   },
   methods: {
-    getListApi: postsApi.getList,
-    getTrashListApi: postsApi.getTrashList,
+    getPaginationApi: postsApi.getPagination,
+    getTrashPaginationApi: postsApi.getTrashPagination,
     normalCountApi: postsApi.normalCount,
     trashCountApi: postsApi.trashCount,
     onClickCreate() {
