@@ -22,6 +22,13 @@ Visit [live examples](https://hieunv495.github.io/vue-crud-toolkit)
 
 You need install [**vuetify**](https://vuetifyjs.com/) before install this package.
 
+```js
+import Vue from "vue";
+// import Vuetify from "vuetify/lib/framework";
+import Vuetify from "vuetify";
+import "vuetify/dist/vuetify.min.css";
+```
+
 ## Install
 
 ```
@@ -57,14 +64,18 @@ git clone git@github.com:hieunv495/vue-crud-toolkit.git
 
 ## Changelog
 
-### 1.0.0
+### 2.0.1
 
-First release
+- Fix detail load id null
 
 ### 2.0.0
 
 - Update new api request structure
 - Add custom text feature
+
+### 1.0.0
+
+First release
 
 ## Authors
 

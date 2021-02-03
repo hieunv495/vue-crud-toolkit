@@ -11938,12 +11938,12 @@ var CrudDashboard_component = normalizeComponent(
 )
 
 /* harmony default export */ var CrudDashboard = (CrudDashboard_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"b276d634-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CrudDetail/index.vue?vue&type=template&id=2775b8d5&
-var CrudDetailvue_type_template_id_2775b8d5_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('smart-window',{attrs:{"visible":!!_vm.id,"title":_vm.title,"dialog":_vm.dialog,"dialog-props":_vm.dialogProps,"text-back":_vm.textBack},on:{"close":function($event){return _vm.$emit('close')}},scopedSlots:_vm._u([(_vm.$scopedSlots.header)?{key:"header",fn:function(){return [_vm._t("header",null,null,_vm.self)]},proxy:true}:null,(_vm.$scopedSlots.title)?{key:"title",fn:function(){return [_vm._t("title",null,null,_vm.self)]},proxy:true}:null,(_vm.$scopedSlots.actions)?{key:"actions",fn:function(){return [_vm._t("actions",null,null,_vm.self)]},proxy:true}:null],null,true)},[(_vm.rawData)?[_vm._t("default",[_c('pre',[_vm._v(_vm._s(JSON.stringify(_vm.rawData, undefined, 2)))])],null,_vm.self)]:[(_vm.loading)?[_vm._t("loading",[_c('v-skeleton-loader',{attrs:{"type":"card"}})],null,_vm.self)]:(_vm.error)?_vm._t("error",[_c('v-alert',{attrs:{"type":"warning"}},[_vm._v(_vm._s(_vm.error))])],null,_vm.self):(!_vm.data)?_vm._t("empty",[_c('v-alert',{attrs:{"type":"warning"}},[_vm._v("Empty")])]):_vm._t("default",[_c('pre',[_vm._v(_vm._s(JSON.stringify(_vm.data, undefined, 2)))])],null,_vm.self)]],2)}
-var CrudDetailvue_type_template_id_2775b8d5_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"b276d634-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CrudDetail/index.vue?vue&type=template&id=7a5a3bfb&
+var CrudDetailvue_type_template_id_7a5a3bfb_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('smart-window',{attrs:{"visible":!!_vm.id,"title":_vm.title,"dialog":_vm.dialog,"dialog-props":_vm.dialogProps,"text-back":_vm.textBack},on:{"close":function($event){return _vm.$emit('close')}},scopedSlots:_vm._u([(_vm.$scopedSlots.header)?{key:"header",fn:function(){return [_vm._t("header",null,null,_vm.self)]},proxy:true}:null,(_vm.$scopedSlots.title)?{key:"title",fn:function(){return [_vm._t("title",null,null,_vm.self)]},proxy:true}:null,(_vm.$scopedSlots.actions)?{key:"actions",fn:function(){return [_vm._t("actions",null,null,_vm.self)]},proxy:true}:null],null,true)},[(_vm.rawData)?[_vm._t("default",[_c('pre',[_vm._v(_vm._s(JSON.stringify(_vm.rawData, undefined, 2)))])],null,_vm.self)]:[(_vm.loading)?[_vm._t("loading",[_c('v-skeleton-loader',{attrs:{"type":"card"}})],null,_vm.self)]:(_vm.error)?_vm._t("error",[_c('v-alert',{attrs:{"type":"warning"}},[_vm._v(_vm._s(_vm.error))])],null,_vm.self):(!_vm.data)?_vm._t("empty",[_c('v-alert',{attrs:{"type":"warning"}},[_vm._v("Empty")])]):_vm._t("default",[_c('pre',[_vm._v(_vm._s(JSON.stringify(_vm.data, undefined, 2)))])],null,_vm.self)]],2)}
+var CrudDetailvue_type_template_id_7a5a3bfb_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/CrudDetail/index.vue?vue&type=template&id=2775b8d5&
+// CONCATENATED MODULE: ./src/components/CrudDetail/index.vue?vue&type=template&id=7a5a3bfb&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"b276d634-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/SmartWindow/index.vue?vue&type=template&id=6da38fd6&
 var SmartWindowvue_type_template_id_6da38fd6_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.dialog)?_c('v-dialog',_vm._b({attrs:{"value":_vm.visible,"scrollable":""},on:{"input":function($event){return _vm.$emit('close')}}},'v-dialog',_vm.dialogProps,false),[_c('v-card',{key:_vm.key},[_vm._t("header",[_c('v-layout',{attrs:{"align-center":""}},[_c('v-flex',[_vm._t("title",[_c('v-card-title',[_vm._v(_vm._s(_vm.title))])],null,_vm.self)],2),_c('v-flex',{attrs:{"shrink":""}},[_c('v-btn',{attrs:{"icon":"","large":"","title":"Close"},on:{"click":function($event){return _vm.$emit('close')}}},[_c('v-icon',[_vm._v("mdi-close")])],1)],1)],1)],null,_vm.self),_c('v-card-text',[_vm._t("default",null,null,_vm.self)],2),_c('v-card-actions',[_vm._t("actions",null,null,_vm.self)],2)],2)],1):(_vm.visible)?_c('div',{key:_vm.key},[_vm._t("header",[_c('v-layout',{staticStyle:{"gap":"16px"},attrs:{"wrap":"","align":"center"}},[_c('v-flex',{attrs:{"shrink":""}},[_c('v-btn',{attrs:{"color":"success"},on:{"click":function($event){return _vm.$emit('close')}}},[_c('v-icon',{attrs:{"left":""}},[_vm._v("mdi-arrow-left")]),_vm._v(" "+_vm._s(_vm.textBack))],1)],1),_c('v-flex',[_vm._t("title",[_c('h1',{staticClass:"text-h5"},[_vm._v(_vm._s(_vm.title))])],null,_vm.self)],2),_c('v-flex',{attrs:{"shrink":""}},[_vm._t("actions",null,null,_vm.self)],2)],1)],null,_vm.self),_vm._t("default",null,null,_vm.self)],2):_vm._e()}
@@ -12186,8 +12186,8 @@ var SmartWindow_component = normalizeComponent(
     }
   },
   watch: {
-    id: function id() {
-      this.loadData();
+    id: function id(val) {
+      if (val) this.loadData();
     }
   },
   created: function created() {
@@ -12262,8 +12262,8 @@ var SmartWindow_component = normalizeComponent(
 
 var CrudDetail_component = normalizeComponent(
   components_CrudDetailvue_type_script_lang_js_,
-  CrudDetailvue_type_template_id_2775b8d5_render,
-  CrudDetailvue_type_template_id_2775b8d5_staticRenderFns,
+  CrudDetailvue_type_template_id_7a5a3bfb_render,
+  CrudDetailvue_type_template_id_7a5a3bfb_staticRenderFns,
   false,
   null,
   null,

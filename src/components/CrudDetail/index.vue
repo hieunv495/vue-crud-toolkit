@@ -104,8 +104,8 @@ export default {
   },
 
   watch: {
-    id() {
-      this.loadData();
+    id(val) {
+      if (val) this.loadData();
     },
   },
 
