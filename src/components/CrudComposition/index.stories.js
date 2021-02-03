@@ -77,7 +77,7 @@ WithDialog.parameters = {
 
 // ------------ WITH ROUTER ------------
 export const WithRouter = () => WithRouterExample;
-Default.parameters = {
+WithRouter.parameters = {
   docs: {
     source: {
       code: WithRouterExample_code,

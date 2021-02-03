@@ -64,6 +64,10 @@ git clone git@github.com:hieunv495/vue-crud-toolkit.git
 
 ## Changelog
 
+### 3.1.0
+
+- Add custom header, title, actions in composition
+
 ### 3.0.0
 
 - Config composition with provide/inject
