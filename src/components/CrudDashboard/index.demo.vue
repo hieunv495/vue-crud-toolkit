@@ -61,7 +61,7 @@ export default {
     },
 
     refresh() {
-      this.bus.$emit("dashboard-refresh");
+      this.bus.$emit("refresh-dashboard");
     },
     goToPage() {
       this.bus.$emit("dashboard-go-to-page", this.page);

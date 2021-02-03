@@ -59,6 +59,7 @@ export default {
     textDetailTitle: { default: "Detail" },
   },
   props: {
+    bus: { type: Object, default: null },
     id: {
       type: [String, Number],
       default: null,
@@ -116,6 +117,16 @@ export default {
     if (this.id) {
       this.loadData();
     }
+
+    if (this.bus) {
+      this.bus.$on("refresh-detail", this.loadData);
+    }
+  },
+
+  destroyed() {
+    if (this.bus) {
+      this.bus.$off("refresh-detail", this.loadData);
+    }
   },
 
   methods: {
@@ -123,6 +134,7 @@ export default {
       this.$emit("close");
     },
     async loadData() {
+      if (!this.id) return;
       const requestId = ++this.requestId;
       try {
         this.loading = true;

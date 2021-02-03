@@ -34,6 +34,7 @@
     <slot v-if="detailConfig.dialog" name="detail" v-bind="self">
       <crud-detail
         v-if="$scopedSlots['detail-content']"
+        :bus="bus"
         :id="detailId"
         :api-get-one="apiGetOne"
         :get-error-message="getErrorMessage"
@@ -70,7 +71,8 @@
         @success="
           bus.$emit('close-update');
           bus.$emit('notify-success', textUpdateSuccess);
-          bus.$emit('dashboard-refresh');
+          bus.$emit('refresh-dashboard');
+          bus.$emit('refresh-detail');
         "
       >
         <template v-if="$scopedSlots['update-header']" #header="update">
@@ -118,7 +120,8 @@
         @success="
           bus.$emit('close-remove');
           bus.$emit('notify-success', textRemoveSuccess);
-          bus.$emit('dashboard-refresh');
+          bus.$emit('refresh-dashboard');
+          bus.$emit('close-detail');
         "
       />
     </slot>
@@ -136,7 +139,7 @@
         @success="
           bus.$emit('close-restore');
           bus.$emit('notify-success', textRestoreSuccess);
-          bus.$emit('dashboard-refresh');
+          bus.$emit('refresh-dashboard');
         "
       />
     </slot>
@@ -153,7 +156,7 @@
         @success="
           bus.$emit('close-purge');
           bus.$emit('notify-success', textPurgeSuccess);
-          bus.$emit('dashboard-refresh');
+          bus.$emit('refresh-dashboard');
         "
       />
     </slot>
@@ -170,7 +173,7 @@
         @success="
           bus.$emit('close-empty-trash');
           bus.$emit('notify-success', textEmptyTrashSuccess);
-          bus.$emit('dashboard-refresh');
+          bus.$emit('refresh-dashboard');
         "
       />
     </slot>
@@ -252,6 +255,7 @@
         <slot v-if="page === DETAIL" name="detail" v-bind="self">
           <crud-detail
             v-if="$scopedSlots['detail-content']"
+            :bus="bus"
             :id="detailId"
             :api-get-one="apiGetOne"
             :get-error-message="getErrorMessage"
@@ -296,7 +300,8 @@
             @success="
               bus.$emit('close-update');
               bus.$emit('notify-success', textUpdateSuccess);
-              bus.$emit('dashboard-refresh');
+              bus.$emit('refresh-dashboard');
+              bus.$emit('refresh-detail');
             "
           >
             <template v-if="$scopedSlots['update-header']" #header="update">
@@ -449,9 +454,9 @@ export default {
     },
 
     page() {
+      if (!this.updateDialog && this.updateId) return UPDATE;
       if (!this.detailDialog && this.detailId) return DETAIL;
       if (!this.createDialog && this.createVisible) return CREATE;
-      if (!this.updateDialog && this.updateId) return UPDATE;
       return DASHBOARD;
     },
   },
@@ -590,7 +595,8 @@ export default {
     closeDetail() {
       this.detailId = null;
       if (this.router) {
-        window.history.back();
+        this.syncSearchParams.push();
+        // window.history.back();
       }
     },
 

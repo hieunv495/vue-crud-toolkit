@@ -24,6 +24,7 @@ export const parameters = {
           "Table structure",
           "Custom text",
           "Api example",
+          "Bus events",
           "Composition",
           "Dashboard",
           "Detail",

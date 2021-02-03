@@ -10730,20 +10730,22 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"b276d634-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CrudComposition/index.vue?vue&type=template&id=21f01c48&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"b276d634-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CrudComposition/index.vue?vue&type=template&id=498f6842&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.createConfig.dialog)?_vm._t("create",[(_vm.$scopedSlots['create-content'])?_c('crud-create',{attrs:{"visible":_vm.createVisible,"api-create":_vm.apiCreate,"get-error-message":_vm.getErrorMessage,"get-begin-form-data":_vm.createConfig.getBeginFormData,"dialog":true,"dialog-props":_vm.createConfig.dialogProps},on:{"close":function($event){return _vm.bus.$emit('close-create')},"success":function($event){_vm.bus.$emit('close-create');
         _vm.bus.$emit('notify-success', _vm.textCreateSuccess);
-        _vm.bus.$emit('dashboard-go-to-page', 1);}},scopedSlots:_vm._u([(_vm.$scopedSlots['create-header'])?{key:"header",fn:function(create){return [_vm._t("create-header",null,null,create)]}}:null,(_vm.$scopedSlots['create-title'])?{key:"title",fn:function(create){return [_vm._t("create-title",null,null,create)]}}:null,(_vm.$scopedSlots['create-actions'])?{key:"actions",fn:function(create){return [_vm._t("create-actions",null,null,create)]}}:null,{key:"default",fn:function(create){return [_vm._t("create-content",null,null,create)]}}],null,true)}):_vm._e()],null,_vm.self):_vm._e(),(_vm.detailConfig.dialog)?_vm._t("detail",[(_vm.$scopedSlots['detail-content'])?_c('crud-detail',{attrs:{"id":_vm.detailId,"api-get-one":_vm.apiGetOne,"get-error-message":_vm.getErrorMessage,"dialog":true,"dialog-props":_vm.detailConfig.dialogProps},on:{"close":function($event){return _vm.bus.$emit('close-detail')}},scopedSlots:_vm._u([(_vm.$scopedSlots['detail-header'])?{key:"header",fn:function(detail){return [_vm._t("detail-header",null,null,detail)]}}:null,(_vm.$scopedSlots['detail-title'])?{key:"title",fn:function(detail){return [_vm._t("detail-title",null,null,detail)]}}:null,(_vm.$scopedSlots['detail-actions'])?{key:"actions",fn:function(detail){return [_vm._t("detail-actions",null,null,detail)]}}:null,{key:"default",fn:function(detail){return [_vm._t("detail-content",null,null,detail)]}}],null,true)}):_vm._e()],null,_vm.self):_vm._e(),(_vm.updateConfig.dialog)?_vm._t("update",[(_vm.$scopedSlots['update-content'])?_c('crud-update',{attrs:{"id":_vm.updateId,"api-get-one":_vm.apiGetOne,"api-update":_vm.apiUpdate,"get-error-message":_vm.getErrorMessage,"get-begin-form-data":_vm.updateConfig.getBeginFormData,"dialog":true,"dialog-props":_vm.updateConfig.dialogProps},on:{"close":function($event){return _vm.bus.$emit('close-update')},"success":function($event){_vm.bus.$emit('close-update');
+        _vm.bus.$emit('dashboard-go-to-page', 1);}},scopedSlots:_vm._u([(_vm.$scopedSlots['create-header'])?{key:"header",fn:function(create){return [_vm._t("create-header",null,null,create)]}}:null,(_vm.$scopedSlots['create-title'])?{key:"title",fn:function(create){return [_vm._t("create-title",null,null,create)]}}:null,(_vm.$scopedSlots['create-actions'])?{key:"actions",fn:function(create){return [_vm._t("create-actions",null,null,create)]}}:null,{key:"default",fn:function(create){return [_vm._t("create-content",null,null,create)]}}],null,true)}):_vm._e()],null,_vm.self):_vm._e(),(_vm.detailConfig.dialog)?_vm._t("detail",[(_vm.$scopedSlots['detail-content'])?_c('crud-detail',{attrs:{"bus":_vm.bus,"id":_vm.detailId,"api-get-one":_vm.apiGetOne,"get-error-message":_vm.getErrorMessage,"dialog":true,"dialog-props":_vm.detailConfig.dialogProps},on:{"close":function($event){return _vm.bus.$emit('close-detail')}},scopedSlots:_vm._u([(_vm.$scopedSlots['detail-header'])?{key:"header",fn:function(detail){return [_vm._t("detail-header",null,null,detail)]}}:null,(_vm.$scopedSlots['detail-title'])?{key:"title",fn:function(detail){return [_vm._t("detail-title",null,null,detail)]}}:null,(_vm.$scopedSlots['detail-actions'])?{key:"actions",fn:function(detail){return [_vm._t("detail-actions",null,null,detail)]}}:null,{key:"default",fn:function(detail){return [_vm._t("detail-content",null,null,detail)]}}],null,true)}):_vm._e()],null,_vm.self):_vm._e(),(_vm.updateConfig.dialog)?_vm._t("update",[(_vm.$scopedSlots['update-content'])?_c('crud-update',{attrs:{"id":_vm.updateId,"api-get-one":_vm.apiGetOne,"api-update":_vm.apiUpdate,"get-error-message":_vm.getErrorMessage,"get-begin-form-data":_vm.updateConfig.getBeginFormData,"dialog":true,"dialog-props":_vm.updateConfig.dialogProps},on:{"close":function($event){return _vm.bus.$emit('close-update')},"success":function($event){_vm.bus.$emit('close-update');
         _vm.bus.$emit('notify-success', _vm.textUpdateSuccess);
-        _vm.bus.$emit('dashboard-refresh');}},scopedSlots:_vm._u([(_vm.$scopedSlots['update-header'])?{key:"header",fn:function(update){return [_vm._t("update-header",null,null,update)]}}:null,(_vm.$scopedSlots['update-title'])?{key:"title",fn:function(update){return [_vm._t("update-title",null,null,update)]}}:null,(_vm.$scopedSlots['update-actions'])?{key:"actions",fn:function(update){return [_vm._t("update-actions",null,null,update)]}}:null,{key:"default",fn:function(update){return [_vm._t("update-content",null,null,update)]}}],null,true)}):_vm._e()],null,_vm.self):_vm._e(),_vm._t("success-dialog",[_c('success-snackbar',{attrs:{"value":_vm.notification.success.visible,"message":_vm.notification.success.message,"timeout":2000},on:{"input":function($event){_vm.notification.success.visible = false}}})],null,_vm.self),_vm._t("error-dialog",[_c('error-snackbar',{attrs:{"value":_vm.notification.error.visible,"message":_vm.notification.error.message,"timeout":2000},on:{"input":function($event){_vm.notification.error.visible = false}}})],null,_vm.self),_vm._t("remove",[_c('crud-confirm-dialog',{attrs:{"id":_vm.removeId,"visible":!!_vm.removeId,"api-request":_vm.apiRemove,"get-error-message":_vm.getErrorMessage,"title":_vm.textRemoveTitle,"message":_vm.textRemoveMessage,"accept-button-label":_vm.textRemoveSubmit},on:{"close":function($event){return _vm.bus.$emit('close-remove')},"success":function($event){_vm.bus.$emit('close-remove');
+        _vm.bus.$emit('refresh-dashboard');
+        _vm.bus.$emit('refresh-detail');}},scopedSlots:_vm._u([(_vm.$scopedSlots['update-header'])?{key:"header",fn:function(update){return [_vm._t("update-header",null,null,update)]}}:null,(_vm.$scopedSlots['update-title'])?{key:"title",fn:function(update){return [_vm._t("update-title",null,null,update)]}}:null,(_vm.$scopedSlots['update-actions'])?{key:"actions",fn:function(update){return [_vm._t("update-actions",null,null,update)]}}:null,{key:"default",fn:function(update){return [_vm._t("update-content",null,null,update)]}}],null,true)}):_vm._e()],null,_vm.self):_vm._e(),_vm._t("success-dialog",[_c('success-snackbar',{attrs:{"value":_vm.notification.success.visible,"message":_vm.notification.success.message,"timeout":2000},on:{"input":function($event){_vm.notification.success.visible = false}}})],null,_vm.self),_vm._t("error-dialog",[_c('error-snackbar',{attrs:{"value":_vm.notification.error.visible,"message":_vm.notification.error.message,"timeout":2000},on:{"input":function($event){_vm.notification.error.visible = false}}})],null,_vm.self),_vm._t("remove",[_c('crud-confirm-dialog',{attrs:{"id":_vm.removeId,"visible":!!_vm.removeId,"api-request":_vm.apiRemove,"get-error-message":_vm.getErrorMessage,"title":_vm.textRemoveTitle,"message":_vm.textRemoveMessage,"accept-button-label":_vm.textRemoveSubmit},on:{"close":function($event){return _vm.bus.$emit('close-remove')},"success":function($event){_vm.bus.$emit('close-remove');
         _vm.bus.$emit('notify-success', _vm.textRemoveSuccess);
-        _vm.bus.$emit('dashboard-refresh');}}})],null,_vm.self),_vm._t("restore",[_c('crud-confirm-dialog',{attrs:{"id":_vm.restoreId,"visible":!!_vm.restoreId,"api-request":_vm.apiRestore,"get-error-message":_vm.getErrorMessage,"title":_vm.textRestoreTitle,"message":_vm.textRestoreMessage,"accept-button-label":_vm.textRestoreSubmit},on:{"close":function($event){return _vm.bus.$emit('close-restore')},"success":function($event){_vm.bus.$emit('close-restore');
+        _vm.bus.$emit('refresh-dashboard');
+        _vm.bus.$emit('close-detail');}}})],null,_vm.self),_vm._t("restore",[_c('crud-confirm-dialog',{attrs:{"id":_vm.restoreId,"visible":!!_vm.restoreId,"api-request":_vm.apiRestore,"get-error-message":_vm.getErrorMessage,"title":_vm.textRestoreTitle,"message":_vm.textRestoreMessage,"accept-button-label":_vm.textRestoreSubmit},on:{"close":function($event){return _vm.bus.$emit('close-restore')},"success":function($event){_vm.bus.$emit('close-restore');
         _vm.bus.$emit('notify-success', _vm.textRestoreSuccess);
-        _vm.bus.$emit('dashboard-refresh');}}})],null,_vm.self),_vm._t("purge",[_c('crud-confirm-dialog',{attrs:{"id":_vm.purgeId,"visible":!!_vm.purgeId,"api-request":_vm.apiPurge,"get-error-message":_vm.getErrorMessage,"title":_vm.textPurgeTitle,"message":_vm.textPurgeMessage,"accept-button-label":_vm.textPurgeSubmit},on:{"close":function($event){return _vm.bus.$emit('close-purge')},"success":function($event){_vm.bus.$emit('close-purge');
+        _vm.bus.$emit('refresh-dashboard');}}})],null,_vm.self),_vm._t("purge",[_c('crud-confirm-dialog',{attrs:{"id":_vm.purgeId,"visible":!!_vm.purgeId,"api-request":_vm.apiPurge,"get-error-message":_vm.getErrorMessage,"title":_vm.textPurgeTitle,"message":_vm.textPurgeMessage,"accept-button-label":_vm.textPurgeSubmit},on:{"close":function($event){return _vm.bus.$emit('close-purge')},"success":function($event){_vm.bus.$emit('close-purge');
         _vm.bus.$emit('notify-success', _vm.textPurgeSuccess);
-        _vm.bus.$emit('dashboard-refresh');}}})],null,_vm.self),_vm._t("empty-trash",[_c('crud-confirm-dialog',{attrs:{"visible":_vm.emptyTrashVisible,"api-request":_vm.apiEmptyTrash,"get-error-message":_vm.getErrorMessage,"title":_vm.textEmptyTrashTitle,"message":_vm.textEmptyTrashMessage,"accept-button-label":_vm.textEmptyTrashSubmit},on:{"close":function($event){return _vm.bus.$emit('close-empty-trash')},"success":function($event){_vm.bus.$emit('close-empty-trash');
+        _vm.bus.$emit('refresh-dashboard');}}})],null,_vm.self),_vm._t("empty-trash",[_c('crud-confirm-dialog',{attrs:{"visible":_vm.emptyTrashVisible,"api-request":_vm.apiEmptyTrash,"get-error-message":_vm.getErrorMessage,"title":_vm.textEmptyTrashTitle,"message":_vm.textEmptyTrashMessage,"accept-button-label":_vm.textEmptyTrashSubmit},on:{"close":function($event){return _vm.bus.$emit('close-empty-trash')},"success":function($event){_vm.bus.$emit('close-empty-trash');
         _vm.bus.$emit('notify-success', _vm.textEmptyTrashSuccess);
-        _vm.bus.$emit('dashboard-refresh');}}})],null,_vm.self),_c('v-window',{attrs:{"value":_vm.page}},[_c('v-window-item',{attrs:{"value":_vm.DASHBOARD}},[_vm._t("dashboard",[(_vm.$scopedSlots['dashboard-content'])?_c('crud-dashboard',{attrs:{"router":_vm.router,"bus":_vm.bus,"default-filter":_vm.dashboardConfig.defaultFilter,"default-page":_vm.dashboardConfig.defaultPage,"default-perPage":_vm.dashboardConfig.defaultPerPage,"api-normal-pagination":_vm.apiNormalPagination,"api-trash-pagination":_vm.apiTrashPagination,"api-normal-count":_vm.apiNormalCount,"api-trash-count":_vm.apiTrashCount,"get-error-message":_vm.getErrorMessage,"has-trash":_vm.hasTrash},on:{"click-create":function($event){return _vm.bus.$emit('open-create')},"click-empty-trash":function($event){return _vm.bus.$emit('open-empty-trash')}},scopedSlots:_vm._u([{key:"header-filter",fn:function(dashboard){return [_vm._t("dashboard-header-filter",null,null,dashboard)]}},{key:"default",fn:function(dashboard){return [_vm._t("dashboard-content",null,null,dashboard)]}}],null,true)}):_vm._e()],null,_vm.self)],2),(
+        _vm.bus.$emit('refresh-dashboard');}}})],null,_vm.self),_c('v-window',{attrs:{"value":_vm.page}},[_c('v-window-item',{attrs:{"value":_vm.DASHBOARD}},[_vm._t("dashboard",[(_vm.$scopedSlots['dashboard-content'])?_c('crud-dashboard',{attrs:{"router":_vm.router,"bus":_vm.bus,"default-filter":_vm.dashboardConfig.defaultFilter,"default-page":_vm.dashboardConfig.defaultPage,"default-perPage":_vm.dashboardConfig.defaultPerPage,"api-normal-pagination":_vm.apiNormalPagination,"api-trash-pagination":_vm.apiTrashPagination,"api-normal-count":_vm.apiNormalCount,"api-trash-count":_vm.apiTrashCount,"get-error-message":_vm.getErrorMessage,"has-trash":_vm.hasTrash},on:{"click-create":function($event){return _vm.bus.$emit('open-create')},"click-empty-trash":function($event){return _vm.bus.$emit('open-empty-trash')}},scopedSlots:_vm._u([{key:"header-filter",fn:function(dashboard){return [_vm._t("dashboard-header-filter",null,null,dashboard)]}},{key:"default",fn:function(dashboard){return [_vm._t("dashboard-content",null,null,dashboard)]}}],null,true)}):_vm._e()],null,_vm.self)],2),(
         !_vm.createConfig.dialog &&
         (_vm.$scopedSlots['create'] || _vm.$scopedSlots['create-content'])
       )?_c('v-window-item',{attrs:{"value":_vm.CREATE}},[(_vm.page === _vm.CREATE)?_vm._t("create",[(_vm.$scopedSlots['create-content'])?_c('crud-create',{attrs:{"visible":_vm.createVisible,"api-create":_vm.apiCreate,"get-error-message":_vm.getErrorMessage,"get-begin-form-data":_vm.createConfig.getBeginFormData,"dialog":false},on:{"close":function($event){return _vm.bus.$emit('close-create')},"success":function($event){_vm.bus.$emit('close-create');
@@ -10751,16 +10753,17 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
             _vm.bus.$emit('dashboard-go-to-page', 1);}},scopedSlots:_vm._u([(_vm.$scopedSlots['create-header'])?{key:"header",fn:function(create){return [_vm._t("create-header",null,null,create)]}}:null,(_vm.$scopedSlots['create-title'])?{key:"title",fn:function(create){return [_vm._t("create-title",null,null,create)]}}:null,(_vm.$scopedSlots['create-actions'])?{key:"actions",fn:function(create){return [_vm._t("create-actions",null,null,create)]}}:null,{key:"default",fn:function(create){return [_vm._t("create-content",null,null,create)]}}],null,true)}):_vm._e()],null,_vm.self):_vm._e()],2):_vm._e(),(
         !_vm.detailConfig.dialog &&
         (_vm.$scopedSlots['detail'] || _vm.$scopedSlots['detail-content'])
-      )?_c('v-window-item',{attrs:{"value":_vm.DETAIL}},[(_vm.page === _vm.DETAIL)?_vm._t("detail",[(_vm.$scopedSlots['detail-content'])?_c('crud-detail',{attrs:{"id":_vm.detailId,"api-get-one":_vm.apiGetOne,"get-error-message":_vm.getErrorMessage,"dialog":false},on:{"close":function($event){return _vm.bus.$emit('close-detail')}},scopedSlots:_vm._u([(_vm.$scopedSlots['detail-header'])?{key:"header",fn:function(detail){return [_vm._t("detail-header",null,null,detail)]}}:null,(_vm.$scopedSlots['detail-title'])?{key:"title",fn:function(detail){return [_vm._t("detail-title",null,null,detail)]}}:null,(_vm.$scopedSlots['detail-actions'])?{key:"actions",fn:function(detail){return [_vm._t("detail-actions",null,null,detail)]}}:null,{key:"default",fn:function(detail){return [_vm._t("detail-content",[_vm._v(" Detail content ")],null,detail)]}}],null,true)}):_vm._e()],null,_vm.self):_vm._e()],2):_vm._e(),(
+      )?_c('v-window-item',{attrs:{"value":_vm.DETAIL}},[(_vm.page === _vm.DETAIL)?_vm._t("detail",[(_vm.$scopedSlots['detail-content'])?_c('crud-detail',{attrs:{"bus":_vm.bus,"id":_vm.detailId,"api-get-one":_vm.apiGetOne,"get-error-message":_vm.getErrorMessage,"dialog":false},on:{"close":function($event){return _vm.bus.$emit('close-detail')}},scopedSlots:_vm._u([(_vm.$scopedSlots['detail-header'])?{key:"header",fn:function(detail){return [_vm._t("detail-header",null,null,detail)]}}:null,(_vm.$scopedSlots['detail-title'])?{key:"title",fn:function(detail){return [_vm._t("detail-title",null,null,detail)]}}:null,(_vm.$scopedSlots['detail-actions'])?{key:"actions",fn:function(detail){return [_vm._t("detail-actions",null,null,detail)]}}:null,{key:"default",fn:function(detail){return [_vm._t("detail-content",[_vm._v(" Detail content ")],null,detail)]}}],null,true)}):_vm._e()],null,_vm.self):_vm._e()],2):_vm._e(),(
         !_vm.updateConfig.dialog &&
         (_vm.$scopedSlots['update'] || _vm.$scopedSlots['update-content'])
       )?_c('v-window-item',{attrs:{"value":_vm.UPDATE}},[(_vm.page === _vm.UPDATE)?_vm._t("update",[(_vm.$scopedSlots['update-content'])?_c('crud-update',{attrs:{"id":_vm.updateId,"api-get-one":_vm.apiGetOne,"api-update":_vm.apiUpdate,"get-error-message":_vm.getErrorMessage,"get-begin-form-data":_vm.updateConfig.getBeginFormData,"dialog":false},on:{"close":function($event){return _vm.bus.$emit('close-update')},"success":function($event){_vm.bus.$emit('close-update');
             _vm.bus.$emit('notify-success', _vm.textUpdateSuccess);
-            _vm.bus.$emit('dashboard-refresh');}},scopedSlots:_vm._u([(_vm.$scopedSlots['update-header'])?{key:"header",fn:function(update){return [_vm._t("update-header",null,null,update)]}}:null,(_vm.$scopedSlots['update-title'])?{key:"title",fn:function(update){return [_vm._t("update-title",null,null,update)]}}:null,(_vm.$scopedSlots['update-actions'])?{key:"actions",fn:function(update){return [_vm._t("update-actions",null,null,update)]}}:null,{key:"default",fn:function(update){return [_vm._t("update-content",null,null,update)]}}],null,true)}):_vm._e()],null,_vm.self):_vm._e()],2):_vm._e(),_c('v-window-item',{attrs:{"value":"EMPTY"}})],1)],2)}
+            _vm.bus.$emit('refresh-dashboard');
+            _vm.bus.$emit('refresh-detail');}},scopedSlots:_vm._u([(_vm.$scopedSlots['update-header'])?{key:"header",fn:function(update){return [_vm._t("update-header",null,null,update)]}}:null,(_vm.$scopedSlots['update-title'])?{key:"title",fn:function(update){return [_vm._t("update-title",null,null,update)]}}:null,(_vm.$scopedSlots['update-actions'])?{key:"actions",fn:function(update){return [_vm._t("update-actions",null,null,update)]}}:null,{key:"default",fn:function(update){return [_vm._t("update-content",null,null,update)]}}],null,true)}):_vm._e()],null,_vm.self):_vm._e()],2):_vm._e(),_c('v-window-item',{attrs:{"value":"EMPTY"}})],1)],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/CrudComposition/index.vue?vue&type=template&id=21f01c48&
+// CONCATENATED MODULE: ./src/components/CrudComposition/index.vue?vue&type=template&id=498f6842&
 
 // EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
 var runtime = __webpack_require__("96cf");
@@ -11074,12 +11077,12 @@ var ErrorSnackbar_component = normalizeComponent(
 )
 
 /* harmony default export */ var ErrorSnackbar = (ErrorSnackbar_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"b276d634-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CrudDashboard/index.vue?vue&type=template&id=fb7a9b3a&
-var CrudDashboardvue_type_template_id_fb7a9b3a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._t("header",[_c('v-layout',{staticStyle:{"gap":"16px"},attrs:{"align-center":"","wrap":""}},[_c('v-flex',{attrs:{"shrink":""}},[_vm._t("header-title",[_c('v-layout',{attrs:{"justify-center":""}},[_c('v-flex',[_c('div',{staticClass:"text-h5"},[_vm._v(_vm._s(_vm.title || _vm.textDashboardTitle))])])],1)],null,_vm.self)],2),_c('v-flex',[_vm._t("header-filter",null,null,_vm.self)],2),_c('v-flex',{attrs:{"shrink":""}},[_c('v-btn',{attrs:{"loading":_vm.loading,"icon":""},on:{"click":_vm.loadData}},[_c('v-icon',{attrs:{"color":"success"}},[_vm._v("mdi-refresh")])],1)],1),_c('v-flex',{attrs:{"shrink":""}},[_vm._t("header-actions",[(!_vm.trashMode)?_c('v-btn',{attrs:{"color":"success"},on:{"click":_vm.clickCreate}},[_c('v-icon',{attrs:{"left":""}},[_vm._v("mdi-plus")]),_vm._v(_vm._s(_vm.textCreateActivator)+" ")],1):_c('v-btn',{attrs:{"color":"warning"},on:{"click":_vm.clickEmptyTrash}},[_c('v-icon',{attrs:{"left":""}},[_vm._v("mdi-delete")]),_vm._v(_vm._s(_vm.textEmptyTrashActivator)+" ")],1)],null,_vm.self)],2)],1),_c('v-divider',{staticClass:"mt-4 mb-4"}),(_vm.hasTrash)?_vm._t("trash-mode-navigation",[_c('trash-mode-navigation',{attrs:{"trash-mode":_vm.trashMode,"normal-total":_vm.normalTotal,"trash-total":_vm.trashTotal},on:{"update-trash-mode":_vm.updateTrashMode}}),_c('v-divider')],null,_vm.self):_vm._e()],null,_vm.self),(_vm.error)?_vm._t("error",[_c('error-report',{attrs:{"loading":_vm.loading,"error-message":_vm.errorMessage},on:{"retry":_vm.loadData}})],null,_vm.self):_vm._t("default",[_vm._v(" Content display "),_c('pre',[_vm._v(_vm._s(JSON.stringify(_vm.items, undefined, 2)))])],null,_vm.self),_vm._t("footer",[_c('v-layout',{attrs:{"align-center":"","wrap":""}},[_c('v-flex',{staticClass:"mr-2",attrs:{"shrink":""}},[_vm._t("footer-per-page",[_c('v-layout',[_c('v-flex',[_c('v-subheader',[_vm._v("Rows per page:")])],1),_c('v-flex',[_c('v-select',{staticStyle:{"width":"56px","font-size":"14px"},attrs:{"items":[5, 10, 20, 50, 100],"value":_vm.perPage,"dense":"","hide-details":""},on:{"input":_vm.updatePerPage}})],1)],1)],null,_vm.self)],2),_c('v-flex',{attrs:{"shrink":""}},[_vm._t("footer-statistic",[_c('v-subheader',[_vm._v(" "+_vm._s((_vm.page - 1) * _vm.perPage + 1)+" - "+_vm._s(_vm.page * _vm.perPage)+" of "+_vm._s(_vm.count)+" ")])],null,_vm.self)],2),_c('v-flex',[_vm._t("footer-pagination",[_c('v-row',{attrs:{"justify":"center"}},[_c('v-container',{staticStyle:{"max-width":"400px"}},[_c('v-pagination',{attrs:{"value":_vm.page,"length":Math.ceil(_vm.count / _vm.perPage) || 1},on:{"input":_vm.updatePage}})],1)],1)],null,_vm.self)],2)],1)],null,_vm.self)],2)}
-var CrudDashboardvue_type_template_id_fb7a9b3a_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"b276d634-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CrudDashboard/index.vue?vue&type=template&id=14640d63&
+var CrudDashboardvue_type_template_id_14640d63_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._t("header",[_c('v-layout',{staticStyle:{"gap":"16px"},attrs:{"align-center":"","wrap":""}},[_c('v-flex',{attrs:{"shrink":""}},[_vm._t("header-title",[_c('v-layout',{attrs:{"justify-center":""}},[_c('v-flex',[_c('div',{staticClass:"text-h5"},[_vm._v(_vm._s(_vm.title || _vm.textDashboardTitle))])])],1)],null,_vm.self)],2),_c('v-flex',[_vm._t("header-filter",null,null,_vm.self)],2),_c('v-flex',{attrs:{"shrink":""}},[_c('v-btn',{attrs:{"loading":_vm.loading,"icon":""},on:{"click":_vm.loadData}},[_c('v-icon',{attrs:{"color":"success"}},[_vm._v("mdi-refresh")])],1)],1),_c('v-flex',{attrs:{"shrink":""}},[_vm._t("header-actions",[(!_vm.trashMode)?_c('v-btn',{attrs:{"color":"success"},on:{"click":_vm.clickCreate}},[_c('v-icon',{attrs:{"left":""}},[_vm._v("mdi-plus")]),_vm._v(_vm._s(_vm.textCreateActivator)+" ")],1):_c('v-btn',{attrs:{"color":"warning"},on:{"click":_vm.clickEmptyTrash}},[_c('v-icon',{attrs:{"left":""}},[_vm._v("mdi-delete")]),_vm._v(_vm._s(_vm.textEmptyTrashActivator)+" ")],1)],null,_vm.self)],2)],1),_c('v-divider',{staticClass:"mt-4 mb-4"}),(_vm.hasTrash)?_vm._t("trash-mode-navigation",[_c('trash-mode-navigation',{attrs:{"trash-mode":_vm.trashMode,"normal-total":_vm.normalTotal,"trash-total":_vm.trashTotal},on:{"update-trash-mode":_vm.updateTrashMode}}),_c('v-divider')],null,_vm.self):_vm._e()],null,_vm.self),(_vm.error)?_vm._t("error",[_c('error-report',{attrs:{"loading":_vm.loading,"error-message":_vm.errorMessage},on:{"retry":_vm.loadData}})],null,_vm.self):_vm._t("default",[_vm._v(" Content display "),_c('pre',[_vm._v(_vm._s(JSON.stringify(_vm.items, undefined, 2)))])],null,_vm.self),_vm._t("footer",[_c('v-layout',{attrs:{"align-center":"","wrap":""}},[_c('v-flex',{staticClass:"mr-2",attrs:{"shrink":""}},[_vm._t("footer-per-page",[_c('v-layout',[_c('v-flex',[_c('v-subheader',[_vm._v("Rows per page:")])],1),_c('v-flex',[_c('v-select',{staticStyle:{"width":"56px","font-size":"14px"},attrs:{"items":[5, 10, 20, 50, 100],"value":_vm.perPage,"dense":"","hide-details":""},on:{"input":_vm.updatePerPage}})],1)],1)],null,_vm.self)],2),_c('v-flex',{attrs:{"shrink":""}},[_vm._t("footer-statistic",[_c('v-subheader',[_vm._v(" "+_vm._s((_vm.page - 1) * _vm.perPage + 1)+" - "+_vm._s(_vm.page * _vm.perPage)+" of "+_vm._s(_vm.count)+" ")])],null,_vm.self)],2),_c('v-flex',[_vm._t("footer-pagination",[_c('v-row',{attrs:{"justify":"center"}},[_c('v-container',{staticStyle:{"max-width":"400px"}},[_c('v-pagination',{attrs:{"value":_vm.page,"length":Math.ceil(_vm.count / _vm.perPage) || 1},on:{"input":_vm.updatePage}})],1)],1)],null,_vm.self)],2)],1)],null,_vm.self)],2)}
+var CrudDashboardvue_type_template_id_14640d63_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/CrudDashboard/index.vue?vue&type=template&id=fb7a9b3a&
+// CONCATENATED MODULE: ./src/components/CrudDashboard/index.vue?vue&type=template&id=14640d63&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
 var es_array_filter = __webpack_require__("4de4");
@@ -11839,7 +11842,7 @@ var ErrorReport_component = normalizeComponent(
     }
 
     if (this.bus) {
-      this.bus.$on("dashboard-refresh", this.refresh);
+      this.bus.$on("refresh-dashboard", this.refresh);
       this.bus.$on("dashboard-go-to-page", this.goToPage);
     }
   },
@@ -11849,7 +11852,7 @@ var ErrorReport_component = normalizeComponent(
     }
 
     if (this.bus) {
-      this.bus.$off("dashboard-refresh", this.refresh);
+      this.bus.$off("refresh-dashboard", this.refresh);
       this.bus.$off("dashboard-go-to-page", this.goToPage);
     }
   },
@@ -12022,8 +12025,8 @@ var ErrorReport_component = normalizeComponent(
 
 var CrudDashboard_component = normalizeComponent(
   components_CrudDashboardvue_type_script_lang_js_,
-  CrudDashboardvue_type_template_id_fb7a9b3a_render,
-  CrudDashboardvue_type_template_id_fb7a9b3a_staticRenderFns,
+  CrudDashboardvue_type_template_id_14640d63_render,
+  CrudDashboardvue_type_template_id_14640d63_staticRenderFns,
   false,
   null,
   null,
@@ -12032,12 +12035,12 @@ var CrudDashboard_component = normalizeComponent(
 )
 
 /* harmony default export */ var CrudDashboard = (CrudDashboard_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"b276d634-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CrudDetail/index.vue?vue&type=template&id=93bc65ce&
-var CrudDetailvue_type_template_id_93bc65ce_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('smart-window',{attrs:{"visible":!!_vm.id,"title":_vm.title || _vm.textDetailTitle,"dialog":_vm.dialog,"dialog-props":_vm.dialogProps},on:{"close":function($event){return _vm.$emit('close')}},scopedSlots:_vm._u([(_vm.$scopedSlots.header)?{key:"header",fn:function(){return [_vm._t("header",null,null,_vm.self)]},proxy:true}:null,(_vm.$scopedSlots.title)?{key:"title",fn:function(){return [_vm._t("title",null,null,_vm.self)]},proxy:true}:null,(_vm.$scopedSlots.actions)?{key:"actions",fn:function(){return [_vm._t("actions",null,null,_vm.self)]},proxy:true}:null],null,true)},[(_vm.rawData)?[_vm._t("default",[_c('pre',[_vm._v(_vm._s(JSON.stringify(_vm.rawData, undefined, 2)))])],null,_vm.self)]:[(_vm.loading)?[_vm._t("loading",[_c('v-skeleton-loader',{attrs:{"type":"card"}})],null,_vm.self)]:(_vm.error)?_vm._t("error",[_c('error-report',{attrs:{"loading":_vm.loading,"error-message":_vm.errorMessage},on:{"retry":_vm.loadData}})],null,_vm.self):(!_vm.data)?_vm._t("empty",[_c('v-alert',{attrs:{"type":"warning"}},[_vm._v("Empty")])]):_vm._t("default",[_c('pre',[_vm._v(_vm._s(JSON.stringify(_vm.data, undefined, 2)))])],null,_vm.self)]],2)}
-var CrudDetailvue_type_template_id_93bc65ce_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"b276d634-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CrudDetail/index.vue?vue&type=template&id=2919c5bb&
+var CrudDetailvue_type_template_id_2919c5bb_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('smart-window',{attrs:{"visible":!!_vm.id,"title":_vm.title || _vm.textDetailTitle,"dialog":_vm.dialog,"dialog-props":_vm.dialogProps},on:{"close":function($event){return _vm.$emit('close')}},scopedSlots:_vm._u([(_vm.$scopedSlots.header)?{key:"header",fn:function(){return [_vm._t("header",null,null,_vm.self)]},proxy:true}:null,(_vm.$scopedSlots.title)?{key:"title",fn:function(){return [_vm._t("title",null,null,_vm.self)]},proxy:true}:null,(_vm.$scopedSlots.actions)?{key:"actions",fn:function(){return [_vm._t("actions",null,null,_vm.self)]},proxy:true}:null],null,true)},[(_vm.rawData)?[_vm._t("default",[_c('pre',[_vm._v(_vm._s(JSON.stringify(_vm.rawData, undefined, 2)))])],null,_vm.self)]:[(_vm.loading)?[_vm._t("loading",[_c('v-skeleton-loader',{attrs:{"type":"card"}})],null,_vm.self)]:(_vm.error)?_vm._t("error",[_c('error-report',{attrs:{"loading":_vm.loading,"error-message":_vm.errorMessage},on:{"retry":_vm.loadData}})],null,_vm.self):(!_vm.data)?_vm._t("empty",[_c('v-alert',{attrs:{"type":"warning"}},[_vm._v("Empty")])]):_vm._t("default",[_c('pre',[_vm._v(_vm._s(JSON.stringify(_vm.data, undefined, 2)))])],null,_vm.self)]],2)}
+var CrudDetailvue_type_template_id_2919c5bb_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/CrudDetail/index.vue?vue&type=template&id=93bc65ce&
+// CONCATENATED MODULE: ./src/components/CrudDetail/index.vue?vue&type=template&id=2919c5bb&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"b276d634-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/SmartWindow/index.vue?vue&type=template&id=77d9b7fb&
 var SmartWindowvue_type_template_id_77d9b7fb_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.dialog)?_c('v-dialog',_vm._b({attrs:{"value":_vm.visible,"scrollable":""},on:{"input":function($event){return _vm.$emit('close')}}},'v-dialog',_vm.dialogProps,false),[_c('v-card',{key:_vm.key},[_vm._t("header",[_c('v-layout',{attrs:{"align-center":""}},[_c('v-flex',[_vm._t("title",[_c('v-card-title',[_vm._v(_vm._s(_vm.title))])],null,_vm.self)],2),_c('v-flex',{attrs:{"shrink":""}},[_c('v-btn',{attrs:{"icon":"","large":"","title":"Close"},on:{"click":function($event){return _vm.$emit('close')}}},[_c('v-icon',[_vm._v("mdi-close")])],1)],1)],1)],null,_vm.self),_c('v-card-text',[_vm._t("default",null,null,_vm.self)],2),_c('v-card-actions',[_vm._t("actions",null,null,_vm.self)],2)],2)],1):(_vm.visible)?_c('div',{key:_vm.key},[_vm._t("header",[_c('v-layout',{staticStyle:{"gap":"16px"},attrs:{"wrap":"","align":"center"}},[_c('v-flex',{attrs:{"shrink":""}},[_c('v-btn',{attrs:{"color":"success"},on:{"click":function($event){return _vm.$emit('close')}}},[_c('v-icon',{attrs:{"left":""}},[_vm._v("mdi-arrow-left")]),_vm._v(" "+_vm._s(_vm.textBack))],1)],1),_c('v-flex',[_vm._t("title",[_c('h1',{staticClass:"text-h5"},[_vm._v(_vm._s(_vm.title))])],null,_vm.self)],2),_c('v-flex',{attrs:{"shrink":""}},[_vm._t("actions",null,null,_vm.self)],2)],1)],null,_vm.self),_vm._t("default",null,null,_vm.self)],2):_vm._e()}
@@ -12239,6 +12242,10 @@ var SmartWindow_component = normalizeComponent(
     }
   },
   props: {
+    bus: {
+      type: Object,
+      default: null
+    },
     id: {
       type: [String, Number],
       default: null
@@ -12295,6 +12302,15 @@ var SmartWindow_component = normalizeComponent(
     if (this.id) {
       this.loadData();
     }
+
+    if (this.bus) {
+      this.bus.$on("refresh-detail", this.loadData);
+    }
+  },
+  destroyed: function destroyed() {
+    if (this.bus) {
+      this.bus.$off("refresh-detail", this.loadData);
+    }
   },
   methods: {
     close: function close() {
@@ -12309,47 +12325,55 @@ var SmartWindow_component = normalizeComponent(
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                if (_this.id) {
+                  _context.next = 2;
+                  break;
+                }
+
+                return _context.abrupt("return");
+
+              case 2:
                 requestId = ++_this.requestId;
-                _context.prev = 1;
+                _context.prev = 3;
                 _this.loading = true;
                 _this.error = null;
-                _context.next = 6;
+                _context.next = 8;
                 return _this.apiGetOne(_this.id);
 
-              case 6:
+              case 8:
                 data = _context.sent;
 
                 if (requestId === _this.requestId) {
                   _this.data = data;
                 }
 
-                _context.next = 14;
+                _context.next = 16;
                 break;
 
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](1);
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](3);
                 console.error(_context.t0);
 
                 if (requestId === _this.requestId) {
                   _this.error = _context.t0;
                 }
 
-              case 14:
-                _context.prev = 14;
+              case 16:
+                _context.prev = 16;
 
                 if (requestId === _this.requestId) {
                   _this.loading = false;
                 }
 
-                return _context.finish(14);
+                return _context.finish(16);
 
-              case 17:
+              case 19:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 10, 14, 17]]);
+        }, _callee, null, [[3, 12, 16, 19]]);
       }))();
     }
   }
@@ -12366,8 +12390,8 @@ var SmartWindow_component = normalizeComponent(
 
 var CrudDetail_component = normalizeComponent(
   components_CrudDetailvue_type_script_lang_js_,
-  CrudDetailvue_type_template_id_93bc65ce_render,
-  CrudDetailvue_type_template_id_93bc65ce_staticRenderFns,
+  CrudDetailvue_type_template_id_2919c5bb_render,
+  CrudDetailvue_type_template_id_2919c5bb_staticRenderFns,
   false,
   null,
   null,
@@ -13382,6 +13406,11 @@ var CrudConfirmDialog_component = normalizeComponent(
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -13591,9 +13620,9 @@ var UPDATE = "UPDATE";
       return this;
     },
     page: function page() {
+      if (!this.updateDialog && this.updateId) return UPDATE;
       if (!this.detailDialog && this.detailId) return DETAIL;
       if (!this.createDialog && this.createVisible) return CREATE;
-      if (!this.updateDialog && this.updateId) return UPDATE;
       return DASHBOARD;
     }
   },
@@ -13754,7 +13783,7 @@ var UPDATE = "UPDATE";
       this.detailId = null;
 
       if (this.router) {
-        window.history.back();
+        this.syncSearchParams.push(); // window.history.back();
       }
     },
     openCreate: function openCreate() {

@@ -19,6 +19,25 @@
       />
     </template>
 
+    <template #detail-actions="{ id, data }">
+      <v-layout justify-center style="gap: 16px">
+        <v-btn
+          :disabled="!data"
+          color="success"
+          @click="bus.$emit('open-update', id)"
+        >
+          Update
+        </v-btn>
+        <v-btn
+          :disabled="!data"
+          color="warning"
+          @click="bus.$emit('open-remove', id)"
+        >
+          Remove
+        </v-btn>
+      </v-layout>
+    </template>
+
     <template #detail-content="{ data }">
       <v-text-field :value="data.title" label="Title" disabled />
       <v-textarea :value="data.description" label="Description" disabled />
@@ -54,7 +73,8 @@
         @success="
           bus.$emit('close-update');
           bus.$emit('notify-success', 'Update success');
-          bus.$emit('dashboard-refresh');
+          bus.$emit('refresh-dashboard');
+          bus.$emit('refresh-detail');
         "
       >
         <template #title="{ title }">

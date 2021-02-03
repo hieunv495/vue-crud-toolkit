@@ -21,16 +21,13 @@
 
     <template #detail-title> Custom detail title </template>
 
-    <template #detail-actions="{ data, close }">
-      <v-layout justify-center>
-        <v-btn
-          v-if="data"
-          @click="
-            close();
-            bus.$emit('open-update', data.id);
-          "
-        >
-          Update {{ data.id }}
+    <template #detail-actions="{ id, data }">
+      <v-layout justify-center style="gap: 16px">
+        <v-btn :disabled="!data" @click="bus.$emit('open-update', id)">
+          Update
+        </v-btn>
+        <v-btn :disabled="!data" @click="bus.$emit('open-remove', id)">
+          Remove
         </v-btn>
       </v-layout>
     </template>

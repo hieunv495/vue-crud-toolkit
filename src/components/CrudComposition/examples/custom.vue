@@ -97,7 +97,7 @@
         @success="
           bus.$emit('close-update');
           bus.$emit('notify-success', 'Update success');
-          bus.$emit('dashboard-refresh');
+          bus.$emit('refresh-dashboard');
         "
       >
         <template #default="{ formBus, beginFormData, sendRequest }">
@@ -120,7 +120,7 @@
         @success="
           bus.$emit('close-remove');
           bus.$emit('notify-success', 'Remove success');
-          bus.$emit('dashboard-refresh');
+          bus.$emit('refresh-dashboard');
         "
       />
     </template>
@@ -135,7 +135,7 @@
         @success="
           bus.$emit('close-restore');
           bus.$emit('notify-success', 'Restore success');
-          bus.$emit('dashboard-refresh');
+          bus.$emit('refresh-dashboard');
         "
       />
     </template>
@@ -150,7 +150,7 @@
         @success="
           bus.$emit('close-purge');
           bus.$emit('notify-success', 'Purge success');
-          bus.$emit('dashboard-refresh');
+          bus.$emit('refresh-dashboard');
         "
       />
     </template>
@@ -164,7 +164,7 @@
         @success="
           bus.$emit('close-empty-trash');
           bus.$emit('notify-success', 'Empty trash success');
-          bus.$emit('dashboard-refresh');
+          bus.$emit('refresh-dashboard');
         "
       />
     </template>

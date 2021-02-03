@@ -1,0 +1,36 @@
+import { Meta, Source } from "@storybook/addon-docs/blocks";
+import example from "!!raw-loader!../apis/posts.api.js";
+
+<Meta title="CRUD/Bus events" />
+
+# Bus events
+
+## How to use
+
+```js
+// bus.$emit(event, params)
+bus.$emit("open-detail", 1);
+```
+
+## List events
+
+| Event             | Params                   | Description            |
+| ----------------- | ------------------------ | ---------------------- |
+| notify-success    | message: `String`        | Notify success message |
+| notify-error      | message: `String`        | Notify error message   |
+| refresh-dashboard |                          | Refresh dashboard      |
+| open-detail       | id: `Number` \| `String` | Open detail box        |
+| close-detail      |                          | Close detail box       |
+| refresh-detail    |                          | Refresh detail box     |
+| open-create       | id: `Number` \| `String` | Open create box        |
+| close-create      |                          | Close create box       |
+| open-update       | id: `Number` \| `String` | Open update box        |
+| close-update      |                          | Close update box       |
+| open-remove       | id: `Number` \| `String` | Open remove box        |
+| close-remove      |                          | Close remove box       |
+| open-restore      | id: `Number` \| `String` | Open restore box       |
+| close-restore     |                          | Close restore box      |
+| open-purge        | id: `Number` \| `String` | Open purge box         |
+| close-purge       |                          | Close purge box        |
+| open-empty-trash  |                          | Open empty-trash box   |
+| close-empty-trash |                          | Close empty-trash box  |

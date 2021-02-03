@@ -64,6 +64,12 @@ git clone git@github.com:hieunv495/vue-crud-toolkit.git
 
 ## Changelog
 
+### 3.1.1
+
+- Remove location back when close detail in composition router
+- Add bus event 'refresh-dashboard', 'refresh-detail'
+- Add bus events documentation
+
 ### 3.1.0
 
 - Add custom header, title, actions in composition

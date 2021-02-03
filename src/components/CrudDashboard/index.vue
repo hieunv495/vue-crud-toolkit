@@ -263,7 +263,7 @@ export default {
     }
 
     if (this.bus) {
-      this.bus.$on("dashboard-refresh", this.refresh);
+      this.bus.$on("refresh-dashboard", this.refresh);
       this.bus.$on("dashboard-go-to-page", this.goToPage);
     }
   },
@@ -274,7 +274,7 @@ export default {
     }
 
     if (this.bus) {
-      this.bus.$off("dashboard-refresh", this.refresh);
+      this.bus.$off("refresh-dashboard", this.refresh);
       this.bus.$off("dashboard-go-to-page", this.goToPage);
     }
   },

@@ -19,6 +19,25 @@
       />
     </template>
 
+    <template #detail-actions="{ id, data }">
+      <v-layout justify-center style="gap: 16px">
+        <v-btn
+          :disabled="!data"
+          color="success"
+          @click="bus.$emit('open-update', id)"
+        >
+          Update
+        </v-btn>
+        <v-btn
+          :disabled="!data"
+          color="warning"
+          @click="bus.$emit('open-remove', id)"
+        >
+          Remove
+        </v-btn>
+      </v-layout>
+    </template>
+
     <template #detail-content="{ data }">
       <v-text-field :value="data.title" label="Title" disabled />
       <v-textarea :value="data.description" label="Description" disabled />
@@ -52,7 +71,7 @@
         @success="
           bus.$emit('close-remove');
           bus.$emit('notify-success', 'Remove success');
-          bus.$emit('dashboard-refresh');
+          bus.$emit('refresh-dashboard');
         "
       />
     </template>
@@ -67,7 +86,7 @@
         @success="
           bus.$emit('close-restore');
           bus.$emit('notify-success', 'Restore success');
-          bus.$emit('dashboard-refresh');
+          bus.$emit('refresh-dashboard');
         "
       />
     </template>
@@ -82,7 +101,7 @@
         @success="
           bus.$emit('close-purge');
           bus.$emit('notify-success', 'Purge success');
-          bus.$emit('dashboard-refresh');
+          bus.$emit('refresh-dashboard');
         "
       />
     </template>
@@ -96,7 +115,7 @@
         @success="
           bus.$emit('close-empty-trash');
           bus.$emit('notify-success', 'Empty trash success');
-          bus.$emit('dashboard-refresh');
+          bus.$emit('refresh-dashboard');
         "
       />
     </template>
