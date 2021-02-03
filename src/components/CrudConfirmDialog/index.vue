@@ -49,7 +49,7 @@ export default {
     message: { type: String, required: true },
     cancelButtonLabel: { type: String, default: "Cancel" },
     acceptButtonLabel: { type: String, default: "Accept" },
-    requestApi: { type: Function, required: true },
+    apiRequest: { type: Function, required: true },
     getErrorMessage: { type: Function, default: getErrorMessage },
   },
 
@@ -84,8 +84,9 @@ export default {
     },
     async sendRequest() {
       this.loading = true;
+      this.error = null;
       try {
-        const result = await this.requestApi(this.id);
+        const result = await this.apiRequest(this.id);
         this.$emit("success", result);
       } catch (error) {
         console.error(error);

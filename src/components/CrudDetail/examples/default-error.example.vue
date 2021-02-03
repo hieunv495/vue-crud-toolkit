@@ -8,6 +8,7 @@
       title="Post detail"
       :id="id"
       :api-get-one="apiGetOne"
+      :get-error-message="getErrorMessage"
       :dialog="dialog"
       :dialog-props="{
         maxWidth: 600,
@@ -43,6 +44,7 @@ export default {
   },
   methods: {
     apiGetOne: postsApi.getOne,
+    getErrorMessage: (e) => "Error occurred. " + e.message,
   },
 };
 </script>

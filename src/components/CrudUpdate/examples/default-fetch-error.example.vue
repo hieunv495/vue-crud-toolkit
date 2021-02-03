@@ -9,6 +9,7 @@
       title="Update post"
       :api-get-one="apiGetOne"
       :api-update="apiUpdate"
+      :get-error-message="getErrorMessage"
       :get-begin-form-data="getBeginFormData"
       :dialog="dialog"
       :dialog-props="{
@@ -50,8 +51,20 @@ export default {
   },
 
   methods: {
-    apiGetOne: () => Promise.reject(new Error("404 not found")),
-    apiUpdate: () => Promise.reject(new Error("Form data invalid")),
+    apiGetOne: () =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          reject(new Error("Not found"));
+        }, 1000);
+      }),
+    apiUpdate: () =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          reject(new Error("Update error"));
+        }, 1000);
+      }),
+
+    getErrorMessage: (e) => "Error occurred. " + e.message,
 
     getBeginFormData(fetchedData) {
       return JSON.parse(JSON.stringify(fetchedData));

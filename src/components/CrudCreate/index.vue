@@ -27,7 +27,9 @@
     </template>
 
     <slot v-if="errorMessage" name="error" v-bind="self">
-      <v-alert type="error">{{ errorMessage }}</v-alert>
+      <v-layout column class="my-2">
+        <v-alert type="error">{{ errorMessage }}</v-alert>
+      </v-layout>
     </slot>
     <slot v-bind="self" />
   </smart-window>

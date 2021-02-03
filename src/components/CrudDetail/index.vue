@@ -32,7 +32,11 @@
         </slot>
       </template>
       <slot v-else-if="error" name="error" v-bind="self">
-        <v-alert type="warning">{{ error }}</v-alert>
+        <error-report
+          :loading="loading"
+          :error-message="errorMessage"
+          @retry="loadData"
+        />
       </slot>
       <slot v-else-if="!data" name="empty">
         <v-alert type="warning">Empty</v-alert>
@@ -47,10 +51,11 @@
 <script>
 import SmartWindow from "../SmartWindow";
 import getErrorMessage from "../utils/getErrorMessage";
+import ErrorReport from "@/components/ErrorReport/index.vue";
 
 export default {
   name: "crud-detail",
-  components: { SmartWindow },
+  components: { SmartWindow, ErrorReport },
   props: {
     id: {
       type: [String, Number],

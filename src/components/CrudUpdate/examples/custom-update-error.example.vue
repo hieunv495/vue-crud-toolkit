@@ -10,6 +10,7 @@
       title="Update post"
       :api-get-one="apiGetOne"
       :api-update="apiUpdate"
+      :get-error-message="getErrorMessage"
       :get-begin-form-data="getBeginFormData"
       :dialog="dialog"
       :dialog-props="{
@@ -21,9 +22,11 @@
     >
       <!-- Add this block  -->
       <template #update-error="{ updateErrorMessage }">
-        <v-alert type="error">
-          This is custom error: '{{ updateErrorMessage }}'
-        </v-alert>
+        <v-layout column class="my-2">
+          <v-alert type="info">
+            This is custom error: '{{ updateErrorMessage }}'
+          </v-alert>
+        </v-layout>
       </template>
       <!-- End  -->
       <template #default="{ formBus, beginFormData, sendRequest }">
@@ -68,7 +71,14 @@ export default {
 
   methods: {
     apiGetOne: postsApi.getOne,
-    apiUpdate: () => Promise.reject(new Error("Form data invalid")),
+    apiUpdate: () =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          reject(new Error("Update error"));
+        }, 1000);
+      }),
+
+    getErrorMessage: (e) => "Error occurred. " + e.message,
 
     getBeginFormData(fetchedData) {
       console.log(fetchedData);

@@ -8,6 +8,7 @@
       title="Post detail"
       :id="id"
       :api-get-one="apiGetOne"
+      :get-error-message="getErrorMessage"
       :dialog="dialog"
       :dialog-props="{
         maxWidth: 600,
@@ -16,8 +17,15 @@
       @close="id = null"
     >
       <!-- Add this block  -->
-      <template #error="{ errorMessage }">
-        <div>Error is: '{{ errorMessage }}'</div>
+      <template #error="{ loading, errorMessage, loadData }">
+        <v-layout column justify-center align-center class="my-8">
+          <h2>Custom error</h2>
+          <v-alert min-width="200" type="info">{{ errorMessage }}</v-alert>
+          <v-btn :loading="loading" outlined @click="loadData">
+            <v-icon left>mdi-refresh</v-icon>
+            Retry
+          </v-btn>
+        </v-layout>
       </template>
       <!-- End  -->
       <template #default="{ data }">
@@ -48,6 +56,7 @@ export default {
   },
   methods: {
     apiGetOne: postsApi.getOne,
+    getErrorMessage: (e) => "Error occurred. " + e.message,
   },
 };
 </script>

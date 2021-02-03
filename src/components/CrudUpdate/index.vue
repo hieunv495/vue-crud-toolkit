@@ -31,12 +31,18 @@
       <v-skeleton-loader type="card" />
     </template>
 
-    <slot v-if="fetchErrorMessage" name="fetch-error" v-bind="self">
-      <v-alert type="error">{{ fetchErrorMessage }}</v-alert>
+    <slot v-if="fetchError" name="fetch-error" v-bind="self">
+      <error-report
+        :loading="fetchLoading"
+        :error-message="fetchErrorMessage"
+        @retry="fetchData"
+      />
     </slot>
 
-    <slot v-if="updateErrorMessage" name="update-error" v-bind="self">
-      <v-alert type="error">{{ updateErrorMessage }}</v-alert>
+    <slot v-if="updateError" name="update-error" v-bind="self">
+      <v-layout column class="my-2">
+        <v-alert type="error">{{ updateErrorMessage }}</v-alert>
+      </v-layout>
     </slot>
     <slot v-if="beginFormData" v-bind="self" />
   </smart-window>
@@ -46,10 +52,11 @@
 import Vue from "vue";
 import SmartWindow from "../SmartWindow";
 import getErrorMessage from "../utils/getErrorMessage";
+import ErrorReport from "@/components/ErrorReport/index.vue";
 
 export default {
   name: "crud-update",
-  components: { SmartWindow },
+  components: { SmartWindow, ErrorReport },
   props: {
     id: {
       type: [String, Number],

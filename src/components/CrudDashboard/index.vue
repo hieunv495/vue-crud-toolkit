@@ -62,7 +62,15 @@
       </slot>
     </slot>
 
-    <slot v-bind="self">
+    <slot v-if="error" name="error" v-bind="self">
+      <error-report
+        :loading="loading"
+        :error-message="errorMessage"
+        @retry="loadData"
+      />
+    </slot>
+
+    <slot v-else v-bind="self">
       Content display
       <pre>{{ JSON.stringify(items, undefined, 2) }}</pre>
     </slot>
@@ -118,11 +126,13 @@
 import getErrorMessage from "../utils/getErrorMessage";
 import TrashModeNavigation from "./TrashModeNavigation.vue";
 import SyncSearchParams from "@/components/utils/SyncSearchParams";
+import ErrorReport from "@/components/ErrorReport/index.vue";
 
 export default {
   name: "crud-dashboard",
   components: {
     TrashModeNavigation,
+    ErrorReport,
   },
   props: {
     router: {
@@ -383,6 +393,8 @@ export default {
         console.error(e);
         if (requestId === this.requestId) {
           this.error = e;
+          this.items = [];
+          this.count = 0;
         }
       } finally {
         if (requestId === this.requestId) {

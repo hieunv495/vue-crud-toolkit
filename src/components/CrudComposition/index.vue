@@ -5,6 +5,7 @@
         v-if="$scopedSlots['detail-content']"
         :id="detailId"
         :api-get-one="apiGetOne"
+        :get-error-message="getErrorMessage"
         :dialog="detailDialog"
         :dialog-props="detailDialogProps"
         :title="detailTitle"
@@ -22,6 +23,7 @@
         :visible="createVisible"
         :title="createTitle"
         :api-create="apiCreate"
+        :get-error-message="getErrorMessage"
         :get-begin-form-data="getBeginFormData"
         :dialog="createDialog"
         :dialog-props="createDialogProps"
@@ -46,6 +48,7 @@
         :title="updateTitle"
         :api-get-one="apiGetOne"
         :api-update="apiUpdate"
+        :get-error-message="getErrorMessage"
         :get-begin-form-data="getBeginFormData"
         :dialog="updateDialog"
         :dialog-props="updateDialogProps"
@@ -85,7 +88,8 @@
       <crud-confirm-dialog
         :id="removeId"
         :visible="!!removeId"
-        :request-api="apiRemove"
+        :api-request="apiRemove"
+        :get-error-message="getErrorMessage"
         :title="textRemoveTitle"
         :message="textRemoveMessage"
         :accept-button-label="textRemoveAcceptButtonLabel"
@@ -102,7 +106,8 @@
       <crud-confirm-dialog
         :id="restoreId"
         :visible="!!restoreId"
-        :request-api="apiRestore"
+        :api-request="apiRestore"
+        :get-error-message="getErrorMessage"
         :title="textRestoreTitle"
         :message="textRestoreMessage"
         :accept-button-label="textRestoreAcceptButtonLabel"
@@ -118,7 +123,8 @@
       <crud-confirm-dialog
         :id="purgeId"
         :visible="!!purgeId"
-        :request-api="apiPurge"
+        :api-request="apiPurge"
+        :get-error-message="getErrorMessage"
         :title="textPurgeTitle"
         :message="textPurgeMessage"
         :accept-button-label="textPurgeAcceptButtonLabel"
@@ -134,7 +140,8 @@
     <slot name="empty-trash" v-bind="self">
       <crud-confirm-dialog
         :visible="emptyTrashVisible"
-        :request-api="apiEmptyTrash"
+        :api-request="apiEmptyTrash"
+        :get-error-message="getErrorMessage"
         :title="textEmptyTrashTitle"
         :message="textEmptyTrashMessage"
         :accept-button-label="textEmptyTrashAcceptButtonLabel"
@@ -161,6 +168,7 @@
             :api-trash-pagination="apiTrashPagination"
             :api-normal-count="apiNormalCount"
             :api-trash-count="apiTrashCount"
+            :get-error-message="getErrorMessage"
             :has-trash="hasTrash"
             :title="dashboardTitle"
             :text-create="textCreate"
@@ -192,6 +200,7 @@
             v-if="$scopedSlots['detail-content']"
             :id="detailId"
             :api-get-one="apiGetOne"
+            :get-error-message="getErrorMessage"
             :dialog="detailDialog"
             :title="detailTitle"
             :text-back="textBack"
@@ -218,6 +227,7 @@
             :visible="createVisible"
             :title="createTitle"
             :api-create="apiCreate"
+            :get-error-message="getErrorMessage"
             :get-begin-form-data="getBeginFormData"
             :dialog="createDialog"
             :dialog-props="createDialogProps"
@@ -250,6 +260,7 @@
             :title="updateTitle"
             :api-get-one="apiGetOne"
             :api-update="apiUpdate"
+            :get-error-message="getErrorMessage"
             :get-begin-form-data="getBeginFormData"
             :dialog="updateDialog"
             :dialog-props="updateDialogProps"
@@ -273,7 +284,7 @@
 </template>
 
 <script>
-// import Vue from "vue";
+import getErrorMessage from "../utils/getErrorMessage";
 import SuccessSnackbar from "../snackbar/SuccessSnackbar.vue";
 import ErrorSnackbar from "../snackbar/ErrorSnackbar.vue";
 import CrudDashboard from "../CrudDashboard";
@@ -328,6 +339,11 @@ export default {
     apiRestore: { type: Function, default: null },
     apiPurge: { type: Function, default: null },
     apiEmptyTrash: { type: Function, default: null },
+
+    getErrorMessage: {
+      type: Function,
+      default: getErrorMessage,
+    },
 
     textCreate: {
       type: String,

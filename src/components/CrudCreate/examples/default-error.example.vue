@@ -9,6 +9,7 @@
       title="Create new item"
       :visible="visible"
       :api-create="apiCreate"
+      :get-error-message="getErrorMessage"
       :get-begin-form-data="getBeginFormData"
       :dialog="dialog"
       :dialog-props="{
@@ -56,7 +57,15 @@ export default {
   },
 
   methods: {
-    apiCreate: () => Promise.reject(new Error("Form data invalid")),
+    apiCreate: () =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          reject(new Error("Form data invalid"));
+        }, 1000);
+      }),
+
+    getErrorMessage: (e) => "Error occurred. " + e.message,
+
     getBeginFormData() {
       return {
         title: "Input your title",

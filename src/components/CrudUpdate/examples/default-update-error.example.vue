@@ -10,6 +10,7 @@
       title="Update post"
       :api-get-one="apiGetOne"
       :api-update="apiUpdate"
+      :get-error-message="getErrorMessage"
       :get-begin-form-data="getBeginFormData"
       :dialog="dialog"
       :dialog-props="{
@@ -61,7 +62,14 @@ export default {
 
   methods: {
     apiGetOne: postsApi.getOne,
-    apiUpdate: () => Promise.reject(new Error("Form data invalid")),
+    apiUpdate: () =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          reject(new Error("Update error"));
+        }, 1000);
+      }),
+
+    getErrorMessage: (e) => "Error occurred. " + e.message,
 
     getBeginFormData(fetchedData) {
       console.log(fetchedData);

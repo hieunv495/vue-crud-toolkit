@@ -9,6 +9,7 @@
       title="Create new item"
       :visible="visible"
       :api-create="apiCreate"
+      :get-error-message="getErrorMessage"
       :get-begin-form-data="getBeginFormData"
       :dialog="dialog"
       :dialog-props="{
@@ -20,9 +21,9 @@
     >
       <!-- Add this block  -->
       <template #error="{ errorMessage }">
-        <v-alert type="error">
-          This is custom error: '{{ errorMessage }}'
-        </v-alert>
+        <v-layout column class="my-2">
+          <v-alert type="info">{{ errorMessage }}</v-alert>
+        </v-layout>
       </template>
       <!-- End  -->
       <template #default="{ formBus, beginFormData, sendRequest }">
@@ -63,7 +64,14 @@ export default {
   },
 
   methods: {
-    apiCreate: () => Promise.reject(new Error("Form data invalid")),
+    apiCreate: () =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          reject(new Error("Form data invalid"));
+        }, 1000);
+      }),
+    getErrorMessage: (e) => "Error occurred. " + e.message,
+
     getBeginFormData() {
       return {
         title: "Input your title",

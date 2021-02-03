@@ -11030,12 +11030,12 @@ var ErrorSnackbar_component = normalizeComponent(
 )
 
 /* harmony default export */ var ErrorSnackbar = (ErrorSnackbar_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"b276d634-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CrudDashboard/index.vue?vue&type=template&id=22349c28&
-var CrudDashboardvue_type_template_id_22349c28_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._t("header",[_c('v-layout',{staticStyle:{"gap":"16px"},attrs:{"align-center":"","wrap":""}},[_c('v-flex',{attrs:{"shrink":""}},[_vm._t("header-title",[_c('v-layout',{attrs:{"justify-center":""}},[_c('v-flex',[_c('div',{staticClass:"text-h5"},[_vm._v(_vm._s(_vm.title))])])],1)],null,_vm.self)],2),_c('v-flex',[_vm._t("header-filter",null,null,_vm.self)],2),_c('v-flex',{attrs:{"shrink":""}},[_c('v-btn',{attrs:{"loading":_vm.loading,"icon":""},on:{"click":_vm.loadData}},[_c('v-icon',{attrs:{"color":"success"}},[_vm._v("mdi-refresh")])],1)],1),_c('v-flex',{attrs:{"shrink":""}},[_vm._t("header-actions",[(!_vm.trashMode)?_c('v-btn',{attrs:{"color":"success"},on:{"click":_vm.clickCreate}},[_c('v-icon',{attrs:{"left":""}},[_vm._v("mdi-plus")]),_vm._v(_vm._s(_vm.textCreate)+" ")],1):_c('v-btn',{attrs:{"color":"warning"},on:{"click":_vm.clickEmptyTrash}},[_c('v-icon',{attrs:{"left":""}},[_vm._v("mdi-delete")]),_vm._v(_vm._s(_vm.textEmptyTrash)+" ")],1)],null,_vm.self)],2)],1),_c('v-divider',{staticClass:"mt-4 mb-4"}),(_vm.hasTrash)?_vm._t("trash-mode-navigation",[_c('trash-mode-navigation',{attrs:{"trash-mode":_vm.trashMode,"normal-total":_vm.normalTotal,"trash-total":_vm.trashTotal,"text-normal":_vm.textNormal,"text-trash":_vm.textTrash},on:{"update-trash-mode":_vm.updateTrashMode}}),_c('v-divider')],null,_vm.self):_vm._e()],null,_vm.self),_vm._t("default",[_vm._v(" Content display "),_c('pre',[_vm._v(_vm._s(JSON.stringify(_vm.items, undefined, 2)))])],null,_vm.self),_vm._t("footer",[_c('v-layout',{attrs:{"align-center":"","wrap":""}},[_c('v-flex',{staticClass:"mr-2",attrs:{"shrink":""}},[_vm._t("footer-per-page",[_c('v-layout',[_c('v-flex',[_c('v-subheader',[_vm._v("Rows per page:")])],1),_c('v-flex',[_c('v-select',{staticStyle:{"width":"56px","font-size":"14px"},attrs:{"items":[5, 10, 20, 50, 100],"value":_vm.perPage,"dense":"","hide-details":""},on:{"input":_vm.updatePerPage}})],1)],1)],null,_vm.self)],2),_c('v-flex',{attrs:{"shrink":""}},[_vm._t("footer-statistic",[_c('v-subheader',[_vm._v(" "+_vm._s((_vm.page - 1) * _vm.perPage + 1)+" - "+_vm._s(_vm.page * _vm.perPage)+" of "+_vm._s(_vm.count)+" ")])],null,_vm.self)],2),_c('v-flex',[_vm._t("footer-pagination",[_c('v-row',{attrs:{"justify":"center"}},[_c('v-container',{staticStyle:{"max-width":"400px"}},[_c('v-pagination',{attrs:{"value":_vm.page,"length":Math.ceil(_vm.count / _vm.perPage) || 1},on:{"input":_vm.updatePage}})],1)],1)],null,_vm.self)],2)],1)],null,_vm.self)],2)}
-var CrudDashboardvue_type_template_id_22349c28_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"b276d634-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CrudDashboard/index.vue?vue&type=template&id=c8ff02d8&
+var CrudDashboardvue_type_template_id_c8ff02d8_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._t("header",[_c('v-layout',{staticStyle:{"gap":"16px"},attrs:{"align-center":"","wrap":""}},[_c('v-flex',{attrs:{"shrink":""}},[_vm._t("header-title",[_c('v-layout',{attrs:{"justify-center":""}},[_c('v-flex',[_c('div',{staticClass:"text-h5"},[_vm._v(_vm._s(_vm.title))])])],1)],null,_vm.self)],2),_c('v-flex',[_vm._t("header-filter",null,null,_vm.self)],2),_c('v-flex',{attrs:{"shrink":""}},[_c('v-btn',{attrs:{"loading":_vm.loading,"icon":""},on:{"click":_vm.loadData}},[_c('v-icon',{attrs:{"color":"success"}},[_vm._v("mdi-refresh")])],1)],1),_c('v-flex',{attrs:{"shrink":""}},[_vm._t("header-actions",[(!_vm.trashMode)?_c('v-btn',{attrs:{"color":"success"},on:{"click":_vm.clickCreate}},[_c('v-icon',{attrs:{"left":""}},[_vm._v("mdi-plus")]),_vm._v(_vm._s(_vm.textCreate)+" ")],1):_c('v-btn',{attrs:{"color":"warning"},on:{"click":_vm.clickEmptyTrash}},[_c('v-icon',{attrs:{"left":""}},[_vm._v("mdi-delete")]),_vm._v(_vm._s(_vm.textEmptyTrash)+" ")],1)],null,_vm.self)],2)],1),_c('v-divider',{staticClass:"mt-4 mb-4"}),(_vm.hasTrash)?_vm._t("trash-mode-navigation",[_c('trash-mode-navigation',{attrs:{"trash-mode":_vm.trashMode,"normal-total":_vm.normalTotal,"trash-total":_vm.trashTotal,"text-normal":_vm.textNormal,"text-trash":_vm.textTrash},on:{"update-trash-mode":_vm.updateTrashMode}}),_c('v-divider')],null,_vm.self):_vm._e()],null,_vm.self),(_vm.error)?_vm._t("error",[_c('v-layout',{staticClass:"my-8",attrs:{"column":"","justify-center":"","align-center":""}},[_c('v-alert',{attrs:{"min-width":"200","type":"warning"}},[_vm._v(_vm._s(_vm.errorMessage))]),_c('v-btn',{attrs:{"loading":_vm.loading,"outlined":""},on:{"click":_vm.loadData}},[_c('v-icon',{attrs:{"left":""}},[_vm._v("mdi-refresh")]),_vm._v(" Retry ")],1)],1)],null,_vm.self):_vm._t("default",[_vm._v(" Content display "),_c('pre',[_vm._v(_vm._s(JSON.stringify(_vm.items, undefined, 2)))])],null,_vm.self),_vm._t("footer",[_c('v-layout',{attrs:{"align-center":"","wrap":""}},[_c('v-flex',{staticClass:"mr-2",attrs:{"shrink":""}},[_vm._t("footer-per-page",[_c('v-layout',[_c('v-flex',[_c('v-subheader',[_vm._v("Rows per page:")])],1),_c('v-flex',[_c('v-select',{staticStyle:{"width":"56px","font-size":"14px"},attrs:{"items":[5, 10, 20, 50, 100],"value":_vm.perPage,"dense":"","hide-details":""},on:{"input":_vm.updatePerPage}})],1)],1)],null,_vm.self)],2),_c('v-flex',{attrs:{"shrink":""}},[_vm._t("footer-statistic",[_c('v-subheader',[_vm._v(" "+_vm._s((_vm.page - 1) * _vm.perPage + 1)+" - "+_vm._s(_vm.page * _vm.perPage)+" of "+_vm._s(_vm.count)+" ")])],null,_vm.self)],2),_c('v-flex',[_vm._t("footer-pagination",[_c('v-row',{attrs:{"justify":"center"}},[_c('v-container',{staticStyle:{"max-width":"400px"}},[_c('v-pagination',{attrs:{"value":_vm.page,"length":Math.ceil(_vm.count / _vm.perPage) || 1},on:{"input":_vm.updatePage}})],1)],1)],null,_vm.self)],2)],1)],null,_vm.self)],2)}
+var CrudDashboardvue_type_template_id_c8ff02d8_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/CrudDashboard/index.vue?vue&type=template&id=22349c28&
+// CONCATENATED MODULE: ./src/components/CrudDashboard/index.vue?vue&type=template&id=c8ff02d8&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
 var es_array_filter = __webpack_require__("4de4");
@@ -11570,6 +11570,16 @@ var SyncSearchParams_SyncSearchParams = function SyncSearchParams(_ref) {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -11895,6 +11905,8 @@ var SyncSearchParams_SyncSearchParams = function SyncSearchParams(_ref) {
 
                 if (requestId === _this3.requestId) {
                   _this3.error = _context3.t0;
+                  _this3.items = [];
+                  _this3.count = 0;
                 }
 
               case 26:
@@ -11928,8 +11940,8 @@ var SyncSearchParams_SyncSearchParams = function SyncSearchParams(_ref) {
 
 var CrudDashboard_component = normalizeComponent(
   components_CrudDashboardvue_type_script_lang_js_,
-  CrudDashboardvue_type_template_id_22349c28_render,
-  CrudDashboardvue_type_template_id_22349c28_staticRenderFns,
+  CrudDashboardvue_type_template_id_c8ff02d8_render,
+  CrudDashboardvue_type_template_id_c8ff02d8_staticRenderFns,
   false,
   null,
   null,

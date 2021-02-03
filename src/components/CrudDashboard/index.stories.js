@@ -32,6 +32,12 @@ import CustomTextExample_code from "!!raw-loader!./examples/CrudDashboard.custom
 import WithRouterExample from "./examples/CrudDashboard.with-router.example";
 import WithRouterExample_code from "!!raw-loader!./examples/CrudDashboard.with-router.example";
 
+import WithErrorExample from "./examples/CrudDashboard.with-error.example";
+import WithErrorExample_code from "!!raw-loader!./examples/CrudDashboard.with-error.example";
+
+import CustomErrorExample from "./examples/CrudDashboard.custom-error.example";
+import CustomErrorExample_code from "!!raw-loader!./examples/CrudDashboard.custom-error.example";
+
 export default {
   title: "CRUD/Dashboard",
   component: CrudDashboard,
@@ -186,12 +192,32 @@ CustomFooter.parameters = {
   },
 };
 
-// ----------- DEFAULT ------------
+// ----------- CUSTOM TEXT ------------
 export const CustomText = () => CustomTextExample;
 CustomText.parameters = {
   docs: {
     source: {
       code: CustomTextExample_code,
+    },
+  },
+};
+
+// ----------- WITH ERROR ------------
+export const WithError = () => WithErrorExample;
+WithError.parameters = {
+  docs: {
+    source: {
+      code: WithErrorExample_code,
+    },
+  },
+};
+
+// ----------- CUSTOM ERROR ------------
+export const CustomError = () => CustomErrorExample;
+CustomError.parameters = {
+  docs: {
+    source: {
+      code: CustomErrorExample_code,
     },
   },
 };

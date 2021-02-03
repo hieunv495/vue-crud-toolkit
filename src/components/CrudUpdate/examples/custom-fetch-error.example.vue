@@ -10,6 +10,7 @@
       :api-get-one="apiGetOne"
       :api-update="apiUpdate"
       :get-begin-form-data="getBeginFormData"
+      :get-error-message="getErrorMessage"
       :dialog="dialog"
       :dialog-props="{
         maxWidth: 600,
@@ -19,10 +20,16 @@
       @success="onSuccess"
     >
       <!-- Add this block  -->
-      <template #fetch-error="{ fetchErrorMessage }">
-        <v-alert type="error">
-          Fetch error is: '{{ fetchErrorMessage }}'
-        </v-alert>
+      <template #fetch-error="{ fetchLoading, fetchErrorMessage, fetchData }">
+        <v-layout column justify-center align-center class="my-8">
+          <v-alert min-width="200" type="info">
+            {{ fetchErrorMessage }}
+          </v-alert>
+          <v-btn :loading="fetchLoading" outlined @click="fetchData">
+            <v-icon left>mdi-refresh</v-icon>
+            Retry
+          </v-btn>
+        </v-layout>
       </template>
       <!-- End  -->
       <template #default="{ formBus, beginFormData, sendRequest }">
@@ -57,8 +64,20 @@ export default {
   },
 
   methods: {
-    apiGetOne: () => Promise.reject(new Error("404 not found")),
-    apiUpdate: () => Promise.reject(new Error("Form data invalid")),
+    apiGetOne: () =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          reject(new Error("Not found"));
+        }, 1000);
+      }),
+    apiUpdate: () =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          reject(new Error("Update error"));
+        }, 1000);
+      }),
+
+    getErrorMessage: (e) => "Error occurred. " + e.message,
 
     getBeginFormData(fetchedData) {
       return JSON.parse(JSON.stringify(fetchedData));

@@ -70,7 +70,7 @@
       <crud-confirm-dialog
         :id="removeId"
         :visible="!!removeId"
-        :request-api="apiRemove"
+        :api-request="apiRemove"
         title="Confirm remove"
         message="Are you sure?"
         @close="bus.$emit('close-remove')"
@@ -85,7 +85,7 @@
       <crud-confirm-dialog
         :id="restoreId"
         :visible="!!restoreId"
-        :request-api="apiRestore"
+        :api-request="apiRestore"
         title="Confirm restore"
         message="Are you sure?"
         @close="bus.$emit('close-restore')"
@@ -100,7 +100,7 @@
       <crud-confirm-dialog
         :id="purgeId"
         :visible="!!purgeId"
-        :request-api="apiPurge"
+        :api-request="apiPurge"
         title="Confirm purge"
         message="Are you sure?"
         @close="bus.$emit('close-purge')"
@@ -114,7 +114,7 @@
     <template #empty-trash="{ emptyTrashVisible }">
       <crud-confirm-dialog
         :visible="emptyTrashVisible"
-        :request-api="apiEmptyTrash"
+        :api-request="apiEmptyTrash"
         title="Confirm empty trash"
         message="Are you sure?"
         @close="bus.$emit('close-empty-trash')"

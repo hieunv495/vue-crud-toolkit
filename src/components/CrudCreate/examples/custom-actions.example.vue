@@ -27,7 +27,6 @@
       </template>
       <!-- End  -->
       <template #default="{ formBus, beginFormData, sendRequest }">
-        {{ JSON.stringify(beginFormData) }}
         <post-form
           :form-bus="formBus"
           :begin-form-data="beginFormData"

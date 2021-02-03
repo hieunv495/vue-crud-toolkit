@@ -27,6 +27,7 @@ export const parameters = {
           "Detail",
           "Create",
           "Update",
+          "ConfirmDialog",
           "Utils",
         ],
         "Example",
