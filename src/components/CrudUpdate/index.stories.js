@@ -7,6 +7,9 @@ import CustomTitleExample_code from "!!raw-loader!./examples/custom-title.exampl
 import CustomActionsExample from "./examples/custom-actions.example.vue";
 import CustomActionsExample_code from "!!raw-loader!./examples/custom-actions.example.vue";
 
+import CustomHeaderExample from "./examples/custom-header.example.vue";
+import CustomHeaderExample_code from "!!raw-loader!./examples/custom-header.example.vue";
+
 import DefaultFetchErrorExample from "./examples/default-fetch-error.example.vue";
 import DefaultFetchErrorExample_code from "!!raw-loader!./examples/default-fetch-error.example.vue";
 
@@ -68,6 +71,16 @@ CustomActions.parameters = {
   docs: {
     source: {
       code: CustomActionsExample_code,
+    },
+  },
+};
+
+// ------------ CUSTOM ACTIONS ------------
+export const CustomHeader = () => CustomHeaderExample;
+CustomHeader.parameters = {
+  docs: {
+    source: {
+      code: CustomHeaderExample_code,
     },
   },
 };

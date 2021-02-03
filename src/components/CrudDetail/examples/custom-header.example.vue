@@ -16,9 +16,11 @@
       @close="id = null"
     >
       <!-- Add this block -->
-      <template #header>
+      <template #header="{ close, title, loadData }">
         <div style="background-color: grey; padding: 8px; color: white">
-          Custom header
+          <v-btn @click="close"> Close </v-btn>
+          Custom title: {{ title }}
+          <v-btn @click="loadData"> Load data </v-btn>
         </div>
       </template>
       <!-- End  -->

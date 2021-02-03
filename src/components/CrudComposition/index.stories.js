@@ -28,6 +28,12 @@ import CustomTextExample_code from "!!raw-loader!./examples/custom-text.vue";
 import WithErrorExample from "./examples/with-error.vue";
 import WithErrorExample_code from "!!raw-loader!./examples/with-error.vue";
 
+import CustomTitleActionsExample from "./examples/custom-title-actions.vue";
+import CustomTitleActionsExample_code from "!!raw-loader!./examples/custom-title-actions.vue";
+
+import CustomHeaderExample from "./examples/custom-header.vue";
+import CustomHeaderExample_code from "!!raw-loader!./examples/custom-header.vue";
+
 import CrudComposition from "./index";
 
 export default {
@@ -156,6 +162,26 @@ WithError.parameters = {
   docs: {
     source: {
       code: WithErrorExample_code,
+    },
+  },
+};
+
+// ------------ CUSTOM TITLE ACTIONS   ------------
+export const CustomTitleActions = () => CustomTitleActionsExample;
+CustomTitleActions.parameters = {
+  docs: {
+    source: {
+      code: CustomTitleActionsExample_code,
+    },
+  },
+};
+
+// ------------ CUSTOM HEADER    ------------
+export const CustomHeader = () => CustomHeaderExample;
+CustomHeader.parameters = {
+  docs: {
+    source: {
+      code: CustomHeaderExample_code,
     },
   },
 };

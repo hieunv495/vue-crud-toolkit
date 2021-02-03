@@ -1,20 +1,5 @@
 <template>
   <div>
-    <slot v-if="detailConfig.dialog" name="detail" v-bind="self">
-      <crud-detail
-        v-if="$scopedSlots['detail-content']"
-        :id="detailId"
-        :api-get-one="apiGetOne"
-        :get-error-message="getErrorMessage"
-        :dialog="true"
-        :dialog-props="detailConfig.dialogProps"
-        @close="bus.$emit('close-detail')"
-      >
-        <template #default="detail">
-          <slot name="detail-content" v-bind="detail" />
-        </template>
-      </crud-detail>
-    </slot>
     <slot v-if="createConfig.dialog" name="create" v-bind="self">
       <crud-create
         v-if="$scopedSlots['create-content']"
@@ -31,11 +16,46 @@
           bus.$emit('dashboard-go-to-page', 1);
         "
       >
+        <template v-if="$scopedSlots['create-header']" #header="create">
+          <slot name="create-header" v-bind="create" />
+        </template>
+        <template v-if="$scopedSlots['create-title']" #title="create">
+          <slot name="create-title" v-bind="create" />
+        </template>
+        <template v-if="$scopedSlots['create-actions']" #actions="create">
+          <slot name="create-actions" v-bind="create" />
+        </template>
         <template #default="create">
           <slot name="create-content" v-bind="create" />
         </template>
       </crud-create>
     </slot>
+
+    <slot v-if="detailConfig.dialog" name="detail" v-bind="self">
+      <crud-detail
+        v-if="$scopedSlots['detail-content']"
+        :id="detailId"
+        :api-get-one="apiGetOne"
+        :get-error-message="getErrorMessage"
+        :dialog="true"
+        :dialog-props="detailConfig.dialogProps"
+        @close="bus.$emit('close-detail')"
+      >
+        <template v-if="$scopedSlots['detail-header']" #header="detail">
+          <slot name="detail-header" v-bind="detail" />
+        </template>
+        <template v-if="$scopedSlots['detail-title']" #title="detail">
+          <slot name="detail-title" v-bind="detail" />
+        </template>
+        <template v-if="$scopedSlots['detail-actions']" #actions="detail">
+          <slot name="detail-actions" v-bind="detail" />
+        </template>
+        <template #default="detail">
+          <slot name="detail-content" v-bind="detail" />
+        </template>
+      </crud-detail>
+    </slot>
+
     <slot v-if="updateConfig.dialog" name="update" v-bind="self">
       <crud-update
         v-if="$scopedSlots['update-content']"
@@ -53,6 +73,15 @@
           bus.$emit('dashboard-refresh');
         "
       >
+        <template v-if="$scopedSlots['update-header']" #header="update">
+          <slot name="update-header" v-bind="update" />
+        </template>
+        <template v-if="$scopedSlots['update-title']" #title="update">
+          <slot name="update-title" v-bind="update" />
+        </template>
+        <template v-if="$scopedSlots['update-actions']" #actions="update">
+          <slot name="update-actions" v-bind="update" />
+        </template>
         <template #default="update">
           <slot name="update-content" v-bind="update" />
         </template>
@@ -197,6 +226,15 @@
               bus.$emit('dashboard-go-to-page', 1);
             "
           >
+            <template v-if="$scopedSlots['create-header']" #header="create">
+              <slot name="create-header" v-bind="create" />
+            </template>
+            <template v-if="$scopedSlots['create-title']" #title="create">
+              <slot name="create-title" v-bind="create" />
+            </template>
+            <template v-if="$scopedSlots['create-actions']" #actions="create">
+              <slot name="create-actions" v-bind="create" />
+            </template>
             <template #default="create">
               <slot name="create-content" v-bind="create" />
             </template>
@@ -220,6 +258,15 @@
             :dialog="false"
             @close="bus.$emit('close-detail')"
           >
+            <template v-if="$scopedSlots['detail-header']" #header="detail">
+              <slot name="detail-header" v-bind="detail" />
+            </template>
+            <template v-if="$scopedSlots['detail-title']" #title="detail">
+              <slot name="detail-title" v-bind="detail" />
+            </template>
+            <template v-if="$scopedSlots['detail-actions']" #actions="detail">
+              <slot name="detail-actions" v-bind="detail" />
+            </template>
             <template #default="detail">
               <slot name="detail-content" v-bind="detail">
                 Detail content
@@ -252,13 +299,22 @@
               bus.$emit('dashboard-refresh');
             "
           >
+            <template v-if="$scopedSlots['update-header']" #header="update">
+              <slot name="update-header" v-bind="update" />
+            </template>
+            <template v-if="$scopedSlots['update-title']" #title="update">
+              <slot name="update-title" v-bind="update" />
+            </template>
+            <template v-if="$scopedSlots['update-actions']" #actions="update">
+              <slot name="update-actions" v-bind="update" />
+            </template>
             <template #default="update">
               <slot name="update-content" v-bind="update" />
             </template>
           </crud-update>
         </slot>
       </v-window-item>
-      <v-window-item value="EMMPTY"></v-window-item>
+      <v-window-item value="EMPTY"></v-window-item>
     </v-window>
   </div>
 </template>

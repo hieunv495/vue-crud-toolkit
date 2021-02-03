@@ -6,6 +6,11 @@
     :dialog-props="dialogProps"
     @close="$emit('close')"
   >
+    <template v-if="$scopedSlots.header" #header>
+      <!-- @slot Custom your header -->
+      <slot name="header" v-bind="self" />
+    </template>
+
     <template v-if="$scopedSlots.title" #title>
       <slot name="title" v-bind="self" />
     </template>
@@ -139,6 +144,10 @@ export default {
   methods: {
     submit() {
       this.formBus.$emit("submit");
+    },
+
+    close() {
+      this.$emit("close");
     },
 
     async fetchData() {

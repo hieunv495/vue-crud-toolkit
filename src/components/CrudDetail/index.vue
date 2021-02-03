@@ -119,6 +119,9 @@ export default {
   },
 
   methods: {
+    close() {
+      this.$emit("close");
+    },
     async loadData() {
       const requestId = ++this.requestId;
       try {
