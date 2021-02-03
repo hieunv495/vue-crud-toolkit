@@ -25,6 +25,9 @@ import CustomRemoveRestorePurgeEmptyTrashExample_code from "!!raw-loader!./examp
 import CustomTextExample from "./examples/custom-text.vue";
 import CustomTextExample_code from "!!raw-loader!./examples/custom-text.vue";
 
+import WithErrorExample from "./examples/with-error.vue";
+import WithErrorExample_code from "!!raw-loader!./examples/with-error.vue";
+
 import CrudComposition from "./index";
 
 export default {
@@ -143,6 +146,16 @@ CustomText.parameters = {
   docs: {
     source: {
       code: CustomTextExample_code,
+    },
+  },
+};
+
+// ------------ WITH ERROR   ------------
+export const WithError = () => WithErrorExample;
+WithError.parameters = {
+  docs: {
+    source: {
+      code: WithErrorExample_code,
     },
   },
 };

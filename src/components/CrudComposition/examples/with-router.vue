@@ -26,7 +26,7 @@
       :api-restore="apiRestore"
       :api-purge="apiPurge"
       :api-empty-trash="apiEmptyTrash"
-      detailTitle="Post detail"
+      detail-title="Post detail"
       dashboard-title="Post manager"
       create-title="Create new post"
       update-title="Update post"
