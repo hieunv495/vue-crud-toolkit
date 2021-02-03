@@ -1,5 +1,6 @@
 import { Meta, Source } from "@storybook/addon-docs/blocks";
 import example from "!!raw-loader!../components/posts/PostForm.vue";
+import mixin from "!!raw-loader!../mixins/CrudFormMixin.js";
 
 <Meta title="CRUD/Form structure" />
 
@@ -8,3 +9,7 @@ import example from "!!raw-loader!../components/posts/PostForm.vue";
 **PostForm.vue**
 
 <Source language="html" code={example} />
+
+**CrudFormMixin.js**
+
+<Source language="js" code={mixin} />

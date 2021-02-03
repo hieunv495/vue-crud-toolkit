@@ -10705,6 +10705,7 @@ __webpack_require__.d(__webpack_exports__, "CrudConfirmDialog", function() { ret
 __webpack_require__.d(__webpack_exports__, "SuccessSnackbar", function() { return /* reexport */ SuccessSnackbar; });
 __webpack_require__.d(__webpack_exports__, "ErrorSnackbar", function() { return /* reexport */ ErrorSnackbar; });
 __webpack_require__.d(__webpack_exports__, "DefaultSearchTextFilter", function() { return /* reexport */ DefaultSearchTextFilter; });
+__webpack_require__.d(__webpack_exports__, "CrudFormMixin", function() { return /* reexport */ CrudFormMixin; });
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 // This file is imported into lib/wc client bundles.
@@ -13955,7 +13956,55 @@ var DefaultSearchTextFilter_component = normalizeComponent(
 )
 
 /* harmony default export */ var DefaultSearchTextFilter = (DefaultSearchTextFilter_component.exports);
+// CONCATENATED MODULE: ./src/mixins/CrudFormMixin.js
+/* harmony default export */ var CrudFormMixin = ({
+  props: {
+    formBus: {
+      type: Object,
+      default: null
+    },
+    beginFormData: {
+      type: Object,
+      required: true
+    },
+    sendRequest: {
+      type: Function,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      valid: false,
+      formData: JSON.parse(JSON.stringify(this.beginFormData)),
+      rules: {
+        required: function required(value) {
+          return !!value || "This field is required";
+        }
+      }
+    };
+  },
+  created: function created() {
+    if (this.formBus) {
+      this.formBus.$on("submit", this.submit);
+    }
+  },
+  destroyed: function destroyed() {
+    if (this.formBus) {
+      this.formBus.$off("submit", this.submit);
+    }
+  },
+  methods: {
+    submit: function submit() {
+      this.$refs.form.validate();
+
+      if (this.valid) {
+        this.sendRequest(this.formData);
+      }
+    }
+  }
+});
 // CONCATENATED MODULE: ./src/main.js
+
 
 
 

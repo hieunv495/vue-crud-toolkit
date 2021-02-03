@@ -7,6 +7,7 @@ import CrudConfirmDialog from "./components/CrudConfirmDialog/index.vue";
 import SuccessSnackbar from "./components/snackbar/SuccessSnackbar";
 import ErrorSnackbar from "./components/snackbar/ErrorSnackbar";
 import DefaultSearchTextFilter from "./components/CrudDashboard/DefaultSearchTextFilter";
+import CrudFormMixin from "./mixins/CrudFormMixin";
 
 const components = {
   "crud-composition": CrudComposition,
@@ -30,6 +31,7 @@ export {
   SuccessSnackbar,
   ErrorSnackbar,
   DefaultSearchTextFilter,
+  CrudFormMixin,
 };
 
 const ComponentLibrary = {

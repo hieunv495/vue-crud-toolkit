@@ -64,6 +64,10 @@ git clone git@github.com:hieunv495/vue-crud-toolkit.git
 
 ## Changelog
 
+### 3.2.0
+
+- Add form mixin
+
 ### 3.1.1
 
 - Remove location back when close detail in composition router
