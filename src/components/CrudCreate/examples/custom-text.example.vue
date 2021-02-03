@@ -5,7 +5,6 @@
     </v-layout>
 
     <crud-create
-      title="Create new item"
       :visible="visible"
       :api-create="apiCreate"
       :get-begin-form-data="getBeginFormData"
@@ -14,8 +13,6 @@
         maxWidth: 600,
         persistent: false,
       }"
-      text-back="Trở lại"
-      text-create-submit="Lưu"
       @close="visible = false"
       @success="onSuccess"
     >
@@ -38,6 +35,11 @@ import PostForm from "@/components/posts/PostForm.vue";
 export default {
   name: "custom-text-example",
   components: { CrudCreate, PostForm },
+  provide: {
+    textBack: "Trở lại",
+    textCreateTitle: "Thêm bài viết",
+    textCreateSubmit: "Thêm mới",
+  },
   props: {
     dialog: {
       type: Boolean,

@@ -20,7 +20,7 @@
         <slot name="actions" v-bind="self">
           <v-layout justify-end>
             <v-btn color="darken-1" text class="mr-2" @click="$emit('close')">
-              {{ cancelButtonLabel }}
+              {{ cancelButtonLabel || textCancel }}
             </v-btn>
             <v-btn
               :loading="loading"
@@ -28,7 +28,7 @@
               text
               @click="sendRequest"
             >
-              {{ acceptButtonLabel }}
+              {{ acceptButtonLabel || textAccept }}
             </v-btn>
           </v-layout>
         </slot>
@@ -42,13 +42,17 @@ import getErrorMessage from "../utils/getErrorMessage";
 
 export default {
   name: "crud-confirm-dialog",
+  inject: {
+    textCancel: { default: "Cancel" },
+    textAccept: { default: "Accept" },
+  },
   props: {
     id: { type: [String, Number], default: null },
     visible: { type: Boolean, required: true },
     title: { type: String, required: true },
     message: { type: String, required: true },
-    cancelButtonLabel: { type: String, default: "Cancel" },
-    acceptButtonLabel: { type: String, default: "Accept" },
+    cancelButtonLabel: { type: String, default: null },
+    acceptButtonLabel: { type: String, default: null },
     apiRequest: { type: Function, required: true },
     getErrorMessage: { type: Function, default: getErrorMessage },
   },

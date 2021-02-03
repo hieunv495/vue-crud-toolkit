@@ -1,10 +1,9 @@
 <template>
   <smart-window
     :visible="visible"
-    :title="title"
+    :title="title || textCreateTitle"
     :dialog="dialog"
     :dialog-props="dialogProps"
-    :text-back="textBack"
     @close="$emit('close')"
   >
     <template v-if="$scopedSlots.title" #title>
@@ -43,6 +42,10 @@ import getErrorMessage from "../utils/getErrorMessage";
 export default {
   name: "crud-create",
   components: { SmartWindow },
+  inject: {
+    textCreateTitle: { default: "Create" },
+    textCreateSubmit: { default: "Create" },
+  },
   props: {
     apiCreate: {
       type: Function,
@@ -62,7 +65,7 @@ export default {
     },
     title: {
       type: String,
-      required: true,
+      default: null,
     },
     dialog: {
       type: Boolean,
@@ -71,14 +74,6 @@ export default {
     dialogProps: {
       type: Object,
       default: () => ({}),
-    },
-    textBack: {
-      type: String,
-      default: "Back",
-    },
-    textCreateSubmit: {
-      type: String,
-      default: "Save",
     },
   },
   data() {

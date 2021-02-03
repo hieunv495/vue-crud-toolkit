@@ -110,16 +110,3 @@ export const CustomHeader = (args, { argTypes }) => ({
 CustomHeader.args = {
   ...Default.args,
 };
-
-// ------------ CUSTOM TEXT ------------
-export const CustomText = Template.bind({});
-CustomText.args = {
-  visible: true,
-  title: "Custom text",
-  dialog: false,
-  dialogProps: {
-    maxWidth: 600,
-    persistent: false,
-  },
-  textBack: "Trở lại",
-};

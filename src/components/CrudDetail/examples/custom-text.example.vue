@@ -13,7 +13,6 @@
         maxWidth: 600,
         persistent: false,
       }"
-      text-back="Trở lại"
       @close="id = null"
     >
       <template #default="{ data }">
@@ -31,6 +30,9 @@ import postsApi from "@/apis/posts.api";
 export default {
   name: "crud-detail-custom-text-example",
   components: { CrudDetail },
+  provide: {
+    textBack: "Trở lại",
+  },
   props: {
     dialog: {
       type: Boolean,

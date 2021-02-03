@@ -1,10 +1,9 @@
 <template>
   <smart-window
     :visible="!!id"
-    :title="title"
+    :title="title || textDetailTitle"
     :dialog="dialog"
     :dialog-props="dialogProps"
-    :text-back="textBack"
     @close="$emit('close')"
   >
     <template v-if="$scopedSlots.header" #header>
@@ -56,6 +55,9 @@ import ErrorReport from "@/components/ErrorReport/index.vue";
 export default {
   name: "crud-detail",
   components: { SmartWindow, ErrorReport },
+  inject: {
+    textDetailTitle: { default: "Detail" },
+  },
   props: {
     id: {
       type: [String, Number],
@@ -75,7 +77,7 @@ export default {
     },
     title: {
       type: String,
-      required: true,
+      default: null,
     },
     dialog: {
       type: Boolean,
@@ -84,10 +86,6 @@ export default {
     dialogProps: {
       type: Object,
       default: () => ({}),
-    },
-    textBack: {
-      type: String,
-      default: "Back",
     },
   },
   data() {

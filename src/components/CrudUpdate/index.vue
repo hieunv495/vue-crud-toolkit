@@ -1,10 +1,9 @@
 <template>
   <smart-window
     :visible="!!id"
-    :title="title"
+    :title="title || textUpdateTitle"
     :dialog="dialog"
     :dialog-props="dialogProps"
-    :text-back="textBack"
     @close="$emit('close')"
   >
     <template v-if="$scopedSlots.title" #title>
@@ -57,6 +56,10 @@ import ErrorReport from "@/components/ErrorReport/index.vue";
 export default {
   name: "crud-update",
   components: { SmartWindow, ErrorReport },
+  inject: {
+    textUpdateSubmit: { default: "Update" },
+    textUpdateTitle: { default: "Update" },
+  },
   props: {
     id: {
       type: [String, Number],
@@ -80,7 +83,7 @@ export default {
     },
     title: {
       type: String,
-      required: true,
+      default: null,
     },
     dialog: {
       type: Boolean,
@@ -89,14 +92,6 @@ export default {
     dialogProps: {
       type: Object,
       default: () => ({}),
-    },
-    textBack: {
-      type: String,
-      default: "Back",
-    },
-    textUpdateSubmit: {
-      type: String,
-      default: "Save",
     },
   },
   data() {

@@ -1,49 +1,5 @@
 <template>
-  <crud-composition
-    :bus="bus"
-    :detail-dialog="dialog"
-    :create-dialog="dialog"
-    :update-dialog="dialog"
-    has-trash
-    :default-filter="{ q: '' }"
-    :default-page="1"
-    :default-per-page="5"
-    :get-begin-form-data="getBeginFormData"
-    :api-normal-pagination="apiNormalPagination"
-    :api-trash-pagination="apiTrashPagination"
-    :api-normal-count="apiNormalCount"
-    :api-trash-count="apiTrashCount"
-    :api-get-one="apiGetOne"
-    :api-create="apiCreate"
-    :api-update="apiUpdate"
-    :api-remove="apiRemove"
-    :api-restore="apiRestore"
-    :api-purge="apiPurge"
-    :api-empty-trash="apiEmptyTrash"
-    detail-title="Post detail"
-    dashboard-title="Post manager"
-    create-title="Create new post"
-    update-title="Update post"
-    text-create="Thêm mới"
-    text-normal="Bình thường"
-    text-trash="Thùng rác"
-    text-empty-trash="Dọn dẹp thùng rác"
-    text-back="Trở lại"
-    text-create-submit="Lưu"
-    text-update-submit="Cập nhật"
-    text-remove-title="Xác nhận xóa"
-    text-remove-message="Bạn có chắc chắn?"
-    text-remove-accept-button-label="Xóa"
-    text-restore-title="Xác nhận khôi phục"
-    text-restore-message="Bạn có chắc chắn?"
-    text-restore-accept-button-label="Khôi phục"
-    text-purge-title="Xác nhận dọn dẹp"
-    text-purge-message="Bạn có chắc chắn?"
-    text-purge-accept-button-label="Dọn dẹp"
-    text-empty-trash-title="Xác nhận dọn dẹp thùng rác"
-    text-empty-trash-message="Bạn có chắc chắn?"
-    text-empty-trash-accept-button-label="Dọn dẹp thùng rác"
-  >
+  <crud-composition :bus="bus">
     <template #dashboard-header-filter="{ loading, filter, updateFilter }">
       <default-search-text-filter
         :loading="loading"
@@ -93,6 +49,16 @@ import PostsTable from "@/components/posts/PostsTable";
 import PostForm from "@/components/posts/PostForm";
 import postsApi from "@/apis/posts.api";
 
+const getBeginFormData = (fetchedData) => {
+  if (fetchedData) {
+    return JSON.parse(JSON.stringify(fetchedData));
+  }
+  return {
+    title: "",
+    description: "",
+  };
+};
+
 export default {
   name: "crud-composition-custom-text-example",
   components: {
@@ -101,6 +67,95 @@ export default {
     PostsTable,
     PostForm,
   },
+  provide() {
+    return {
+      router: false,
+      hasTrash: true,
+
+      dashboardConfig: {
+        defaultFilter: { q: "" },
+        defaultPage: 1,
+        defaultPerPage: 10,
+      },
+
+      detailConfig: {
+        dialog: this.dialog,
+        dialogProps: { maxWidth: 800 },
+      },
+
+      createConfig: {
+        getBeginFormData,
+        dialog: this.dialog,
+        dialogProps: { maxWidth: 800 },
+      },
+
+      updateConfig: {
+        getBeginFormData,
+        dialog: this.dialog,
+        dialogProps: { maxWidth: 800 },
+      },
+
+      getErrorMessage: (e) => e.message,
+
+      apiNormalPagination: postsApi.getPagination,
+      apiTrashPagination: postsApi.getTrashPagination,
+      apiNormalCount: postsApi.normalCount,
+      apiTrashCount: postsApi.trashCount,
+      apiGetOne: postsApi.getOne,
+      apiCreate: postsApi.create,
+      apiUpdate: postsApi.update,
+      apiRemove: postsApi.remove,
+      apiRestore: postsApi.restore,
+      apiPurge: postsApi.purge,
+      apiEmptyTrash: postsApi.emptyTrash,
+
+      textDashboardTitle: "Quản lý bài viết",
+      textNormal: "Bình thường",
+      textTrash: "Thùng rác",
+      textBack: "Trở lại",
+      textCancel: "Hủy",
+      textAccept: "Đồng ý",
+      textClose: "Đóng",
+
+      textDetailTitle: "Chi tiết bài viết",
+      textDetailActivator: "Chi tiết",
+
+      textCreateTitle: "Thêm mới bài viết",
+      textCreateActivator: "Thêm mới",
+      textCreateSubmit: "Lưu",
+      textCreateSuccess: "Thêm mới thành công",
+
+      textUpdateTitle: "Cập nhật bài viết",
+      textUpdateActivator: "Cập nhật",
+      textUpdateSubmit: "Cập nhật",
+      textUpdateSuccess: "Cập nhật thành công",
+
+      textRemoveTitle: "Xác nhận xóa",
+      textRemoveMessage: "Bạn có chắc chắn?",
+      textRemoveActivator: "Xóa",
+      textRemoveSubmit: "Xóa",
+      textRemoveSuccess: "Xóa thành công",
+
+      textRestoreTitle: "Xác nhận khôi phục",
+      textRestoreMessage: "Bạn có chắc chắn?",
+      textRestoreActivator: "Khôi phục",
+      textRestoreSubmit: "Khôi phục",
+      textRestoreSuccess: "Khôi phục thành công",
+
+      textPurgeTitle: "Xác nhận dọn dẹp",
+      textPurgeMessage: "Bạn có chắc chắn?",
+      textPurgeActivator: "Dọn dẹp",
+      textPurgeSubmit: "Dọn dẹp",
+      textPurgeSuccess: "Dọn dẹp thành công",
+
+      textEmptyTrashTitle: "Xác nhận dọn dẹp thùng rác",
+      textEmptyTrashMessage: "Bạn có chắc chắn?",
+      textEmptyTrashActivator: "Dọn dẹp thùng rác",
+      textEmptyTrashSubmit: "Dọn dẹp thùng rác",
+      textEmptyTrashSuccess: "Dọn dẹp thùng rác thành công",
+    };
+  },
+
   props: {
     dialog: {
       type: Boolean,

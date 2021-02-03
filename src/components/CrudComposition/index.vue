@@ -1,15 +1,13 @@
 <template>
   <div>
-    <slot v-if="detailDialog" name="detail" v-bind="self">
+    <slot v-if="detailConfig.dialog" name="detail" v-bind="self">
       <crud-detail
         v-if="$scopedSlots['detail-content']"
         :id="detailId"
         :api-get-one="apiGetOne"
         :get-error-message="getErrorMessage"
-        :dialog="detailDialog"
-        :dialog-props="detailDialogProps"
-        :title="detailTitle"
-        :text-back="textBack"
+        :dialog="true"
+        :dialog-props="detailConfig.dialogProps"
         @close="bus.$emit('close-detail')"
       >
         <template #default="detail">
@@ -17,22 +15,19 @@
         </template>
       </crud-detail>
     </slot>
-    <slot v-if="createDialog" name="create" v-bind="self">
+    <slot v-if="createConfig.dialog" name="create" v-bind="self">
       <crud-create
         v-if="$scopedSlots['create-content']"
         :visible="createVisible"
-        :title="createTitle"
         :api-create="apiCreate"
         :get-error-message="getErrorMessage"
-        :get-begin-form-data="getBeginFormData"
-        :dialog="createDialog"
-        :dialog-props="createDialogProps"
-        :text-back="textBack"
-        :text-create-submit="textCreateSubmit"
+        :get-begin-form-data="createConfig.getBeginFormData"
+        :dialog="true"
+        :dialog-props="createConfig.dialogProps"
         @close="bus.$emit('close-create')"
         @success="
           bus.$emit('close-create');
-          bus.$emit('notify-success', 'Create success!');
+          bus.$emit('notify-success', textCreateSuccess);
           bus.$emit('dashboard-go-to-page', 1);
         "
       >
@@ -41,23 +36,20 @@
         </template>
       </crud-create>
     </slot>
-    <slot v-if="updateDialog" name="update" v-bind="self">
+    <slot v-if="updateConfig.dialog" name="update" v-bind="self">
       <crud-update
         v-if="$scopedSlots['update-content']"
         :id="updateId"
-        :title="updateTitle"
         :api-get-one="apiGetOne"
         :api-update="apiUpdate"
         :get-error-message="getErrorMessage"
-        :get-begin-form-data="getBeginFormData"
-        :dialog="updateDialog"
-        :dialog-props="updateDialogProps"
-        :text-back="textBack"
-        :text-update-submit="textUpdateSubmit"
+        :get-begin-form-data="updateConfig.getBeginFormData"
+        :dialog="true"
+        :dialog-props="updateConfig.dialogProps"
         @close="bus.$emit('close-update')"
         @success="
           bus.$emit('close-update');
-          bus.$emit('notify-success', 'Update success');
+          bus.$emit('notify-success', textUpdateSuccess);
           bus.$emit('dashboard-refresh');
         "
       >
@@ -92,11 +84,11 @@
         :get-error-message="getErrorMessage"
         :title="textRemoveTitle"
         :message="textRemoveMessage"
-        :accept-button-label="textRemoveAcceptButtonLabel"
+        :accept-button-label="textRemoveSubmit"
         @close="bus.$emit('close-remove')"
         @success="
           bus.$emit('close-remove');
-          bus.$emit('notify-success', 'Remove success');
+          bus.$emit('notify-success', textRemoveSuccess);
           bus.$emit('dashboard-refresh');
         "
       />
@@ -110,11 +102,11 @@
         :get-error-message="getErrorMessage"
         :title="textRestoreTitle"
         :message="textRestoreMessage"
-        :accept-button-label="textRestoreAcceptButtonLabel"
+        :accept-button-label="textRestoreSubmit"
         @close="bus.$emit('close-restore')"
         @success="
           bus.$emit('close-restore');
-          bus.$emit('notify-success', 'Restore success');
+          bus.$emit('notify-success', textRestoreSuccess);
           bus.$emit('dashboard-refresh');
         "
       />
@@ -127,11 +119,11 @@
         :get-error-message="getErrorMessage"
         :title="textPurgeTitle"
         :message="textPurgeMessage"
-        :accept-button-label="textPurgeAcceptButtonLabel"
+        :accept-button-label="textPurgeSubmit"
         @close="bus.$emit('close-purge')"
         @success="
           bus.$emit('close-purge');
-          bus.$emit('notify-success', 'Purge success');
+          bus.$emit('notify-success', textPurgeSuccess);
           bus.$emit('dashboard-refresh');
         "
       />
@@ -144,37 +136,32 @@
         :get-error-message="getErrorMessage"
         :title="textEmptyTrashTitle"
         :message="textEmptyTrashMessage"
-        :accept-button-label="textEmptyTrashAcceptButtonLabel"
+        :accept-button-label="textEmptyTrashSubmit"
         @close="bus.$emit('close-empty-trash')"
         @success="
           bus.$emit('close-empty-trash');
-          bus.$emit('notify-success', 'Empty trash success');
+          bus.$emit('notify-success', textEmptyTrashSuccess);
           bus.$emit('dashboard-refresh');
         "
       />
     </slot>
 
     <v-window :value="page">
-      <v-window-item value="DASHBOARD">
+      <v-window-item :value="DASHBOARD">
         <slot name="dashboard" v-bind="self">
           <crud-dashboard
             v-if="$scopedSlots['dashboard-content']"
             :router="router"
             :bus="bus"
-            :default-filter="defaultFilter"
-            :default-page="defaultPage"
-            :default-perPage="defaultPerPage"
+            :default-filter="dashboardConfig.defaultFilter"
+            :default-page="dashboardConfig.defaultPage"
+            :default-perPage="dashboardConfig.defaultPerPage"
             :api-normal-pagination="apiNormalPagination"
             :api-trash-pagination="apiTrashPagination"
             :api-normal-count="apiNormalCount"
             :api-trash-count="apiTrashCount"
             :get-error-message="getErrorMessage"
             :has-trash="hasTrash"
-            :title="dashboardTitle"
-            :text-create="textCreate"
-            :text-normal="textNormal"
-            :text-trash="textTrash"
-            :text-empty-trash="textEmptyTrash"
             @click-create="bus.$emit('open-create')"
             @click-empty-trash="bus.$emit('open-empty-trash')"
           >
@@ -190,20 +177,47 @@
 
       <v-window-item
         v-if="
-          !detailDialog &&
+          !createConfig.dialog &&
+          ($scopedSlots['create'] || $scopedSlots['create-content'])
+        "
+        :value="CREATE"
+      >
+        <slot v-if="page === CREATE" name="create" v-bind="self">
+          <crud-create
+            v-if="$scopedSlots['create-content']"
+            :visible="createVisible"
+            :api-create="apiCreate"
+            :get-error-message="getErrorMessage"
+            :get-begin-form-data="createConfig.getBeginFormData"
+            :dialog="false"
+            @close="bus.$emit('close-create')"
+            @success="
+              bus.$emit('close-create');
+              bus.$emit('notify-success', textCreateSuccess);
+              bus.$emit('dashboard-go-to-page', 1);
+            "
+          >
+            <template #default="create">
+              <slot name="create-content" v-bind="create" />
+            </template>
+          </crud-create>
+        </slot>
+      </v-window-item>
+
+      <v-window-item
+        v-if="
+          !detailConfig.dialog &&
           ($scopedSlots['detail'] || $scopedSlots['detail-content'])
         "
-        value="DETAIL"
+        :value="DETAIL"
       >
-        <slot v-if="page === 'DETAIL'" name="detail" v-bind="self">
+        <slot v-if="page === DETAIL" name="detail" v-bind="self">
           <crud-detail
             v-if="$scopedSlots['detail-content']"
             :id="detailId"
             :api-get-one="apiGetOne"
             :get-error-message="getErrorMessage"
-            :dialog="detailDialog"
-            :title="detailTitle"
-            :text-back="textBack"
+            :dialog="false"
             @close="bus.$emit('close-detail')"
           >
             <template #default="detail">
@@ -214,62 +228,27 @@
           </crud-detail>
         </slot>
       </v-window-item>
+
       <v-window-item
         v-if="
-          !createDialog &&
-          ($scopedSlots['create'] || $scopedSlots['create-content'])
-        "
-        value="CREATE"
-      >
-        <slot v-if="page === 'CREATE'" name="create" v-bind="self">
-          <crud-create
-            v-if="$scopedSlots['create-content']"
-            :visible="createVisible"
-            :title="createTitle"
-            :api-create="apiCreate"
-            :get-error-message="getErrorMessage"
-            :get-begin-form-data="getBeginFormData"
-            :dialog="createDialog"
-            :dialog-props="createDialogProps"
-            :text-back="textBack"
-            :text-create-submit="textCreateSubmit"
-            @close="bus.$emit('close-create')"
-            @success="
-              bus.$emit('close-create');
-              bus.$emit('notify-success', 'Create success!');
-              bus.$emit('dashboard-go-to-page', 1);
-            "
-          >
-            <template #default="create">
-              <slot name="create-content" v-bind="create" />
-            </template>
-          </crud-create>
-        </slot>
-      </v-window-item>
-      <v-window-item
-        v-if="
-          !updateDialog &&
+          !updateConfig.dialog &&
           ($scopedSlots['update'] || $scopedSlots['update-content'])
         "
-        value="UPDATE"
+        :value="UPDATE"
       >
-        <slot v-if="page === 'UPDATE'" name="update" v-bind="self">
+        <slot v-if="page === UPDATE" name="update" v-bind="self">
           <crud-update
             v-if="$scopedSlots['update-content']"
             :id="updateId"
-            :title="updateTitle"
             :api-get-one="apiGetOne"
             :api-update="apiUpdate"
             :get-error-message="getErrorMessage"
-            :get-begin-form-data="getBeginFormData"
-            :dialog="updateDialog"
-            :dialog-props="updateDialogProps"
-            :text-back="textBack"
-            :text-update-submit="textUpdateSubmit"
+            :get-begin-form-data="updateConfig.getBeginFormData"
+            :dialog="false"
             @close="bus.$emit('close-update')"
             @success="
               bus.$emit('close-update');
-              bus.$emit('notify-success', 'Update success');
+              bus.$emit('notify-success', textUpdateSuccess);
               bus.$emit('dashboard-refresh');
             "
           >
@@ -279,6 +258,7 @@
           </crud-update>
         </slot>
       </v-window-item>
+      <v-window-item value="EMMPTY"></v-window-item>
     </v-window>
   </div>
 </template>
@@ -294,6 +274,11 @@ import CrudUpdate from "../CrudUpdate";
 import CrudConfirmDialog from "../CrudConfirmDialog";
 import SyncSearchParams from "@/components/utils/SyncSearchParams";
 
+const DASHBOARD = "DASHBOARD";
+const DETAIL = "DETAIL";
+const CREATE = "CREATE";
+const UPDATE = "UPDATE";
+
 export default {
   name: "crud-composition",
   components: {
@@ -306,129 +291,87 @@ export default {
     CrudUpdate,
   },
 
-  props: {
+  inject: {
     router: {
-      type: Boolean,
       default: false,
     },
-    bus: { type: Object, required: true },
-    dashboardTitle: { type: String, default: null },
-    hasTrash: { type: Boolean, default: true },
-    defaultFilter: { type: Object, default: () => ({}) },
-    defaultPage: { type: Number, default: 1 },
-    defaultPerPage: { type: Number, default: 5 },
-    getBeginFormData: { type: Function, default: null },
-    detailDialog: { type: Boolean, default: false },
-    detailDialogProps: { type: Object, default: null },
-    detailTitle: { type: String, default: null },
-    createDialog: { type: Boolean, default: false },
-    createDialogProps: { type: Object, default: null },
-    createTitle: { type: String, default: null },
-    updateDialog: { type: Boolean, default: false },
-    updateDialogProps: { type: Object, default: null },
-    updateTitle: { type: String, default: null },
+    hasTrash: { default: true },
 
-    apiNormalPagination: { type: Function, default: null },
-    apiTrashPagination: { type: Function, default: null },
-    apiNormalCount: { type: Function, default: null },
-    apiTrashCount: { type: Function, default: null },
-    apiGetOne: { type: Function, default: null },
-    apiCreate: { type: Function, default: null },
-    apiUpdate: { type: Function, default: null },
-    apiRemove: { type: Function, default: null },
-    apiRestore: { type: Function, default: null },
-    apiPurge: { type: Function, default: null },
-    apiEmptyTrash: { type: Function, default: null },
+    dashboardConfig: {
+      default: {
+        defaultFilter: { default: () => ({}) },
+        defaultPage: { default: 1 },
+        defaultPerPage: { default: 10 },
+      },
+    },
+
+    detailConfig: {
+      dialog: { default: true },
+      dialogProps: { default: { maxWidth: 800 } },
+    },
+
+    createConfig: {
+      getBeginFormData: { default: null },
+      dialog: { default: true },
+      dialogProps: { default: { maxWidth: 800 } },
+    },
+
+    updateConfig: {
+      getBeginFormData: { default: null },
+      dialog: { default: true },
+      dialogProps: { default: { maxWidth: 800 } },
+    },
 
     getErrorMessage: {
-      type: Function,
       default: getErrorMessage,
     },
 
-    textCreate: {
-      type: String,
-      default: "Add",
-    },
-    textNormal: {
-      type: String,
-      default: "Normal",
-    },
-    textTrash: {
-      type: String,
-      default: "Trash",
-    },
-    textEmptyTrash: {
-      type: String,
-      default: "Empty trash",
-    },
-    textBack: {
-      type: String,
-      default: "Back",
-    },
-    textCreateSubmit: {
-      type: String,
-      default: "Save",
-    },
-    textUpdateSubmit: {
-      type: String,
-      default: "Save",
-    },
+    apiNormalPagination: { default: null },
+    apiTrashPagination: { default: null },
+    apiNormalCount: { default: null },
+    apiTrashCount: { default: null },
+    apiGetOne: { default: null },
+    apiCreate: { default: null },
+    apiUpdate: { default: null },
+    apiRemove: { default: null },
+    apiRestore: { default: null },
+    apiPurge: { default: null },
+    apiEmptyTrash: { default: null },
 
-    textRemoveTitle: {
-      type: String,
-      default: "Confirm remove",
-    },
-    textRemoveMessage: {
-      type: String,
-      default: "Are you sure?",
-    },
-    textRemoveAcceptButtonLabel: {
-      type: String,
-      default: "Remove",
-    },
+    textCreateSuccess: { default: "Creates success" },
+    textUpdateSuccess: { default: "Update success" },
 
-    textRestoreTitle: {
-      type: String,
-      default: "Confirm restore",
-    },
-    textRestoreMessage: {
-      type: String,
-      default: "Are you sure?",
-    },
-    textRestoreAcceptButtonLabel: {
-      type: String,
-      default: "Restore",
-    },
+    textRemoveTitle: { default: "Confirm remove" },
+    textRemoveMessage: { default: "Are you sure?" },
+    textRemoveSubmit: { default: "Remove" },
+    textRemoveSuccess: { default: "Remove success" },
 
-    textPurgeTitle: {
-      type: String,
-      default: "Confirm purge",
-    },
-    textPurgeMessage: {
-      type: String,
-      default: "Are you sure?",
-    },
-    textPurgeAcceptButtonLabel: {
-      type: String,
-      default: "Purge",
-    },
+    textRestoreTitle: { default: "Confirm restore" },
+    textRestoreMessage: { default: "Are you sure?" },
+    textRestoreSubmit: { default: "Restore" },
+    textRestoreSuccess: { default: "Restore success" },
 
-    textEmptyTrashTitle: {
-      type: String,
-      default: "Confirm empty trash",
-    },
-    textEmptyTrashMessage: {
-      type: String,
-      default: "Are you sure?",
-    },
-    textEmptyTrashAcceptButtonLabel: {
-      type: String,
-      default: "Empty trash",
-    },
+    textPurgeTitle: { default: "Confirm purge" },
+    textPurgeMessage: { default: "Are you sure?" },
+    textPurgeSubmit: { default: "Purge" },
+    textPurgeSuccess: { default: "Purge success" },
+
+    textEmptyTrashTitle: { default: "Confirm empty trash" },
+    textEmptyTrashMessage: { default: "Are you sure?" },
+    textEmptyTrashSubmit: { default: "Empty trash" },
+    textEmptyTrashSuccess: { default: "Empty trash success" },
+  },
+
+  props: {
+    bus: { type: Object, required: true },
   },
 
   data() {
     return {
+      DASHBOARD,
+      DETAIL,
+      CREATE,
+      UPDATE,
       notification: {
         success: { visible: false, message: "" },
         error: { visible: false, message: "" },
@@ -450,10 +393,10 @@ export default {
     },
 
     page() {
-      if (!this.detailDialog && this.detailId) return "DETAIL";
-      if (!this.createDialog && this.createVisible) return "CREATE";
-      if (!this.updateDialog && this.updateId) return "UPDATE";
-      return "DASHBOARD";
+      if (!this.detailDialog && this.detailId) return DETAIL;
+      if (!this.createDialog && this.createVisible) return CREATE;
+      if (!this.updateDialog && this.updateId) return UPDATE;
+      return DASHBOARD;
     },
   },
   watch: {

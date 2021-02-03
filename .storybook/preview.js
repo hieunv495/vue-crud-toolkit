@@ -22,6 +22,8 @@ export const parameters = {
           "Data request structure",
           "Form structure",
           "Table structure",
+          "Custom text",
+          "Api example",
           "Composition",
           "Dashboard",
           "Detail",

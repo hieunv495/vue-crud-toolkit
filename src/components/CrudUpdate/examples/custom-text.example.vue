@@ -39,6 +39,11 @@ import PostForm from "@/components/posts/PostForm.vue";
 export default {
   name: "crud-update-custom-text-example",
   components: { CrudUpdate, PostForm },
+  provide: {
+    textBack: "Trở lại",
+    textUpdateSubmit: "Cập nhật",
+    textUpdateTitle: "Cập nhật bài viết",
+  },
   props: {
     dialog: {
       type: Boolean,

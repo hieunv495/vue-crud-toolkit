@@ -6,7 +6,7 @@
           <slot name="header-title" v-bind="self">
             <v-layout justify-center>
               <v-flex>
-                <div class="text-h5">{{ title }}</div>
+                <div class="text-h5">{{ title || textDashboardTitle }}</div>
               </v-flex>
             </v-layout>
           </slot>
@@ -39,10 +39,10 @@
           <slot name="header-actions" v-bind="self">
             <!-- <v-spacer /> -->
             <v-btn v-if="!trashMode" color="success" @click="clickCreate">
-              <v-icon left>mdi-plus</v-icon>{{ textCreate }}
+              <v-icon left>mdi-plus</v-icon>{{ textCreateActivator }}
             </v-btn>
             <v-btn v-else color="warning" @click="clickEmptyTrash">
-              <v-icon left>mdi-delete</v-icon>{{ textEmptyTrash }}
+              <v-icon left>mdi-delete</v-icon>{{ textEmptyTrashActivator }}
             </v-btn>
           </slot>
         </v-flex>
@@ -54,8 +54,6 @@
           :trash-mode="trashMode"
           :normal-total="normalTotal"
           :trash-total="trashTotal"
-          :text-normal="textNormal"
-          :text-trash="textTrash"
           @update-trash-mode="updateTrashMode"
         />
         <v-divider />
@@ -134,6 +132,11 @@ export default {
     TrashModeNavigation,
     ErrorReport,
   },
+  inject: {
+    textDashboardTitle: { default: "Dashboard" },
+    textCreateActivator: { default: "Create" },
+    textEmptyTrashActivator: { default: "Empty trash" },
+  },
   props: {
     router: {
       type: Boolean,
@@ -142,7 +145,7 @@ export default {
     bus: { type: Object, default: null },
     title: {
       type: String,
-      required: true,
+      default: null,
     },
     defaultFilter: {
       type: Object,
@@ -179,22 +182,6 @@ export default {
     hasTrash: {
       type: Boolean,
       default: true,
-    },
-    textCreate: {
-      type: String,
-      default: "Add",
-    },
-    textNormal: {
-      type: String,
-      default: "Normal",
-    },
-    textTrash: {
-      type: String,
-      default: "Trash",
-    },
-    textEmptyTrash: {
-      type: String,
-      default: "Empty trash",
     },
   },
 

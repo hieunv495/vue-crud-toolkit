@@ -1,7 +1,6 @@
 <template>
   <crud-dashboard
     :bus="bus"
-    title="Post manager"
     :default-filter="{ q: '' }"
     :default-page="1"
     :default-per-page="5"
@@ -9,10 +8,6 @@
     :api-trash-pagination="apiTrashPagination"
     :api-normal-count="apiNormalCount"
     :api-trash-count="apiTrashCount"
-    text-create="Thêm mới"
-    text-normal="Bình thường"
-    text-trash="Thùng rác"
-    text-empty-trash="Dọn dẹp thùng rác"
     @click-create="onClickCreate"
     @click-empty-trash="onClickEmptyTrash"
   >
@@ -41,6 +36,13 @@ export default {
     CrudDashboard,
     DefaultSearchTextFilter,
     PostsTable,
+  },
+  provide: {
+    textDashboardTitle: "Quản lý bài viết",
+    textCreateActivator: "Thêm mới",
+    textNormal: "Bình thường",
+    textTrash: "Thùng rác",
+    textEmptyTrashActivator: "Dọn dẹp thùng rác",
   },
   data() {
     return {

@@ -55,6 +55,9 @@
 <script>
 export default {
   name: "smart-window",
+  inject: {
+    textBack: { default: "Back" },
+  },
   props: {
     visible: {
       type: Boolean,
@@ -72,10 +75,6 @@ export default {
     dialogProps: {
       type: Object,
       default: () => ({}),
-    },
-    textBack: {
-      type: String,
-      default: "Back",
     },
   },
 

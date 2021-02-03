@@ -1,16 +1,19 @@
 <template>
-  <crud-composition
-    :bus="bus"
-    :detail-dialog="true"
-    :create-dialog="true"
-    :update-dialog="true"
-  >
-    <template #dashboard>
+  <crud-composition :bus="bus">
+    <template
+      #dashboard="{
+        dashboardConfig,
+        apiNormalPagination,
+        apiTrashPagination,
+        apiNormalCount,
+        apiTrashCount,
+      }"
+    >
       <crud-dashboard
         :bus="bus"
-        :default-filter="{ q: '' }"
-        :default-page="1"
-        :default-per-page="5"
+        :default-filter="dashboardConfig.defaultFilter"
+        :default-page="dashboardConfig.defaultPage"
+        :default-per-page="dashboardConfig.defaultPerPage"
         :api-normal-pagination="apiNormalPagination"
         :api-trash-pagination="apiTrashPagination"
         :api-normal-count="apiNormalCount"
@@ -41,11 +44,12 @@
       </crud-dashboard>
     </template>
 
-    <template #detail="{ detailId, detailDialog }">
+    <template #detail="{ detailId, detailConfig, apiGetOne }">
       <crud-detail
         :id="detailId"
         :api-get-one="apiGetOne"
-        :dialog="detailDialog"
+        :dialog="detailConfig.dialog"
+        :dialog-props="detailConfig.dialogProps"
         title="Post detail"
         @close="bus.$emit('close-detail')"
       >
@@ -56,17 +60,14 @@
       </crud-detail>
     </template>
 
-    <template #create="{ createVisible, createDialog }">
+    <template #create="{ createVisible, createConfig, apiCreate }">
       <crud-create
         :visible="createVisible"
         :title="'Create'"
         :api-create="apiCreate"
-        :get-begin-form-data="getBeginFormData"
-        :dialog="createDialog"
-        :dialog-props="{
-          maxWidth: 600,
-          persistent: true,
-        }"
+        :get-begin-form-data="createConfig.getBeginFormData"
+        :dialog="createConfig.dialog"
+        :dialog-props="createConfig.dialogProps"
         @close="bus.$emit('close-create')"
         @success="
           bus.$emit('close-create');
@@ -83,18 +84,15 @@
         </template>
       </crud-create>
     </template>
-    <template #update="{ updateId, updateDialog }">
+    <template #update="{ updateId, updateConfig, apiGetOne, apiUpdate }">
       <crud-update
         :id="updateId"
         title="Update post"
         :api-get-one="apiGetOne"
         :api-update="apiUpdate"
-        :get-begin-form-data="getBeginFormData"
-        :dialog="updateDialog"
-        :dialog-props="{
-          maxWidth: 600,
-          persistent: true,
-        }"
+        :get-begin-form-data="updateConfig.getBeginFormData"
+        :dialog="updateConfig.dialog"
+        :dialog-props="updateConfig.dialogProps"
         @close="bus.$emit('close-update')"
         @success="
           bus.$emit('close-update');
@@ -111,7 +109,7 @@
         </template>
       </crud-update>
     </template>
-    <template #remove="{ removeId }">
+    <template #remove="{ removeId, apiRemove }">
       <crud-confirm-dialog
         :id="removeId"
         :visible="!!removeId"
@@ -126,7 +124,7 @@
         "
       />
     </template>
-    <template #restore="{ restoreId }">
+    <template #restore="{ restoreId, apiRestore }">
       <crud-confirm-dialog
         :id="restoreId"
         :visible="!!restoreId"
@@ -141,7 +139,7 @@
         "
       />
     </template>
-    <template #purge="{ purgeId }">
+    <template #purge="{ purgeId, apiPurge }">
       <crud-confirm-dialog
         :id="purgeId"
         :visible="!!purgeId"
@@ -156,7 +154,7 @@
         "
       />
     </template>
-    <template #empty-trash="{ emptyTrashVisible }">
+    <template #empty-trash="{ emptyTrashVisible, apiEmptyTrash }">
       <crud-confirm-dialog
         :visible="emptyTrashVisible"
         :api-request="apiEmptyTrash"
@@ -188,6 +186,16 @@ import PostsTable from "@/components/posts/PostsTable";
 import PostForm from "@/components/posts/PostForm";
 import postsApi from "@/apis/posts.api";
 
+const getBeginFormData = (fetchedData) => {
+  if (fetchedData) {
+    return JSON.parse(JSON.stringify(fetchedData));
+  }
+  return {
+    title: "",
+    description: "",
+  };
+};
+
 export default {
   components: {
     CrudComposition,
@@ -200,35 +208,59 @@ export default {
     PostsTable,
     PostForm,
   },
+  provide() {
+    return {
+      router: false,
+      hasTrash: true,
+
+      dashboardConfig: {
+        defaultFilter: { q: "" },
+        defaultPage: 1,
+        defaultPerPage: 10,
+      },
+
+      detailConfig: {
+        dialog: this.dialog,
+        dialogProps: { maxWidth: 800 },
+      },
+
+      createConfig: {
+        getBeginFormData,
+        dialog: this.dialog,
+        dialogProps: { maxWidth: 800 },
+      },
+
+      updateConfig: {
+        getBeginFormData,
+        dialog: this.dialog,
+        dialogProps: { maxWidth: 800 },
+      },
+
+      getErrorMessage: (e) => e.message,
+
+      apiNormalPagination: postsApi.getPagination,
+      apiTrashPagination: postsApi.getTrashPagination,
+      apiNormalCount: postsApi.normalCount,
+      apiTrashCount: postsApi.trashCount,
+      apiGetOne: postsApi.getOne,
+      apiCreate: postsApi.create,
+      apiUpdate: postsApi.update,
+      apiRemove: postsApi.remove,
+      apiRestore: postsApi.restore,
+      apiPurge: postsApi.purge,
+      apiEmptyTrash: postsApi.emptyTrash,
+
+      textDashboardTitle: "Post manager",
+      textDetailTitle: "Post detail",
+      textCreateTitle: "Create post",
+      textUpdateTitle: "Update post",
+    };
+  },
 
   data() {
     return {
       bus: new Vue(),
     };
-  },
-
-  methods: {
-    apiNormalPagination: postsApi.getPagination,
-    apiTrashPagination: postsApi.getTrashPagination,
-    apiNormalCount: postsApi.normalCount,
-    apiTrashCount: postsApi.trashCount,
-    apiGetOne: postsApi.getOne,
-    apiCreate: postsApi.create,
-    apiUpdate: postsApi.update,
-    apiRemove: postsApi.remove,
-    apiRestore: postsApi.restore,
-    apiPurge: postsApi.purge,
-    apiEmptyTrash: postsApi.emptyTrash,
-
-    getBeginFormData(fetchedData) {
-      if (fetchedData) {
-        return JSON.parse(JSON.stringify(fetchedData));
-      }
-      return {
-        title: "",
-        description: "",
-      };
-    },
   },
 };
 </script>

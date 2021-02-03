@@ -23,33 +23,7 @@
 
     <v-divider class="my-2" />
 
-    <crud-composition
-      :bus="bus"
-      :detail-dialog="dialog"
-      :create-dialog="dialog"
-      :update-dialog="dialog"
-      has-trash
-      :default-filter="{ q: '' }"
-      :default-page="1"
-      :default-per-page="5"
-      :get-begin-form-data="getBeginFormData"
-      :api-normal-pagination="apiNormalPagination"
-      :api-trash-pagination="apiTrashPagination"
-      :api-normal-count="apiNormalCount"
-      :api-trash-count="apiTrashCount"
-      :api-get-one="apiGetOne"
-      :api-create="apiCreate"
-      :api-update="apiUpdate"
-      :api-remove="apiRemove"
-      :api-restore="apiRestore"
-      :api-purge="apiPurge"
-      :api-empty-trash="apiEmptyTrash"
-      :get-error-message="getErrorMessage"
-      detail-title="Post detail"
-      dashboard-title="Post manager"
-      create-title="Create new post"
-      update-title="Update post"
-    >
+    <crud-composition :bus="bus">
       <template #dashboard-header-filter="{ loading, filter, updateFilter }">
         <default-search-text-filter
           :loading="loading"
@@ -100,6 +74,16 @@ import PostsTable from "@/components/posts/PostsTable";
 import PostForm from "@/components/posts/PostForm";
 import postsApi from "@/apis/posts.api";
 
+const getBeginFormData = (fetchedData) => {
+  if (fetchedData) {
+    return JSON.parse(JSON.stringify(fetchedData));
+  }
+  return {
+    title: "",
+    description: "",
+  };
+};
+
 export default {
   name: "crud-composition-with-error-example",
   components: {
@@ -107,6 +91,109 @@ export default {
     DefaultSearchTextFilter,
     PostsTable,
     PostForm,
+  },
+  provide() {
+    return {
+      router: false,
+      hasTrash: true,
+
+      dashboardConfig: {
+        defaultFilter: { q: "" },
+        defaultPage: 1,
+        defaultPerPage: 10,
+      },
+
+      detailConfig: {
+        dialog: this.dialog,
+        dialogProps: { maxWidth: 800 },
+      },
+
+      createConfig: {
+        getBeginFormData,
+        dialog: this.dialog,
+        dialogProps: { maxWidth: 800 },
+      },
+
+      updateConfig: {
+        getBeginFormData,
+        dialog: this.dialog,
+        dialogProps: { maxWidth: 800 },
+      },
+
+      getErrorMessage: (e) => "An error occurred. " + e.message,
+
+      apiNormalPagination: (...args) => {
+        if (this.normalPaginationError) {
+          return this.getApiError("Pagination error")();
+        }
+        return postsApi.getPagination(...args);
+      },
+      apiTrashPagination: (...args) => {
+        if (this.trashPaginationError) {
+          return this.getApiError("Trash pagination error")();
+        }
+        return postsApi.getTrashPagination(...args);
+      },
+      apiNormalCount: (...args) => {
+        if (this.normalCountError) {
+          return this.getApiError("Normal count error")();
+        }
+        return postsApi.normalCount(...args);
+      },
+      apiTrashCount: (...args) => {
+        if (this.trashCountError) {
+          return this.getApiError("Trash count error")();
+        }
+        return postsApi.trashCount(...args);
+      },
+      apiGetOne: (...args) => {
+        if (this.getOneError) {
+          return this.getApiError("Get one error")();
+        }
+        return postsApi.getOne(...args);
+      },
+      apiCreate: (...args) => {
+        if (this.createError) {
+          return this.getApiError("Create error")();
+        }
+        return postsApi.create(...args);
+      },
+      apiUpdate: (...args) => {
+        if (this.updateError) {
+          return this.getApiError("Update error")();
+        }
+        return postsApi.update(...args);
+      },
+      apiRemove: (...args) => {
+        if (this.removeError) {
+          return this.getApiError("Remove error")();
+        }
+        return postsApi.remove(...args);
+      },
+      apiRestore: (...args) => {
+        if (this.restoreError) {
+          return this.getApiError("Restore error")();
+        }
+        return postsApi.restore(...args);
+      },
+      apiPurge: (...args) => {
+        if (this.purgeError) {
+          return this.getApiError("Purge error")();
+        }
+        return postsApi.purge(...args);
+      },
+      apiEmptyTrash: (...args) => {
+        if (this.emptyTrashError) {
+          return this.getApiError("Empty error")();
+        }
+        return postsApi.emptyTrash(...args);
+      },
+
+      textDashboardTitle: "Post manager",
+      textDetailTitle: "Post detail",
+      textCreateTitle: "Create post",
+      textUpdateTitle: "Update post",
+    };
   },
   props: {
     dialog: {
@@ -141,85 +228,6 @@ export default {
             reject(new Error(message));
           }, 1000);
         });
-    },
-
-    apiNormalPagination(...args) {
-      if (this.normalPaginationError) {
-        return this.getApiError("Pagination error")();
-      }
-      return postsApi.getPagination(...args);
-    },
-    apiTrashPagination(...args) {
-      if (this.trashPaginationError) {
-        return this.getApiError("Trash pagination error")();
-      }
-      return postsApi.getTrashPagination(...args);
-    },
-    apiNormalCount(...args) {
-      if (this.normalCountError) {
-        return this.getApiError("Normal count error")();
-      }
-      return postsApi.normalCount(...args);
-    },
-    apiTrashCount(...args) {
-      if (this.trashCountError) {
-        return this.getApiError("Trash count error")();
-      }
-      return postsApi.trashCount(...args);
-    },
-    apiGetOne(...args) {
-      if (this.getOneError) {
-        return this.getApiError("Get one error")();
-      }
-      return postsApi.getOne(...args);
-    },
-    apiCreate(...args) {
-      if (this.createError) {
-        return this.getApiError("Create error")();
-      }
-      return postsApi.create(...args);
-    },
-    apiUpdate(...args) {
-      if (this.updateError) {
-        return this.getApiError("Update error")();
-      }
-      return postsApi.update(...args);
-    },
-    apiRemove(...args) {
-      if (this.removeError) {
-        return this.getApiError("Remove error")();
-      }
-      return postsApi.remove(...args);
-    },
-    apiRestore(...args) {
-      if (this.restoreError) {
-        return this.getApiError("Restore error")();
-      }
-      return postsApi.restore(...args);
-    },
-    apiPurge(...args) {
-      if (this.purgeError) {
-        return this.getApiError("Purge error")();
-      }
-      return postsApi.purge(...args);
-    },
-    apiEmptyTrash(...args) {
-      if (this.emptyTrashError) {
-        return this.getApiError("Empty error")();
-      }
-      return postsApi.emptyTrash(...args);
-    },
-
-    getErrorMessage: (e) => "Error occurred. " + e.message,
-
-    getBeginFormData(fetchedData) {
-      if (fetchedData) {
-        return JSON.parse(JSON.stringify(fetchedData));
-      }
-      return {
-        title: "",
-        description: "",
-      };
     },
   },
 };

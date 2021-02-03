@@ -19,6 +19,14 @@
 <script>
 export default {
   name: "trash-mode-navigation",
+  inject: {
+    textNormal: {
+      default: "Normal",
+    },
+    textTrash: {
+      default: "Trash",
+    },
+  },
   props: {
     trashMode: {
       type: Boolean,
@@ -32,14 +40,6 @@ export default {
     trashTotal: {
       type: Number,
       required: true,
-    },
-    textNormal: {
-      type: String,
-      default: "Normal",
-    },
-    textTrash: {
-      type: String,
-      default: "Trash",
     },
   },
 };

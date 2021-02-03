@@ -11,14 +11,14 @@
           <v-list-item-icon>
             <v-icon>mdi-restore</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>Restore</v-list-item-title>
+          <v-list-item-title>{{ textRestoreActivator }}</v-list-item-title>
         </v-list-item>
 
         <v-list-item @click="$emit('click-purge')">
           <v-list-item-icon>
             <v-icon>mdi-close</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>Purge</v-list-item-title>
+          <v-list-item-title>{{ textPurgeActivator }}</v-list-item-title>
         </v-list-item>
       </template>
       <template v-else>
@@ -26,21 +26,21 @@
           <v-list-item-icon>
             <v-icon>mdi-eye</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>Detail</v-list-item-title>
+          <v-list-item-title>{{ textDetailActivator }}</v-list-item-title>
         </v-list-item>
 
         <v-list-item @click="$emit('click-update')">
           <v-list-item-icon>
             <v-icon>mdi-pencil</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>Update</v-list-item-title>
+          <v-list-item-title>{{ textUpdateActivator }}</v-list-item-title>
         </v-list-item>
 
         <v-list-item @click="$emit('click-remove')">
           <v-list-item-icon>
             <v-icon>mdi-delete</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>Remove</v-list-item-title>
+          <v-list-item-title>{{ textRemoveActivator }}</v-list-item-title>
         </v-list-item>
       </template>
     </v-list>
@@ -49,13 +49,20 @@
 
 <script>
 export default {
+  inject: {
+    textDetailActivator: { default: "View detail" },
+    textUpdateActivator: { default: "Update" },
+    textRemoveActivator: { default: "Remove" },
+    textRestoreActivator: { default: "Restore" },
+    textPurgeActivator: { default: "Purge" },
+  },
   props: {
     trashMode: {
       type: Boolean,
       default: false,
     },
   },
-}
+};
 </script>
 
 <style>

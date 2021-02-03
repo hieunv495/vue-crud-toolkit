@@ -64,10 +64,10 @@ git clone git@github.com:hieunv495/vue-crud-toolkit.git
 
 ## Changelog
 
-### 2.1.0
+### 3.0.0
 
+- Config composition with provide/inject
 - Show error and custom error in CrudDashboard
-- Add getErrorMessage props to CrudComposition
 
 ### 2.0.1
 

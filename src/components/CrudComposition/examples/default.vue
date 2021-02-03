@@ -1,30 +1,5 @@
 <template>
-  <crud-composition
-    :bus="bus"
-    :detail-dialog="dialog"
-    :create-dialog="dialog"
-    :update-dialog="dialog"
-    has-trash
-    :default-filter="{ q: '' }"
-    :default-page="1"
-    :default-per-page="5"
-    :get-begin-form-data="getBeginFormData"
-    :api-normal-pagination="apiNormalPagination"
-    :api-trash-pagination="apiTrashPagination"
-    :api-normal-count="apiNormalCount"
-    :api-trash-count="apiTrashCount"
-    :api-get-one="apiGetOne"
-    :api-create="apiCreate"
-    :api-update="apiUpdate"
-    :api-remove="apiRemove"
-    :api-restore="apiRestore"
-    :api-purge="apiPurge"
-    :api-empty-trash="apiEmptyTrash"
-    detail-title="Post detail"
-    dashboard-title="Post manager"
-    create-title="Create new post"
-    update-title="Update post"
-  >
+  <crud-composition :bus="bus">
     <template #dashboard-header-filter="{ loading, filter, updateFilter }">
       <default-search-text-filter
         :loading="loading"
@@ -74,6 +49,16 @@ import PostsTable from "@/components/posts/PostsTable";
 import PostForm from "@/components/posts/PostForm";
 import postsApi from "@/apis/posts.api";
 
+const getBeginFormData = (fetchedData) => {
+  if (fetchedData) {
+    return JSON.parse(JSON.stringify(fetchedData));
+  }
+  return {
+    title: "",
+    description: "",
+  };
+};
+
 export default {
   name: "crud-composition-default-example",
   components: {
@@ -81,6 +66,54 @@ export default {
     DefaultSearchTextFilter,
     PostsTable,
     PostForm,
+  },
+  provide() {
+    return {
+      router: false,
+      hasTrash: true,
+
+      dashboardConfig: {
+        defaultFilter: { q: "" },
+        defaultPage: 1,
+        defaultPerPage: 10,
+      },
+
+      detailConfig: {
+        dialog: this.dialog,
+        dialogProps: { maxWidth: 800 },
+      },
+
+      createConfig: {
+        getBeginFormData,
+        dialog: this.dialog,
+        dialogProps: { maxWidth: 800 },
+      },
+
+      updateConfig: {
+        getBeginFormData,
+        dialog: this.dialog,
+        dialogProps: { maxWidth: 800 },
+      },
+
+      getErrorMessage: (e) => e.message,
+
+      apiNormalPagination: postsApi.getPagination,
+      apiTrashPagination: postsApi.getTrashPagination,
+      apiNormalCount: postsApi.normalCount,
+      apiTrashCount: postsApi.trashCount,
+      apiGetOne: postsApi.getOne,
+      apiCreate: postsApi.create,
+      apiUpdate: postsApi.update,
+      apiRemove: postsApi.remove,
+      apiRestore: postsApi.restore,
+      apiPurge: postsApi.purge,
+      apiEmptyTrash: postsApi.emptyTrash,
+
+      textDashboardTitle: "Post manager",
+      textDetailTitle: "Post detail",
+      textCreateTitle: "Create post",
+      textUpdateTitle: "Update post",
+    };
   },
   props: {
     dialog: {
@@ -93,30 +126,6 @@ export default {
     return {
       bus: new Vue(),
     };
-  },
-
-  methods: {
-    apiNormalPagination: postsApi.getPagination,
-    apiTrashPagination: postsApi.getTrashPagination,
-    apiNormalCount: postsApi.normalCount,
-    apiTrashCount: postsApi.trashCount,
-    apiGetOne: postsApi.getOne,
-    apiCreate: postsApi.create,
-    apiUpdate: postsApi.update,
-    apiRemove: postsApi.remove,
-    apiRestore: postsApi.restore,
-    apiPurge: postsApi.purge,
-    apiEmptyTrash: postsApi.emptyTrash,
-
-    getBeginFormData(fetchedData) {
-      if (fetchedData) {
-        return JSON.parse(JSON.stringify(fetchedData));
-      }
-      return {
-        title: "",
-        description: "",
-      };
-    },
   },
 };
 </script>
