@@ -1,9 +1,9 @@
 <template>
   <smart-window
-    :visible="visible"
+    v-if="visible"
     :title="title || textCreateTitle"
-    :dialog="dialog"
-    :dialog-props="dialogProps"
+    :card="card"
+    :card-props="cardProps"
     @close="$emit('close')"
   >
     <template v-if="$scopedSlots.header" #header>
@@ -18,12 +18,7 @@
     <template #actions>
       <slot name="actions" v-bind="self">
         <v-layout justify-center align-center>
-          <v-btn
-            :loading="loading"
-            color="success"
-            class="mr-8"
-            @click="submit"
-          >
+          <v-btn :loading="loading" color="success" @click="submit">
             <v-icon left>mdi-content-save</v-icon>{{ textCreateSubmit }}
           </v-btn>
         </v-layout>
@@ -49,7 +44,7 @@ export default {
   components: { SmartWindow },
   inject: {
     textCreateTitle: { default: "Create" },
-    textCreateSubmit: { default: "Create" },
+    textCreateSubmit: { default: "Save" },
   },
   props: {
     apiCreate: {
@@ -72,11 +67,11 @@ export default {
       type: String,
       default: null,
     },
-    dialog: {
+    card: {
       type: Boolean,
       default: false,
     },
-    dialogProps: {
+    cardProps: {
       type: Object,
       default: () => ({}),
     },

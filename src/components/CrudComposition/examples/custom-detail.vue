@@ -25,13 +25,21 @@
     </template> -->
 
     <!-- Add this block  -->
-    <template #detail="{ detailId, detailConfig, apiGetOne }">
+    <template
+      #detail="{
+        detailId,
+        detailConfig,
+        apiGetOne,
+        viewCreateDetailUpdateConfig,
+      }"
+    >
       <crud-detail
         :id="detailId"
         :api-get-one="apiGetOne"
-        :dialog="detailConfig.dialog"
-        :dialog-props="detailConfig.dialogProps"
+        :card="viewCreateDetailUpdateConfig.dialog"
+        :card-props="detailConfig.cardProps"
         @close="bus.$emit('close-detail')"
+        @open-update="bus.$emit('open-update', detailId)"
       >
         <template #title="">
           <v-chip color="warning"> Custom title </v-chip>
@@ -98,6 +106,10 @@ export default {
       router: true,
       hasTrash: true,
 
+      viewCreateDetailUpdateConfig: {
+        dialog: this.dialog,
+      },
+
       dashboardConfig: {
         defaultFilter: { q: "" },
         defaultPage: 1,
@@ -105,20 +117,19 @@ export default {
       },
 
       detailConfig: {
-        dialog: this.dialog,
         dialogProps: { maxWidth: 800 },
       },
 
       createConfig: {
         getBeginFormData,
-        dialog: this.dialog,
         dialogProps: { maxWidth: 800 },
+        onSuccess: "DETAIL",
       },
 
       updateConfig: {
         getBeginFormData,
-        dialog: this.dialog,
         dialogProps: { maxWidth: 800 },
+        onSuccess: "DETAIL",
       },
 
       getErrorMessage: (e) => e.message,
@@ -155,7 +166,7 @@ export default {
   },
 
   mounted() {
-    this.bus.$emit("open-detail", "1");
+    this.bus.$emit("open-detail", "0");
   },
 };
 </script>

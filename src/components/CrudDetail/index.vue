@@ -1,9 +1,9 @@
 <template>
   <smart-window
-    :visible="!!id"
+    v-if="!!id"
     :title="title || textDetailTitle"
-    :dialog="dialog"
-    :dialog-props="dialogProps"
+    :card="card"
+    :card-props="cardProps"
     @close="$emit('close')"
   >
     <template v-if="$scopedSlots.header" #header>
@@ -15,8 +15,19 @@
       <slot name="title" v-bind="self" />
     </template>
 
-    <template v-if="$scopedSlots.actions" #actions>
-      <slot name="actions" v-bind="self" />
+    <template #actions>
+      <slot name="actions" v-bind="self">
+        <v-btn
+          :disabled="!data"
+          :title="textUpdateActivator"
+          large
+          icon
+          color="success"
+          @click="$emit('open-update')"
+        >
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+      </slot>
     </template>
 
     <template v-if="rawData">
@@ -57,6 +68,7 @@ export default {
   components: { SmartWindow, ErrorReport },
   inject: {
     textDetailTitle: { default: "Detail" },
+    textUpdateActivator: { default: "Update" },
   },
   props: {
     bus: { type: Object, default: null },
@@ -80,11 +92,11 @@ export default {
       type: String,
       default: null,
     },
-    dialog: {
+    card: {
       type: Boolean,
       default: false,
     },
-    dialogProps: {
+    cardProps: {
       type: Object,
       default: () => ({}),
     },

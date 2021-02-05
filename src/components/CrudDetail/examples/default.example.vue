@@ -8,10 +8,9 @@
       title="Post detail"
       :id="id"
       :api-get-one="apiGetOne"
-      :dialog="dialog"
-      :dialog-props="{
+      :card="card"
+      :card-props="{
         maxWidth: 600,
-        persistent: false,
       }"
       @close="id = null"
     >
@@ -31,7 +30,7 @@ export default {
   name: "crud-detail-default-example",
   components: { CrudDetail },
   props: {
-    dialog: {
+    card: {
       type: Boolean,
       default: false,
     },

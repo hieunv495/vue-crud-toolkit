@@ -31,7 +31,7 @@ export default {
         disable: true,
       },
     },
-    dialog: {
+    card: {
       control: {
         type: "boolean",
       },
@@ -49,12 +49,12 @@ Default.parameters = {
   },
 };
 
-// ------------ WITH DIALOG ------------
-export const WithDialog = () => DefaultExample;
-WithDialog.args = {
-  dialog: true,
+// ------------ WITH CARD ------------
+export const WithCard = () => DefaultExample;
+WithCard.args = {
+  card: true,
 };
-WithDialog.parameters = {
+WithCard.parameters = {
   docs: {
     source: {
       code: DefaultExample_code,

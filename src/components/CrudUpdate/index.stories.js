@@ -37,7 +37,7 @@ export default {
         disable: true,
       },
     },
-    dialog: {
+    card: {
       control: {
         type: "boolean",
       },
@@ -47,7 +47,21 @@ export default {
 
 // ------------ DEFAULT ------------
 export const Default = () => DefaultExample;
+
 Default.parameters = {
+  docs: {
+    source: {
+      code: DefaultExample_code,
+    },
+  },
+};
+
+// ------------ WITH CARD ------------
+export const WithCard = () => DefaultExample;
+WithCard.args = {
+  card: true,
+};
+WithCard.parameters = {
   docs: {
     source: {
       code: DefaultExample_code,

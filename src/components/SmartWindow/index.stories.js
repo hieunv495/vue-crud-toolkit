@@ -19,9 +19,12 @@ const Template = (args, { argTypes }) => ({
   vuetify: vuetify,
   template: `
   <smart-window v-bind="$props" @close="onClose">
-    <h1>
+    <v-layout column justify-center align-center>
+      <div>
       My content
-    </h1>
+      </div>
+    <v-btn color="success">Submit</v-btn>
+    </v-layout>
   </smart-window>
   `,
 });
@@ -29,20 +32,18 @@ const Template = (args, { argTypes }) => ({
 // ------------ DEFAULT ------------
 export const Default = Template.bind({});
 Default.args = {
-  visible: true,
   title: "Smart window title",
-  dialog: false,
-  dialogProps: {
+  card: false,
+  cardProps: {
     maxWidth: 600,
-    persistent: false,
   },
 };
 
 // ------------ WITH DIALOG ------------
-export const WithDialog = Template.bind({});
-WithDialog.args = {
+export const WithCard = Template.bind({});
+WithCard.args = {
   ...Default.args,
-  dialog: true,
+  card: true,
 };
 
 // ------------ CUSTOM TITLE ------------
@@ -75,7 +76,8 @@ export const CustomActions = (args, { argTypes }) => ({
   template: `
   <smart-window v-bind="$props" @close="onClose">
     <template #actions="{close}">
-      <v-btn color="warning" @click="close">Close</v-btn>
+      <v-btn color="success" @click="close">Save</v-btn>
+      <v-btn text color="warning" @click="close">Cancel</v-btn>
     </template>
     <h1>
       My content

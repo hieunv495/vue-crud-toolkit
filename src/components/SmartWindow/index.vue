@@ -1,53 +1,71 @@
 <template>
-  <v-dialog
-    v-if="dialog"
-    :value="visible"
-    scrollable
-    v-bind="dialogProps"
-    @input="$emit('close')"
-  >
-    <v-card :key="key">
-      <slot name="header" v-bind="self">
-        <v-layout align-center>
-          <v-flex>
-            <slot name="title" v-bind="self">
-              <v-card-title>{{ title }}</v-card-title>
-            </slot>
-          </v-flex>
-          <v-flex shrink>
-            <v-btn icon large @click="$emit('close')" title="Close">
+  <v-card v-if="card" :key="key" v-bind="cardProps">
+    <!-- @slot header -->
+    <slot name="header" v-bind="self">
+      <v-layout align-center>
+        <v-flex>
+          <!-- @slot title -->
+          <slot name="title" v-bind="self">
+            <v-card-title>{{ title }}</v-card-title>
+          </slot>
+        </v-flex>
+        <v-flex shrink>
+          <!-- @slot actions -->
+          <slot name="actions" v-bind="self" />
+        </v-flex>
+        <v-flex shrink>
+          <!-- @slot close -->
+          <slot name="close">
+            <v-btn
+              icon
+              large
+              @click="$emit('close')"
+              title="Close"
+              class="ml-8"
+            >
               <v-icon>mdi-close</v-icon>
             </v-btn>
-          </v-flex>
-        </v-layout>
-      </slot>
-      <v-card-text>
-        <slot v-bind="self" />
-      </v-card-text>
-      <v-card-actions>
-        <slot name="actions" v-bind="self" />
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
-  <div v-else-if="visible" :key="key">
+          </slot>
+        </v-flex>
+      </v-layout>
+    </slot>
+    <v-card-text>
+      <!-- @slot default -->
+      <slot v-bind="self" />
+    </v-card-text>
+  </v-card>
+  <div v-else :key="key">
+    <!-- @slot header -->
     <slot name="header" v-bind="self">
-      <v-layout wrap align="center" style="gap: 16px">
+      <v-layout align-center wrap align="center" style="gap: 16px">
         <v-flex shrink>
-          <v-btn color="success" @click="$emit('close')">
-            <v-icon left>mdi-arrow-left</v-icon>
-            {{ textBack }}</v-btn
-          >
+          <!-- @slot back -->
+          <slot name="back">
+            <v-btn
+              :title="textBack"
+              color="success"
+              large
+              icon
+              @click="$emit('close')"
+            >
+              <v-icon>mdi-arrow-left</v-icon>
+              <!-- {{ textBack }} -->
+            </v-btn>
+          </slot>
         </v-flex>
         <v-flex>
+          <!-- @slot title -->
           <slot name="title" v-bind="self">
             <h1 class="text-h5">{{ title }}</h1>
           </slot>
         </v-flex>
         <v-flex shrink>
+          <!-- @slot actions -->
           <slot name="actions" v-bind="self" />
         </v-flex>
       </v-layout>
     </slot>
+    <!-- @slot default -->
     <slot v-bind="self" />
   </div>
 </template>
@@ -59,20 +77,16 @@ export default {
     textBack: { default: "Back" },
   },
   props: {
-    visible: {
-      type: Boolean,
-      required: true,
-    },
     title: {
       type: String,
       default: null,
     },
 
-    dialog: {
+    card: {
       type: Boolean,
       default: false,
     },
-    dialogProps: {
+    cardProps: {
       type: Object,
       default: () => ({}),
     },
@@ -86,11 +100,6 @@ export default {
   computed: {
     self() {
       return this;
-    },
-  },
-  watch: {
-    visible(val) {
-      if (val) this.key++;
     },
   },
 

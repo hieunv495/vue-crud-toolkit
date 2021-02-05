@@ -44,14 +44,22 @@
       </crud-dashboard>
     </template>
 
-    <template #detail="{ detailId, detailConfig, apiGetOne }">
+    <template
+      #detail="{
+        detailId,
+        detailConfig,
+        apiGetOne,
+        viewCreateDetailUpdateConfig,
+      }"
+    >
       <crud-detail
         :id="detailId"
         :api-get-one="apiGetOne"
-        :dialog="detailConfig.dialog"
-        :dialog-props="detailConfig.dialogProps"
+        :card="viewCreateDetailUpdateConfig.dialog"
+        :card-props="detailConfig.cardProps"
         title="Post detail"
         @close="bus.$emit('close-detail')"
+        @open-update="bus.$emit('open-update', detailId)"
       >
         <template #default="{ data }">
           <v-text-field :value="data.title" label="Title" disabled />
@@ -60,14 +68,21 @@
       </crud-detail>
     </template>
 
-    <template #create="{ createVisible, createConfig, apiCreate }">
+    <template
+      #create="{
+        createVisible,
+        createConfig,
+        apiCreate,
+        viewCreateDetailUpdateConfig,
+      }"
+    >
       <crud-create
         :visible="createVisible"
         :title="'Create'"
         :api-create="apiCreate"
         :get-begin-form-data="createConfig.getBeginFormData"
-        :dialog="createConfig.dialog"
-        :dialog-props="createConfig.dialogProps"
+        :card="viewCreateDetailUpdateConfig.dialog"
+        :card-props="createConfig.cardProps"
         @close="bus.$emit('close-create')"
         @success="
           bus.$emit('close-create');
@@ -84,20 +99,29 @@
         </template>
       </crud-create>
     </template>
-    <template #update="{ updateId, updateConfig, apiGetOne, apiUpdate }">
+    <template
+      #update="{
+        updateId,
+        updateConfig,
+        apiGetOne,
+        apiUpdate,
+        viewCreateDetailUpdateConfig,
+      }"
+    >
       <crud-update
         :id="updateId"
         title="Update post"
         :api-get-one="apiGetOne"
         :api-update="apiUpdate"
         :get-begin-form-data="updateConfig.getBeginFormData"
-        :dialog="updateConfig.dialog"
-        :dialog-props="updateConfig.dialogProps"
+        :card="viewCreateDetailUpdateConfig.dialog"
+        :card-props="updateConfig.cardProps"
         @close="bus.$emit('close-update')"
         @success="
           bus.$emit('close-update');
           bus.$emit('notify-success', 'Update success');
           bus.$emit('refresh-dashboard');
+          bus.$emit('refresh-detail');
         "
       >
         <template #default="{ formBus, beginFormData, sendRequest }">

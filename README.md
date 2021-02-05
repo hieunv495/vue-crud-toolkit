@@ -64,6 +64,10 @@ git clone git@github.com:hieunv495/vue-crud-toolkit.git
 
 ## Changelog
 
+### 3.3.0
+
+- Add detail create update in one view
+
 ### 3.2.0
 
 - Add form mixin

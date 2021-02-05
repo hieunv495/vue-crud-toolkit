@@ -1,94 +1,93 @@
 <template>
   <div>
-    <slot v-if="createConfig.dialog" name="create" v-bind="self">
-      <crud-create
-        v-if="$scopedSlots['create-content']"
-        :visible="createVisible"
-        :api-create="apiCreate"
-        :get-error-message="getErrorMessage"
-        :get-begin-form-data="createConfig.getBeginFormData"
-        :dialog="true"
-        :dialog-props="createConfig.dialogProps"
-        @close="bus.$emit('close-create')"
-        @success="
-          bus.$emit('close-create');
-          bus.$emit('notify-success', textCreateSuccess);
-          bus.$emit('dashboard-go-to-page', 1);
-        "
-      >
-        <template v-if="$scopedSlots['create-header']" #header="create">
-          <slot name="create-header" v-bind="create" />
-        </template>
-        <template v-if="$scopedSlots['create-title']" #title="create">
-          <slot name="create-title" v-bind="create" />
-        </template>
-        <template v-if="$scopedSlots['create-actions']" #actions="create">
-          <slot name="create-actions" v-bind="create" />
-        </template>
-        <template #default="create">
-          <slot name="create-content" v-bind="create" />
-        </template>
-      </crud-create>
-    </slot>
+    <v-dialog
+      v-if="viewCreateDetailUpdateConfig.dialog"
+      :value="viewCreateDetailUpdateVisible"
+      @input="onClickCloseDetailCreateUpdate"
+      v-bind="dialogProps"
+    >
+      <slot v-if="!detailId && !updateId" name="create" v-bind="self">
+        <crud-create
+          v-if="$scopedSlots['create-content']"
+          :visible="createVisible"
+          :api-create="apiCreate"
+          :get-error-message="getErrorMessage"
+          :get-begin-form-data="createConfig.getBeginFormData"
+          :card="true"
+          :card-props="createConfig.cardProps"
+          @close="bus.$emit('close-create')"
+          @success="onCreateSuccess"
+        >
+          <template v-if="$scopedSlots['create-header']" #header="create">
+            <slot name="create-header" v-bind="create" />
+          </template>
+          <template v-if="$scopedSlots['create-title']" #title="create">
+            <slot name="create-title" v-bind="create" />
+          </template>
+          <template v-if="$scopedSlots['create-actions']" #actions="create">
+            <slot name="create-actions" v-bind="create" />
+          </template>
+          <template #default="create">
+            <slot name="create-content" v-bind="create" />
+          </template>
+        </crud-create>
+      </slot>
 
-    <slot v-if="detailConfig.dialog" name="detail" v-bind="self">
-      <crud-detail
-        v-if="$scopedSlots['detail-content']"
-        :bus="bus"
-        :id="detailId"
-        :api-get-one="apiGetOne"
-        :get-error-message="getErrorMessage"
-        :dialog="true"
-        :dialog-props="detailConfig.dialogProps"
-        @close="bus.$emit('close-detail')"
-      >
-        <template v-if="$scopedSlots['detail-header']" #header="detail">
-          <slot name="detail-header" v-bind="detail" />
-        </template>
-        <template v-if="$scopedSlots['detail-title']" #title="detail">
-          <slot name="detail-title" v-bind="detail" />
-        </template>
-        <template v-if="$scopedSlots['detail-actions']" #actions="detail">
-          <slot name="detail-actions" v-bind="detail" />
-        </template>
-        <template #default="detail">
-          <slot name="detail-content" v-bind="detail" />
-        </template>
-      </crud-detail>
-    </slot>
+      <slot v-if="!updateId" name="detail" v-bind="self">
+        <crud-detail
+          v-if="$scopedSlots['detail-content']"
+          :bus="bus"
+          :id="detailId"
+          :api-get-one="apiGetOne"
+          :get-error-message="getErrorMessage"
+          :card="true"
+          :card-props="detailConfig.dialogProps"
+          @close="bus.$emit('close-detail')"
+          @open-update="bus.$emit('open-update', detailId)"
+        >
+          <template v-if="$scopedSlots['detail-header']" #header="detail">
+            <slot name="detail-header" v-bind="detail" />
+          </template>
+          <template v-if="$scopedSlots['detail-title']" #title="detail">
+            <slot name="detail-title" v-bind="detail" />
+          </template>
+          <template v-if="$scopedSlots['detail-actions']" #actions="detail">
+            <slot name="detail-actions" v-bind="detail" />
+          </template>
+          <template #default="detail">
+            <slot name="detail-content" v-bind="detail" />
+          </template>
+        </crud-detail>
+      </slot>
 
-    <slot v-if="updateConfig.dialog" name="update" v-bind="self">
-      <crud-update
-        v-if="$scopedSlots['update-content']"
-        :id="updateId"
-        :api-get-one="apiGetOne"
-        :api-update="apiUpdate"
-        :get-error-message="getErrorMessage"
-        :get-begin-form-data="updateConfig.getBeginFormData"
-        :dialog="true"
-        :dialog-props="updateConfig.dialogProps"
-        @close="bus.$emit('close-update')"
-        @success="
-          bus.$emit('close-update');
-          bus.$emit('notify-success', textUpdateSuccess);
-          bus.$emit('refresh-dashboard');
-          bus.$emit('refresh-detail');
-        "
-      >
-        <template v-if="$scopedSlots['update-header']" #header="update">
-          <slot name="update-header" v-bind="update" />
-        </template>
-        <template v-if="$scopedSlots['update-title']" #title="update">
-          <slot name="update-title" v-bind="update" />
-        </template>
-        <template v-if="$scopedSlots['update-actions']" #actions="update">
-          <slot name="update-actions" v-bind="update" />
-        </template>
-        <template #default="update">
-          <slot name="update-content" v-bind="update" />
-        </template>
-      </crud-update>
-    </slot>
+      <slot name="update" v-bind="self">
+        <crud-update
+          v-if="$scopedSlots['update-content']"
+          :id="updateId"
+          :api-get-one="apiGetOne"
+          :api-update="apiUpdate"
+          :get-error-message="getErrorMessage"
+          :get-begin-form-data="updateConfig.getBeginFormData"
+          :card="true"
+          :card-props="updateConfig.dialogProps"
+          @close="bus.$emit('close-update')"
+          @success="onUpdateSuccess"
+        >
+          <template v-if="$scopedSlots['update-header']" #header="update">
+            <slot name="update-header" v-bind="update" />
+          </template>
+          <template v-if="$scopedSlots['update-title']" #title="update">
+            <slot name="update-title" v-bind="update" />
+          </template>
+          <template v-if="$scopedSlots['update-actions']" #actions="update">
+            <slot name="update-actions" v-bind="update" />
+          </template>
+          <template #default="update">
+            <slot name="update-content" v-bind="update" />
+          </template>
+        </crud-update>
+      </slot>
+    </v-dialog>
 
     <slot name="success-dialog" v-bind="self">
       <success-snackbar
@@ -206,28 +205,20 @@
           </crud-dashboard>
         </slot>
       </v-window-item>
-
       <v-window-item
-        v-if="
-          !createConfig.dialog &&
-          ($scopedSlots['create'] || $scopedSlots['create-content'])
-        "
-        :value="CREATE"
+        v-if="!viewCreateDetailUpdateConfig.dialog"
+        value="DETAIL_CREATE_UPDATE"
       >
-        <slot v-if="page === CREATE" name="create" v-bind="self">
+        <slot v-if="!detailId && !updateId" name="create" v-bind="self">
           <crud-create
             v-if="$scopedSlots['create-content']"
             :visible="createVisible"
             :api-create="apiCreate"
             :get-error-message="getErrorMessage"
             :get-begin-form-data="createConfig.getBeginFormData"
-            :dialog="false"
+            :card="false"
             @close="bus.$emit('close-create')"
-            @success="
-              bus.$emit('close-create');
-              bus.$emit('notify-success', textCreateSuccess);
-              bus.$emit('dashboard-go-to-page', 1);
-            "
+            @success="onCreateSuccess"
           >
             <template v-if="$scopedSlots['create-header']" #header="create">
               <slot name="create-header" v-bind="create" />
@@ -243,24 +234,17 @@
             </template>
           </crud-create>
         </slot>
-      </v-window-item>
 
-      <v-window-item
-        v-if="
-          !detailConfig.dialog &&
-          ($scopedSlots['detail'] || $scopedSlots['detail-content'])
-        "
-        :value="DETAIL"
-      >
-        <slot v-if="page === DETAIL" name="detail" v-bind="self">
+        <slot v-if="!updateId" name="detail" v-bind="self">
           <crud-detail
             v-if="$scopedSlots['detail-content']"
             :bus="bus"
             :id="detailId"
             :api-get-one="apiGetOne"
             :get-error-message="getErrorMessage"
-            :dialog="false"
+            :card="false"
             @close="bus.$emit('close-detail')"
+            @open-update="bus.$emit('open-update', detailId)"
           >
             <template v-if="$scopedSlots['detail-header']" #header="detail">
               <slot name="detail-header" v-bind="detail" />
@@ -278,16 +262,8 @@
             </template>
           </crud-detail>
         </slot>
-      </v-window-item>
 
-      <v-window-item
-        v-if="
-          !updateConfig.dialog &&
-          ($scopedSlots['update'] || $scopedSlots['update-content'])
-        "
-        :value="UPDATE"
-      >
-        <slot v-if="page === UPDATE" name="update" v-bind="self">
+        <slot name="update" v-bind="self">
           <crud-update
             v-if="$scopedSlots['update-content']"
             :id="updateId"
@@ -295,14 +271,9 @@
             :api-update="apiUpdate"
             :get-error-message="getErrorMessage"
             :get-begin-form-data="updateConfig.getBeginFormData"
-            :dialog="false"
+            :card="false"
             @close="bus.$emit('close-update')"
-            @success="
-              bus.$emit('close-update');
-              bus.$emit('notify-success', textUpdateSuccess);
-              bus.$emit('refresh-dashboard');
-              bus.$emit('refresh-detail');
-            "
+            @success="onUpdateSuccess"
           >
             <template v-if="$scopedSlots['update-header']" #header="update">
               <slot name="update-header" v-bind="update" />
@@ -339,6 +310,7 @@ const DASHBOARD = "DASHBOARD";
 const DETAIL = "DETAIL";
 const CREATE = "CREATE";
 const UPDATE = "UPDATE";
+const DETAIL_CREATE_UPDATE = "DETAIL_CREATE_UPDATE";
 
 export default {
   name: "crud-composition",
@@ -358,6 +330,13 @@ export default {
     },
     hasTrash: { default: true },
 
+    viewCreateDetailUpdateConfig: {
+      default: {
+        dialog: false,
+        dialogProps: { default: { maxWidth: 800 } },
+      },
+    },
+
     dashboardConfig: {
       default: {
         defaultFilter: { default: () => ({}) },
@@ -367,20 +346,26 @@ export default {
     },
 
     detailConfig: {
-      dialog: { default: true },
+      cardProps: { default: { maxWidth: 800 } },
       dialogProps: { default: { maxWidth: 800 } },
     },
 
     createConfig: {
       getBeginFormData: { default: null },
-      dialog: { default: true },
+      cardProps: { default: { maxWidth: 800 } },
       dialogProps: { default: { maxWidth: 800 } },
+      onSuccess: { default: "DETAIL" },
     },
 
     updateConfig: {
       getBeginFormData: { default: null },
-      dialog: { default: true },
+      cardProps: { default: { maxWidth: 800 } },
       dialogProps: { default: { maxWidth: 800 } },
+      onSuccess: { default: "DETAIL" },
+    },
+
+    getObjectId: {
+      default: () => (item) => item.id,
     },
 
     getErrorMessage: {
@@ -433,6 +418,7 @@ export default {
       DETAIL,
       CREATE,
       UPDATE,
+      DETAIL_CREATE_UPDATE,
       notification: {
         success: { visible: false, message: "" },
         error: { visible: false, message: "" },
@@ -454,10 +440,32 @@ export default {
     },
 
     page() {
-      if (!this.updateDialog && this.updateId) return UPDATE;
-      if (!this.detailDialog && this.detailId) return DETAIL;
-      if (!this.createDialog && this.createVisible) return CREATE;
+      if (this.viewCreateDetailUpdateConfig.dialog) {
+        return DASHBOARD;
+      }
+      if (this.updateId) return DETAIL_CREATE_UPDATE;
+      if (this.detailId) return DETAIL_CREATE_UPDATE;
+      if (this.createVisible) return DETAIL_CREATE_UPDATE;
       return DASHBOARD;
+    },
+    viewCreateDetailUpdateVisible() {
+      if (this.updateId) return true;
+      if (this.detailId) return true;
+      if (this.createVisible) return true;
+      return false;
+    },
+    dialogProps() {
+      const dialogProps = this.viewCreateDetailUpdateConfig.dialogProps;
+      if (this.createVisible) {
+        return { ...dialogProps, ...this.createConfig.dialogProps };
+      }
+      if (this.detailId) {
+        return { ...dialogProps, ...this.detailConfig.dialogProps };
+      }
+      if (this.updateId) {
+        return { ...dialogProps, ...this.updateConfig.dialogProps };
+      }
+      return dialogProps;
     },
   },
   watch: {
@@ -586,6 +594,18 @@ export default {
       this.notification.error.message = message;
       this.notification.error.visible = true;
     },
+
+    onClickCloseDetailCreateUpdate() {
+      this.createVisible = false;
+      this.detailId = null;
+      this.updateId = null;
+
+      if (this.router) {
+        this.syncSearchParams.push();
+        // window.history.back();
+      }
+    },
+
     openDetail(id) {
       this.detailId = id;
       if (this.router) {
@@ -614,6 +634,16 @@ export default {
       }
     },
 
+    onCreateSuccess(result) {
+      this.closeCreate();
+      this.notifySuccess(this.textCreateSuccess);
+      this.bus.$emit("dashboard-go-to-page", 1);
+
+      if (this.createConfig.onSuccess === "DETAIL") {
+        this.openDetail(this.getObjectId(result));
+      }
+    },
+
     openUpdate(id) {
       this.updateId = id;
       if (this.router) {
@@ -625,6 +655,16 @@ export default {
       if (this.router) {
         this.syncSearchParams.push();
         // window.history.back();
+      }
+    },
+
+    onUpdateSuccess(result) {
+      this.closeUpdate();
+      this.notifySuccess(this.textUpdateSuccess);
+      this.bus.$emit("refresh-dashboard");
+      this.bus.$emit("refresh-detail");
+      if (this.updateConfig.onSuccess === "DETAIL") {
+        this.openDetail(this.getObjectId(result));
       }
     },
 

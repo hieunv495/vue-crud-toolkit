@@ -1,9 +1,9 @@
 <template>
   <smart-window
-    :visible="!!id"
+    v-if="!!id"
     :title="title || textUpdateTitle"
-    :dialog="dialog"
-    :dialog-props="dialogProps"
+    :card="card"
+    :card-props="cardProps"
     @close="$emit('close')"
   >
     <template v-if="$scopedSlots.header" #header>
@@ -22,10 +22,17 @@
             :disabled="!beginFormData"
             :loading="updateLoading"
             color="success"
-            class="mr-8"
             @click="submit"
           >
             <v-icon left>mdi-content-save</v-icon>{{ textUpdateSubmit }}
+          </v-btn>
+          <v-btn
+            :disabled="!beginFormData || updateLoading"
+            text
+            color="warning"
+            @click="close"
+          >
+            {{ textCancel }}
           </v-btn>
         </v-layout>
       </slot>
@@ -62,7 +69,8 @@ export default {
   name: "crud-update",
   components: { SmartWindow, ErrorReport },
   inject: {
-    textUpdateSubmit: { default: "Update" },
+    textCancel: { default: "Cancel" },
+    textUpdateSubmit: { default: "Save change" },
     textUpdateTitle: { default: "Update" },
   },
   props: {
@@ -90,11 +98,11 @@ export default {
       type: String,
       default: null,
     },
-    dialog: {
+    card: {
       type: Boolean,
       default: false,
     },
-    dialogProps: {
+    cardProps: {
       type: Object,
       default: () => ({}),
     },

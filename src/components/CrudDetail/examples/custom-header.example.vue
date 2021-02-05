@@ -8,8 +8,8 @@
       title="Post detail"
       :id="id"
       :api-get-one="apiGetOne"
-      :dialog="dialog"
-      :dialog-props="{
+      :card="card"
+      :card-props="{
         maxWidth: 600,
         persistent: false,
       }"
@@ -40,7 +40,7 @@ export default {
   name: "crud-detail-custom-header-example",
   components: { CrudDetail },
   props: {
-    dialog: {
+    card: {
       type: Boolean,
       default: false,
     },

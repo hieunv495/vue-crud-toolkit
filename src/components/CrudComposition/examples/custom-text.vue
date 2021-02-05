@@ -19,25 +19,6 @@
       />
     </template>
 
-    <template #detail-actions="{ id, data }">
-      <v-layout justify-center style="gap: 16px">
-        <v-btn
-          :disabled="!data"
-          color="success"
-          @click="bus.$emit('open-update', id)"
-        >
-          Update
-        </v-btn>
-        <v-btn
-          :disabled="!data"
-          color="warning"
-          @click="bus.$emit('open-remove', id)"
-        >
-          Remove
-        </v-btn>
-      </v-layout>
-    </template>
-
     <template #detail-content="{ data }">
       <v-text-field :value="data.title" label="Title" disabled />
       <v-textarea :value="data.description" label="Description" disabled />
@@ -91,6 +72,10 @@ export default {
       router: false,
       hasTrash: true,
 
+      viewCreateDetailUpdateConfig: {
+        dialog: this.dialog,
+      },
+
       dashboardConfig: {
         defaultFilter: { q: "" },
         defaultPage: 1,
@@ -98,20 +83,19 @@ export default {
       },
 
       detailConfig: {
-        dialog: this.dialog,
         dialogProps: { maxWidth: 800 },
       },
 
       createConfig: {
         getBeginFormData,
-        dialog: this.dialog,
         dialogProps: { maxWidth: 800 },
+        onSuccess: "DETAIL",
       },
 
       updateConfig: {
         getBeginFormData,
-        dialog: this.dialog,
         dialogProps: { maxWidth: 800 },
+        onSuccess: "DETAIL",
       },
 
       getErrorMessage: (e) => e.message,

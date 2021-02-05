@@ -103,6 +103,10 @@ export default {
       router: false,
       hasTrash: true,
 
+      viewCreateDetailUpdateConfig: {
+        dialog: this.dialog,
+      },
+
       dashboardConfig: {
         defaultFilter: { q: "" },
         defaultPage: 1,
@@ -110,20 +114,19 @@ export default {
       },
 
       detailConfig: {
-        dialog: this.dialog,
         dialogProps: { maxWidth: 800 },
       },
 
       createConfig: {
         getBeginFormData,
-        dialog: this.dialog,
         dialogProps: { maxWidth: 800 },
+        onSuccess: "DETAIL",
       },
 
       updateConfig: {
         getBeginFormData,
-        dialog: this.dialog,
         dialogProps: { maxWidth: 800 },
+        onSuccess: "DETAIL",
       },
 
       getErrorMessage: (e) => e.message,

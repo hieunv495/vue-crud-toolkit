@@ -11,8 +11,8 @@
       :api-create="apiCreate"
       :get-error-message="getErrorMessage"
       :get-begin-form-data="getBeginFormData"
-      :dialog="dialog"
-      :dialog-props="{
+      :card="card"
+      :card-props="{
         maxWidth: 600,
         persistent: false,
       }"
@@ -45,7 +45,7 @@ export default {
   name: "crud-create-custom-error-example",
   components: { CrudCreate, PostForm },
   props: {
-    dialog: {
+    card: {
       type: Boolean,
       default: false,
     },

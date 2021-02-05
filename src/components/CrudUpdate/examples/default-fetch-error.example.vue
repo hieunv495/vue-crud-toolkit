@@ -11,8 +11,8 @@
       :api-update="apiUpdate"
       :get-error-message="getErrorMessage"
       :get-begin-form-data="getBeginFormData"
-      :dialog="dialog"
-      :dialog-props="{
+      :card="card"
+      :card-props="{
         maxWidth: 600,
         persistent: false,
       }"
@@ -38,7 +38,7 @@ export default {
   name: "crud-update-default-fetch-error-example",
   components: { CrudUpdate, PostForm },
   props: {
-    dialog: {
+    card: {
       type: Boolean,
       default: false,
     },

@@ -10,8 +10,8 @@
       :api-get-one="apiGetOne"
       :api-update="apiUpdate"
       :get-begin-form-data="getBeginFormData"
-      :dialog="dialog"
-      :dialog-props="{
+      :card="card"
+      :card-props="{
         maxWidth: 600,
         persistent: false,
       }"
@@ -45,7 +45,7 @@ export default {
     textUpdateTitle: "Cập nhật bài viết",
   },
   props: {
-    dialog: {
+    card: {
       type: Boolean,
       default: false,
     },

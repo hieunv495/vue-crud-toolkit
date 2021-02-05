@@ -42,7 +42,7 @@ export default {
     getErrorMessage: {
       description: "Function get error message when `apiGetOne` throw an error",
     },
-    dialog: {
+    card: {
       control: {
         type: "boolean",
       },
@@ -54,6 +54,19 @@ export default {
 
 export const Default = () => DefaultExample;
 Default.parameters = {
+  docs: {
+    source: {
+      code: DefaultExample_code,
+    },
+  },
+};
+
+// WITH CARD
+export const WithCard = () => DefaultExample;
+WithCard.args = {
+  card: true,
+};
+WithCard.parameters = {
   docs: {
     source: {
       code: DefaultExample_code,
@@ -117,20 +130,6 @@ CustomEmpty.parameters = {
   docs: {
     source: {
       code: CustomEmptyExample_code,
-    },
-  },
-};
-
-// WITH DIALOG
-
-export const WithDialog = () => DefaultExample;
-WithDialog.args = {
-  dialog: true,
-};
-WithDialog.parameters = {
-  docs: {
-    source: {
-      code: DefaultExample_code,
     },
   },
 };

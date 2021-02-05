@@ -19,25 +19,6 @@
       />
     </template>
 
-    <template #detail-actions="{ id, data }">
-      <v-layout justify-center style="gap: 16px">
-        <v-btn
-          :disabled="!data"
-          color="success"
-          @click="bus.$emit('open-update', id)"
-        >
-          Update
-        </v-btn>
-        <v-btn
-          :disabled="!data"
-          color="warning"
-          @click="bus.$emit('open-remove', id)"
-        >
-          Remove
-        </v-btn>
-      </v-layout>
-    </template>
-
     <template #detail-content="{ data }">
       <v-text-field :value="data.title" label="Title" disabled />
       <v-textarea :value="data.description" label="Description" disabled />
@@ -60,21 +41,30 @@
     </template> -->
 
     <!-- Add this block  -->
-    <template #update="{ updateId, updateConfig, apiGetOne, apiUpdate }">
+    <template
+      #update="{
+        updateId,
+        updateConfig,
+        apiGetOne,
+        apiUpdate,
+        viewCreateDetailUpdateConfig,
+      }"
+    >
       <crud-update
         :id="updateId"
         title="Update post"
         :api-get-one="apiGetOne"
         :api-update="apiUpdate"
         :get-begin-form-data="updateConfig.getBeginFormData"
-        :dialog="updateConfig.dialog"
-        :dialog-props="updateConfig.dialogProps"
+        :card="viewCreateDetailUpdateConfig.dialog"
+        :card-props="updateConfig.cardProps"
         @close="bus.$emit('close-update')"
         @success="
           bus.$emit('close-update');
           bus.$emit('notify-success', 'Update success');
           bus.$emit('refresh-dashboard');
           bus.$emit('refresh-detail');
+          bus.$emit('open-detail', $event.id)
         "
       >
         <template #title="{ title }">
@@ -128,6 +118,10 @@ export default {
       router: false,
       hasTrash: true,
 
+      viewCreateDetailUpdateConfig: {
+        dialog: this.dialog,
+      },
+
       dashboardConfig: {
         defaultFilter: { q: "" },
         defaultPage: 1,
@@ -135,20 +129,19 @@ export default {
       },
 
       detailConfig: {
-        dialog: this.dialog,
         dialogProps: { maxWidth: 800 },
       },
 
       createConfig: {
         getBeginFormData,
-        dialog: this.dialog,
         dialogProps: { maxWidth: 800 },
+        onSuccess: "DETAIL",
       },
 
       updateConfig: {
         getBeginFormData,
-        dialog: this.dialog,
         dialogProps: { maxWidth: 800 },
+        onSuccess: "DETAIL",
       },
 
       getErrorMessage: (e) => e.message,
