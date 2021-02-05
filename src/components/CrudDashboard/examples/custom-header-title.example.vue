@@ -2,9 +2,12 @@
   <crud-dashboard
     :bus="bus"
     title="Post manager"
-    :default-filter="{ q: '' }"
-    :default-page="1"
-    :default-per-page="5"
+    :default-normal-filter="{ q: '' }"
+    :default-normal-page="1"
+    :default-normal-per-page="5"
+    :default-trash-filter="{ q: '' }"
+    :default-trash-page="1"
+    :default-trash-per-page="5"
     :api-normal-pagination="apiNormalPagination"
     :api-trash-pagination="apiTrashPagination"
     :api-normal-count="apiNormalCount"
@@ -12,36 +15,52 @@
     @click-create="onClickCreate"
     @click-empty-trash="onClickEmptyTrash"
   >
-    <template #header-filter="{ loading, filter, updateFilter }">
+    <!-- Add this block  -->
+    <template #normal-header-title="{ title }">
+      <v-alert type="success">Custom normal: {{ title }}</v-alert>
+    </template>
+    <!-- End  -->
+    <template #normal-header-filter="{ loading, filter, updateFilter }">
       <default-search-text-filter
         :loading="loading"
         :value="filter.q"
         @input="updateFilter({ q: $event })"
       />
     </template>
+    <template #normal-default="{ items }">
+      <posts-table :items="items" :trash-mode="false" />
+    </template>
+
     <!-- Add this block  -->
-    <template #default="{ items, trashMode }">
-      <ul>
-        <li v-for="item in items" :key="item.id">
-          <v-chip v-if="trashMode" color="warning">Delected</v-chip>
-          {{ item.title }}
-        </li>
-      </ul>
+    <template #trash-header-title="{ title }">
+      <v-alert type="success">Custom trash: {{ title }}</v-alert>
     </template>
     <!-- End  -->
+    <template #trash-header-filter="{ loading, filter, updateFilter }">
+      <default-search-text-filter
+        :loading="loading"
+        :value="filter.q"
+        @input="updateFilter({ q: $event })"
+      />
+    </template>
+    <template #trash-default="{ items }">
+      <posts-table :items="items" :trash-mode="true" />
+    </template>
   </crud-dashboard>
 </template>
 
 <script>
 import Vue from "vue";
 import { CrudDashboard, DefaultSearchTextFilter } from "vue-crud-toolkit";
+import PostsTable from "@/components/posts/PostsTable/index.vue";
 import postsApi from "@/apis/posts.api";
 
 export default {
-  name: "crud-dashboard-custom-content-example",
+  name: "crud-dashboard-custom-header-title-example",
   components: {
     CrudDashboard,
     DefaultSearchTextFilter,
+    PostsTable,
   },
   data() {
     return {

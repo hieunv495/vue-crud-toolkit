@@ -2,9 +2,12 @@
   <crud-dashboard
     :bus="bus"
     title="Post manager"
-    :default-filter="{ q: '' }"
-    :default-page="1"
-    :default-per-page="5"
+    :default-normal-filter="{ q: '' }"
+    :default-normal-page="1"
+    :default-normal-per-page="5"
+    :default-trash-filter="{ q: '' }"
+    :default-trash-page="1"
+    :default-trash-per-page="5"
     :api-normal-pagination="apiNormalPagination"
     :api-trash-pagination="apiTrashPagination"
     :api-normal-count="apiNormalCount"
@@ -12,42 +15,55 @@
     @click-create="onClickCreate"
     @click-empty-trash="onClickEmptyTrash"
   >
-    <!-- Add this block  -->
-    <template #header-actions="{ trashMode, clickCreate, clickEmptyTrash }">
-      <template v-if="!trashMode">
-        <v-btn color="info" @click="clickCreate">Custom New item button</v-btn>
-        <v-btn color="warning">Some button</v-btn>
-      </template>
-      <v-btn v-else color="warning" @click="clickEmptyTrash"
-        >Remove all trash items</v-btn
-      >
-    </template>
-    <!-- End  -->
-    <template #header-filter="{ loading, filter, updateFilter }">
+    <template #normal-header-filter="{ loading, filter, updateFilter }">
       <default-search-text-filter
         :loading="loading"
         :value="filter.q"
+        placeholder="Normal search"
         @input="updateFilter({ q: $event })"
       />
     </template>
-    <template #default="{ items, trashMode }">
-      <posts-table :items="items" :trash-mode="trashMode" />
+    <!-- Add this block  -->
+    <template #normal-default="{ items }">
+      <ul>
+        <li v-for="item in items" :key="item.id">
+          {{ item.title }}
+        </li>
+      </ul>
     </template>
+    <!-- End  -->
+
+    <template #trash-header-filter="{ loading, filter, updateFilter }">
+      <default-search-text-filter
+        :loading="loading"
+        :value="filter.q"
+        placeholder="Normal search"
+        @input="updateFilter({ q: $event })"
+      />
+    </template>
+    <!-- Add this block  -->
+    <template #trash-default="{ items }">
+      <ul>
+        <li v-for="item in items" :key="item.id">
+          <v-chip color="warning">Delected</v-chip>
+          {{ item.title }}
+        </li>
+      </ul>
+    </template>
+    <!-- End  -->
   </crud-dashboard>
 </template>
 
 <script>
 import Vue from "vue";
 import { CrudDashboard, DefaultSearchTextFilter } from "vue-crud-toolkit";
-import PostsTable from "@/components/posts/PostsTable/index.vue";
 import postsApi from "@/apis/posts.api";
 
 export default {
-  name: "crud-dashboard-custom-header-actions-example",
+  name: "crud-dashboard-custom-content-example",
   components: {
     CrudDashboard,
     DefaultSearchTextFilter,
-    PostsTable,
   },
   data() {
     return {

@@ -2,9 +2,12 @@
   <crud-dashboard
     :bus="bus"
     title="Post manager"
-    :default-filter="{ q: '' }"
-    :default-page="1"
-    :default-per-page="5"
+    :default-normal-filter="{ q: '' }"
+    :default-normal-page="1"
+    :default-normal-per-page="5"
+    :default-trash-filter="{ q: '' }"
+    :default-trash-page="1"
+    :default-trash-per-page="5"
     :api-normal-pagination="apiNormalPagination"
     :api-trash-pagination="apiTrashPagination"
     :api-normal-count="apiNormalCount"
@@ -13,25 +16,26 @@
     @click-create="onClickCreate"
     @click-empty-trash="onClickEmptyTrash"
   >
-    <template #header-filter="{ loading, filter, updateFilter }">
+    <template #normal-header-filter="{ loading, filter, updateFilter }">
       <default-search-text-filter
         :loading="loading"
         :value="filter.q"
         @input="updateFilter({ q: $event })"
       />
     </template>
-    <template #default="{ items, trashMode }">
-      <posts-table :items="items" :trash-mode="trashMode" />
+    <template #normal-default="{ items }">
+      <posts-table :items="items" :trash-mode="false" />
     </template>
-    <template #error="{ loading, errorMessage, loadData }">
-      <v-layout column justify-center align-center class="my-8">
-        <h2>Custom error</h2>
-        <v-alert min-width="200" type="success">{{ errorMessage }}</v-alert>
-        <v-btn :loading="loading" color="success" @click="loadData">
-          <v-icon left>mdi-refresh</v-icon>
-          Retry
-        </v-btn>
-      </v-layout>
+
+    <template #trash-header-filter="{ loading, filter, updateFilter }">
+      <default-search-text-filter
+        :loading="loading"
+        :value="filter.q"
+        @input="updateFilter({ q: $event })"
+      />
+    </template>
+    <template #trash-default="{ items }">
+      <posts-table :items="items" :trash-mode="true" />
     </template>
   </crud-dashboard>
 </template>

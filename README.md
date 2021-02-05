@@ -67,6 +67,8 @@ git clone git@github.com:hieunv495/vue-crud-toolkit.git
 ### 3.3.0
 
 - Add detail create update in one view
+- Add filter for normal and trash
+- Add access options
 
 ### 3.2.0
 

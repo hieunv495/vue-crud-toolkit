@@ -8,7 +8,7 @@
     >
       <slot v-if="!detailId && !updateId" name="create" v-bind="self">
         <crud-create
-          v-if="$scopedSlots['create-content']"
+          v-if="$scopedSlots['create-default']"
           :visible="createVisible"
           :api-create="apiCreate"
           :get-error-message="getErrorMessage"
@@ -18,24 +18,15 @@
           @close="bus.$emit('close-create')"
           @success="onCreateSuccess"
         >
-          <template v-if="$scopedSlots['create-header']" #header="create">
-            <slot name="create-header" v-bind="create" />
-          </template>
-          <template v-if="$scopedSlots['create-title']" #title="create">
-            <slot name="create-title" v-bind="create" />
-          </template>
-          <template v-if="$scopedSlots['create-actions']" #actions="create">
-            <slot name="create-actions" v-bind="create" />
-          </template>
-          <template #default="create">
-            <slot name="create-content" v-bind="create" />
+          <template v-for="slotName in createSlots" #[slotName]="scopedData">
+            <slot :name="'create-' + slotName" v-bind="scopedData" />
           </template>
         </crud-create>
       </slot>
 
       <slot v-if="!updateId" name="detail" v-bind="self">
         <crud-detail
-          v-if="$scopedSlots['detail-content']"
+          v-if="$scopedSlots['detail-default']"
           :bus="bus"
           :id="detailId"
           :api-get-one="apiGetOne"
@@ -45,24 +36,15 @@
           @close="bus.$emit('close-detail')"
           @open-update="bus.$emit('open-update', detailId)"
         >
-          <template v-if="$scopedSlots['detail-header']" #header="detail">
-            <slot name="detail-header" v-bind="detail" />
-          </template>
-          <template v-if="$scopedSlots['detail-title']" #title="detail">
-            <slot name="detail-title" v-bind="detail" />
-          </template>
-          <template v-if="$scopedSlots['detail-actions']" #actions="detail">
-            <slot name="detail-actions" v-bind="detail" />
-          </template>
-          <template #default="detail">
-            <slot name="detail-content" v-bind="detail" />
+          <template v-for="slotName in detailSlots" #[slotName]="scopedData">
+            <slot :name="'detail-' + slotName" v-bind="scopedData" />
           </template>
         </crud-detail>
       </slot>
 
       <slot name="update" v-bind="self">
         <crud-update
-          v-if="$scopedSlots['update-content']"
+          v-if="$scopedSlots['update-default']"
           :id="updateId"
           :api-get-one="apiGetOne"
           :api-update="apiUpdate"
@@ -73,17 +55,8 @@
           @close="bus.$emit('close-update')"
           @success="onUpdateSuccess"
         >
-          <template v-if="$scopedSlots['update-header']" #header="update">
-            <slot name="update-header" v-bind="update" />
-          </template>
-          <template v-if="$scopedSlots['update-title']" #title="update">
-            <slot name="update-title" v-bind="update" />
-          </template>
-          <template v-if="$scopedSlots['update-actions']" #actions="update">
-            <slot name="update-actions" v-bind="update" />
-          </template>
-          <template #default="update">
-            <slot name="update-content" v-bind="update" />
+          <template v-for="slotName in updateSlots" #[slotName]="scopedData">
+            <slot :name="'update-' + slotName" v-bind="scopedData" />
           </template>
         </crud-update>
       </slot>
@@ -181,12 +154,14 @@
       <v-window-item :value="DASHBOARD">
         <slot name="dashboard" v-bind="self">
           <crud-dashboard
-            v-if="$scopedSlots['dashboard-content']"
             :router="router"
             :bus="bus"
-            :default-filter="dashboardConfig.defaultFilter"
-            :default-page="dashboardConfig.defaultPage"
-            :default-perPage="dashboardConfig.defaultPerPage"
+            :default-normal-filter="dashboardConfig.defaultNormalFilter"
+            :default-normal-page="dashboardConfig.defaultNormalPage"
+            :default-normal-per-page="dashboardConfig.defaultNormalPerPage"
+            :default-trash-filter="dashboardConfig.defaultTrashFilter"
+            :default-trash-page="dashboardConfig.defaultTrashPage"
+            :default-trash-per-page="dashboardConfig.defaultTrashPerPage"
             :api-normal-pagination="apiNormalPagination"
             :api-trash-pagination="apiTrashPagination"
             :api-normal-count="apiNormalCount"
@@ -196,11 +171,11 @@
             @click-create="bus.$emit('open-create')"
             @click-empty-trash="bus.$emit('open-empty-trash')"
           >
-            <template #header-filter="dashboard">
-              <slot name="dashboard-header-filter" v-bind="dashboard" />
-            </template>
-            <template #default="dashboard">
-              <slot name="dashboard-content" v-bind="dashboard" />
+            <template
+              v-for="slotName in dashboardSlots"
+              #[slotName]="scopedData"
+            >
+              <slot :name="'dashboard-' + slotName" v-bind="scopedData" />
             </template>
           </crud-dashboard>
         </slot>
@@ -211,7 +186,7 @@
       >
         <slot v-if="!detailId && !updateId" name="create" v-bind="self">
           <crud-create
-            v-if="$scopedSlots['create-content']"
+            v-if="$scopedSlots['create-default']"
             :visible="createVisible"
             :api-create="apiCreate"
             :get-error-message="getErrorMessage"
@@ -220,24 +195,15 @@
             @close="bus.$emit('close-create')"
             @success="onCreateSuccess"
           >
-            <template v-if="$scopedSlots['create-header']" #header="create">
-              <slot name="create-header" v-bind="create" />
-            </template>
-            <template v-if="$scopedSlots['create-title']" #title="create">
-              <slot name="create-title" v-bind="create" />
-            </template>
-            <template v-if="$scopedSlots['create-actions']" #actions="create">
-              <slot name="create-actions" v-bind="create" />
-            </template>
-            <template #default="create">
-              <slot name="create-content" v-bind="create" />
+            <template v-for="slotName in createSlots" #[slotName]="scopedData">
+              <slot :name="'create-' + slotName" v-bind="scopedData" />
             </template>
           </crud-create>
         </slot>
 
         <slot v-if="!updateId" name="detail" v-bind="self">
           <crud-detail
-            v-if="$scopedSlots['detail-content']"
+            v-if="$scopedSlots['detail-default']"
             :bus="bus"
             :id="detailId"
             :api-get-one="apiGetOne"
@@ -246,26 +212,15 @@
             @close="bus.$emit('close-detail')"
             @open-update="bus.$emit('open-update', detailId)"
           >
-            <template v-if="$scopedSlots['detail-header']" #header="detail">
-              <slot name="detail-header" v-bind="detail" />
-            </template>
-            <template v-if="$scopedSlots['detail-title']" #title="detail">
-              <slot name="detail-title" v-bind="detail" />
-            </template>
-            <template v-if="$scopedSlots['detail-actions']" #actions="detail">
-              <slot name="detail-actions" v-bind="detail" />
-            </template>
-            <template #default="detail">
-              <slot name="detail-content" v-bind="detail">
-                Detail content
-              </slot>
+            <template v-for="slotName in detailSlots" #[slotName]="scopedData">
+              <slot :name="'detail-' + slotName" v-bind="scopedData" />
             </template>
           </crud-detail>
         </slot>
 
         <slot name="update" v-bind="self">
           <crud-update
-            v-if="$scopedSlots['update-content']"
+            v-if="$scopedSlots['update-default']"
             :id="updateId"
             :api-get-one="apiGetOne"
             :api-update="apiUpdate"
@@ -275,17 +230,8 @@
             @close="bus.$emit('close-update')"
             @success="onUpdateSuccess"
           >
-            <template v-if="$scopedSlots['update-header']" #header="update">
-              <slot name="update-header" v-bind="update" />
-            </template>
-            <template v-if="$scopedSlots['update-title']" #title="update">
-              <slot name="update-title" v-bind="update" />
-            </template>
-            <template v-if="$scopedSlots['update-actions']" #actions="update">
-              <slot name="update-actions" v-bind="update" />
-            </template>
-            <template #default="update">
-              <slot name="update-content" v-bind="update" />
+            <template v-for="slotName in updateSlots" #[slotName]="scopedData">
+              <slot :name="'update-' + slotName" v-bind="scopedData" />
             </template>
           </crud-update>
         </slot>
@@ -339,9 +285,12 @@ export default {
 
     dashboardConfig: {
       default: {
-        defaultFilter: { default: () => ({}) },
-        defaultPage: { default: 1 },
-        defaultPerPage: { default: 10 },
+        defaultNormalFilter: { default: () => ({}) },
+        defaultNormalPage: { default: 1 },
+        defaultNormalPerPage: { default: 10 },
+        defaultTrashFilter: { default: () => ({}) },
+        defaultTrashPage: { default: 1 },
+        defaultTrashPerPage: { default: 10 },
       },
     },
 
@@ -437,6 +386,27 @@ export default {
   computed: {
     self() {
       return this;
+    },
+
+    dashboardSlots() {
+      return Object.keys(this.$scopedSlots)
+        .filter((name) => name.startsWith("dashboard-"))
+        .map((name) => name.substring("dashboard-".length));
+    },
+    createSlots() {
+      return Object.keys(this.$scopedSlots)
+        .filter((name) => name.startsWith("create-"))
+        .map((name) => name.substring("create-".length));
+    },
+    detailSlots() {
+      return Object.keys(this.$scopedSlots)
+        .filter((name) => name.startsWith("detail-"))
+        .map((name) => name.substring("detail-".length));
+    },
+    updateSlots() {
+      return Object.keys(this.$scopedSlots)
+        .filter((name) => name.startsWith("update-"))
+        .map((name) => name.substring("update-".length));
     },
 
     page() {

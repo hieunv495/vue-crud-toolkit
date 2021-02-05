@@ -1,16 +1,40 @@
 <template>
   <crud-composition :bus="bus">
-    <!-- <template #dashboard-header-filter="{ loading, filter, updateFilter }">
+    <!--
+       <template
+      #dashboard-normal-header-filter="{ loading, filter, updateFilter }"
+    >
       <default-search-text-filter
         :loading="loading"
         :value="filter.q"
         @input="updateFilter({ q: $event })"
       />
     </template>
-    <template #dashboard-content="{ items, trashMode }">
+    <template #dashboard-normal-default="{ items }">
       <posts-table
         :items="items"
-        :trash-mode="trashMode"
+        :trash-mode="false"
+        @click-detail="bus.$emit('open-detail', $event.id)"
+        @click-update="bus.$emit('open-update', $event.id)"
+        @click-remove="bus.$emit('open-remove', $event.id)"
+        @click-restore="bus.$emit('open-restore', $event.id)"
+        @click-purge="bus.$emit('open-purge', $event.id)"
+      />
+    </template>
+
+    <template
+      #dashboard-trash-header-filter="{ loading, filter, updateFilter }"
+    >
+      <default-search-text-filter
+        :loading="loading"
+        :value="filter.q"
+        @input="updateFilter({ q: $event })"
+      />
+    </template>
+    <template #dashboard-trash-default="{ items }">
+      <posts-table
+        :items="items"
+        :trash-mode="true"
         @click-detail="bus.$emit('open-detail', $event.id)"
         @click-update="bus.$emit('open-update', $event.id)"
         @click-remove="bus.$emit('open-remove', $event.id)"
@@ -32,9 +56,12 @@
     >
       <crud-dashboard
         :bus="bus"
-        :default-filter="dashboardConfig.defaultFilter"
-        :default-page="dashboardConfig.defaultPage"
-        :default-per-page="dashboardConfig.defaultPerPage"
+        :default-normal-filter="dashboardConfig.defaultNormalFilter"
+        :default-normal-page="dashboardConfig.defaultNormalPage"
+        :default-normal-per-page="dashboardConfig.defaultNormalPerPage"
+        :default-trash-filter="dashboardConfig.defaultTrashFilter"
+        :default-trash-page="dashboardConfig.defaultTrashPage"
+        :default-trash-per-page="dashboardConfig.defaultTrashPerPage"
         :api-normal-pagination="apiNormalPagination"
         :api-trash-pagination="apiTrashPagination"
         :api-normal-count="apiNormalCount"
@@ -43,17 +70,36 @@
         @click-create="bus.$emit('open-create')"
         @click-empty-trash="bus.$emit('open-empty-trash')"
       >
-        <template #header-filter="{ loading, filter, updateFilter }">
+        <template #normal-header-filter="{ loading, filter, updateFilter }">
           <default-search-text-filter
             :loading="loading"
             :value="filter.q"
             @input="updateFilter({ q: $event })"
           />
         </template>
-        <template #default="{ items, trashMode }">
+        <template #normal-default="{ items }">
           <posts-table
             :items="items"
-            :trash-mode="trashMode"
+            :trash-mode="false"
+            @click-detail="bus.$emit('open-detail', $event.id)"
+            @click-update="bus.$emit('open-update', $event.id)"
+            @click-remove="bus.$emit('open-remove', $event.id)"
+            @click-restore="bus.$emit('open-restore', $event.id)"
+            @click-purge="bus.$emit('open-purge', $event.id)"
+          />
+        </template>
+
+        <template #trash-header-filter="{ loading, filter, updateFilter }">
+          <default-search-text-filter
+            :loading="loading"
+            :value="filter.q"
+            @input="updateFilter({ q: $event })"
+          />
+        </template>
+        <template #trash-default="{ items }">
+          <posts-table
+            :items="items"
+            :trash-mode="true"
             @click-detail="bus.$emit('open-detail', $event.id)"
             @click-update="bus.$emit('open-update', $event.id)"
             @click-remove="bus.$emit('open-remove', $event.id)"
@@ -65,12 +111,12 @@
     </template>
     <!-- End  -->
 
-    <template #detail-content="{ data }">
+    <template #detail-default="{ data }">
       <v-text-field :value="data.title" label="Title" disabled />
       <v-textarea :value="data.description" label="Description" disabled />
     </template>
 
-    <template #create-content="{ formBus, beginFormData, sendRequest }">
+    <template #create-default="{ formBus, beginFormData, sendRequest }">
       <post-form
         :form-bus="formBus"
         :begin-form-data="beginFormData"
@@ -78,7 +124,7 @@
       />
     </template>
 
-    <template #update-content="{ formBus, beginFormData, sendRequest }">
+    <template #update-default="{ formBus, beginFormData, sendRequest }">
       <post-form
         :form-bus="formBus"
         :begin-form-data="beginFormData"
@@ -128,9 +174,12 @@ export default {
       },
 
       dashboardConfig: {
-        defaultFilter: { q: "" },
-        defaultPage: 1,
-        defaultPerPage: 10,
+        defaultNormalFilter: { q: "" },
+        defaultNormalPage: 1,
+        defaultNormalPerPage: 10,
+        defaultTrashFilter: { q: "" },
+        defaultTrashPage: 1,
+        defaultTrashPerPage: 10,
       },
 
       detailConfig: {

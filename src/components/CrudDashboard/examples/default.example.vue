@@ -2,9 +2,12 @@
   <crud-dashboard
     :bus="bus"
     title="Post manager"
-    :default-filter="{ q: '' }"
-    :default-per-page="5"
-    :default-page="1"
+    :default-normal-filter="{ q: '' }"
+    :default-normal-page="1"
+    :default-normal-per-page="5"
+    :default-trash-filter="{ q: '' }"
+    :default-trash-page="1"
+    :default-trash-per-page="5"
     :api-normal-pagination="apiNormalPagination"
     :api-trash-pagination="apiTrashPagination"
     :api-normal-count="apiNormalCount"
@@ -12,33 +15,43 @@
     @click-create="onClickCreate"
     @click-empty-trash="onClickEmptyTrash"
   >
-    <!-- Add this block  -->
-    <template #header-filter="{ loading, filter, updateFilter }">
-      <v-text-field
+    <template #normal-header-filter="{ loading, filter, updateFilter }">
+      <default-search-text-filter
         :loading="loading"
         :value="filter.q"
+        placeholder="Normal search"
         @input="updateFilter({ q: $event })"
-        label="Search"
-        placeholder="Input text"
       />
     </template>
-    <!-- End  -->
-    <template #default="{ items, trashMode }">
-      <posts-table :items="items" :trash-mode="trashMode" />
+    <template #normal-default="{ items }">
+      <posts-table :items="items" :trashMode="false" />
+    </template>
+
+    <template #trash-header-filter="{ loading, filter, updateFilter }">
+      <default-search-text-filter
+        :loading="loading"
+        :value="filter.q"
+        placeholder="Trash search"
+        @input="updateFilter({ q: $event })"
+      />
+    </template>
+    <template #trash-default="{ items }">
+      <posts-table :items="items" :trashMode="true" />
     </template>
   </crud-dashboard>
 </template>
 
 <script>
 import Vue from "vue";
-import { CrudDashboard } from "vue-crud-toolkit";
+import { CrudDashboard, DefaultSearchTextFilter } from "vue-crud-toolkit";
 import PostsTable from "@/components/posts/PostsTable/index.vue";
 import postsApi from "@/apis/posts.api";
 
 export default {
-  name: "crud-dashboard-custom-header-filter-example",
+  name: "crud-dashboard-default-example",
   components: {
     CrudDashboard,
+    DefaultSearchTextFilter,
     PostsTable,
   },
   data() {

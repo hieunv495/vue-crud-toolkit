@@ -2,26 +2,45 @@
   <crud-dashboard
     :bus="bus"
     title="Post manager"
-    :default-filter="{ q: '' }"
-    :default-page="1"
-    :default-per-page="5"
+    :default-normal-filter="{ q: '' }"
+    :default-normal-page="1"
+    :default-normal-per-page="5"
+    :default-trash-filter="{ q: '' }"
+    :default-trash-page="1"
+    :default-trash-per-page="5"
     :api-normal-pagination="apiNormalPagination"
     :api-trash-pagination="apiTrashPagination"
     :api-normal-count="apiNormalCount"
     :api-trash-count="apiTrashCount"
-    :hasTrash="false"
     @click-create="onClickCreate"
     @click-empty-trash="onClickEmptyTrash"
   >
-    <template #header-filter="{ loading, filter, updateFilter }">
+    <!-- Add this block  -->
+    <template #normal-header-filter="{ loading, filter, updateFilter }">
       <default-search-text-filter
         :loading="loading"
         :value="filter.q"
+        placeholder="Normal search"
         @input="updateFilter({ q: $event })"
       />
     </template>
-    <template #default="{ items, trashMode }">
-      <posts-table :items="items" :trash-mode="trashMode" />
+    <!-- End  -->
+    <template #normal-default="{ items }">
+      <posts-table :items="items" :trash-mode="false" />
+    </template>
+
+    <!-- Add this block  -->
+    <template #trash-header-filter="{ loading, filter, updateFilter }">
+      <default-search-text-filter
+        :loading="loading"
+        :value="filter.q"
+        placeholder="Trash search"
+        @input="updateFilter({ q: $event })"
+      />
+    </template>
+    <!-- End  -->
+    <template #trash-default="{ items }">
+      <posts-table :items="items" :trash-mode="true" />
     </template>
   </crud-dashboard>
 </template>
@@ -33,7 +52,7 @@ import PostsTable from "@/components/posts/PostsTable/index.vue";
 import postsApi from "@/apis/posts.api";
 
 export default {
-  name: "crud-dashboard-no-trash-example",
+  name: "crud-dashboard-build-in-header-filter-example",
   components: {
     CrudDashboard,
     DefaultSearchTextFilter,

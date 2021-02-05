@@ -1,16 +1,18 @@
 <template>
   <crud-composition :bus="bus">
-    <template #dashboard-header-filter="{ loading, filter, updateFilter }">
+    <template
+      #dashboard-normal-header-filter="{ loading, filter, updateFilter }"
+    >
       <default-search-text-filter
         :loading="loading"
         :value="filter.q"
         @input="updateFilter({ q: $event })"
       />
     </template>
-    <template #dashboard-content="{ items, trashMode }">
+    <template #dashboard-normal-default="{ items }">
       <posts-table
         :items="items"
-        :trash-mode="trashMode"
+        :trash-mode="false"
         @click-detail="bus.$emit('open-detail', $event.id)"
         @click-update="bus.$emit('open-update', $event.id)"
         @click-remove="bus.$emit('open-remove', $event.id)"
@@ -19,18 +21,39 @@
       />
     </template>
 
-    <template #detail-content="{ data }">
+    <template
+      #dashboard-trash-header-filter="{ loading, filter, updateFilter }"
+    >
+      <default-search-text-filter
+        :loading="loading"
+        :value="filter.q"
+        @input="updateFilter({ q: $event })"
+      />
+    </template>
+    <template #dashboard-trash-default="{ items }">
+      <posts-table
+        :items="items"
+        :trash-mode="true"
+        @click-detail="bus.$emit('open-detail', $event.id)"
+        @click-update="bus.$emit('open-update', $event.id)"
+        @click-remove="bus.$emit('open-remove', $event.id)"
+        @click-restore="bus.$emit('open-restore', $event.id)"
+        @click-purge="bus.$emit('open-purge', $event.id)"
+      />
+    </template>
+
+    <template #detail-default="{ data }">
       <v-text-field :value="data.title" label="Title" disabled />
       <v-textarea :value="data.description" label="Description" disabled />
     </template>
     <!-- 
-    <template #create-content="{ formBus, beginFormData, sendRequest }">
+    <template #create-default="{ formBus, beginFormData, sendRequest }">
       <post-form
         :form-bus="formBus"
         :begin-form-data="beginFormData"
         :send-request="sendRequest"
       />
-    </template> -->
+    </template>-->
 
     <!-- Add this block  -->
     <template
@@ -55,7 +78,7 @@
           bus.$emit('close-create');
           bus.$emit('notify-success', 'Create success!');
           bus.$emit('dashboard-go-to-page', 1);
-          bus.$emit('open-detail', $event.id)
+          bus.$emit('open-detail', $event.id);
         "
       >
         <template #title="{ title }">
@@ -73,7 +96,7 @@
     </template>
     <!-- End  -->
 
-    <template #update-content="{ formBus, beginFormData, sendRequest }">
+    <template #update-default="{ formBus, beginFormData, sendRequest }">
       <post-form
         :form-bus="formBus"
         :begin-form-data="beginFormData"
@@ -124,9 +147,12 @@ export default {
       },
 
       dashboardConfig: {
-        defaultFilter: { q: "" },
-        defaultPage: 1,
-        defaultPerPage: 10,
+        defaultNormalFilter: { q: "" },
+        defaultNormalPage: 1,
+        defaultNormalPerPage: 10,
+        defaultTrashFilter: { q: "" },
+        defaultTrashPage: 1,
+        defaultTrashPerPage: 10,
       },
 
       detailConfig: {

@@ -4,9 +4,6 @@ import DefaultExample from "./examples/default.vue";
 import WithRouterExample_code from "!!raw-loader!./examples/with-router.vue";
 import WithRouterExample from "./examples/with-router.vue";
 
-import CustomExample from "./examples/custom.vue";
-import CustomExample_code from "!!raw-loader!./examples/custom.vue";
-
 import CustomDashboardExample from "./examples/custom-dashboard.vue";
 import CustomDashboardExample_code from "!!raw-loader!./examples/custom-dashboard.vue";
 
@@ -81,16 +78,6 @@ WithRouter.parameters = {
   docs: {
     source: {
       code: WithRouterExample_code,
-    },
-  },
-};
-
-// ------------ CUSTOM ------------
-export const Custom = () => CustomExample;
-Custom.parameters = {
-  docs: {
-    source: {
-      code: CustomExample_code,
     },
   },
 };

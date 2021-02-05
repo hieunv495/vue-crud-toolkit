@@ -2,9 +2,12 @@
   <crud-dashboard
     :bus="bus"
     title="Post manager"
-    :default-filter="{ q: '' }"
-    :default-page="1"
-    :default-per-page="5"
+    :default-normal-filter="{ q: '' }"
+    :default-normal-page="1"
+    :default-normal-per-page="5"
+    :default-trash-filter="{ q: '' }"
+    :default-trash-page="1"
+    :default-trash-per-page="5"
     :api-normal-pagination="apiNormalPagination"
     :api-trash-pagination="apiTrashPagination"
     :api-normal-count="apiNormalCount"
@@ -13,37 +16,35 @@
     @click-empty-trash="onClickEmptyTrash"
   >
     <!-- Add this block  -->
-    <template
-      #trash-mode-navigation="{
-        trashMode,
-        updateTrashMode,
-        normalTotal,
-        trashTotal,
-      }"
-    >
-      <v-btn
-        :color="!trashMode ? 'success' : 'default'"
-        @click="updateTrashMode(false)"
-      >
-        Normal ({{ normalTotal }} items)
-      </v-btn>
-      <v-btn
-        :color="trashMode ? 'success' : 'default'"
-        @click="updateTrashMode(true)"
-      >
-        Trash ({{ trashTotal }} items)
-      </v-btn>
+    <template #normal-footer-statistic="{ page, count }">
+      Current page: {{ page }} | Total items: {{ count }}
     </template>
-    <!-- end -->
-    <template #header-filter="{ loading, filter, updateFilter }">
+    <!-- End  -->
+    <template #normal-header-filter="{ loading, filter, updateFilter }">
       <default-search-text-filter
         :loading="loading"
         :value="filter.q"
         @input="updateFilter({ q: $event })"
       />
     </template>
-    <template #default="{ items, trashMode }">
-      <posts-table :items="items" :trash-mode="trashMode" />
+    <template #normal-default="{ items }">
+      <posts-table :items="items" :trash-mode="false" />
+    </template>
+
+    <!-- Add this block  -->
+    <template #trash-footer-statistic="{ page, count }">
+      Current page: {{ page }} | Total items: {{ count }}
+    </template>
+    <!-- End  -->
+    <template #trash-header-filter="{ loading, filter, updateFilter }">
+      <default-search-text-filter
+        :loading="loading"
+        :value="filter.q"
+        @input="updateFilter({ q: $event })"
+      />
+    </template>
+    <template #trash-default="{ items }">
+      <posts-table :items="items" :trash-mode="true" />
     </template>
   </crud-dashboard>
 </template>
@@ -55,7 +56,7 @@ import PostsTable from "@/components/posts/PostsTable/index.vue";
 import postsApi from "@/apis/posts.api";
 
 export default {
-  name: "crud-dashboard-custom-trash-mode-navigation-example",
+  name: "crud-dashboard-custom-footer-statistic-example",
   components: {
     CrudDashboard,
     DefaultSearchTextFilter,

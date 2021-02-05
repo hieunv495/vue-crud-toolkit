@@ -1,42 +1,42 @@
-import BuildInHeaderFilterExample_code from "!!raw-loader!./examples/CrudDashboard.build-in-header-filter.example";
-import CustomContentExample_code from "!!raw-loader!./examples/CrudDashboard.custom-content.example";
-import CustomFooterPerPageExample_code from "!!raw-loader!./examples/CrudDashboard.custom-footer-per-page.example";
-import CustomFooterPaginationExample_code from "!!raw-loader!./examples/CrudDashboard.custom-footer-pagination.example";
-import CustomFooterStatisticExample_code from "!!raw-loader!./examples/CrudDashboard.custom-footer-statistic.example";
-import CustomFooterExample_code from "!!raw-loader!./examples/CrudDashboard.custom-footer.example";
-import CustomHeaderActionsExample_code from "!!raw-loader!./examples/CrudDashboard.custom-header-actions.example";
-import CustomHeaderFilterExample_code from "!!raw-loader!./examples/CrudDashboard.custom-header-filter.example";
-import CustomHeaderTitleExample_code from "!!raw-loader!./examples/CrudDashboard.custom-header-title.example";
-import CustomTrashModeNavigationExample_code from "!!raw-loader!./examples/CrudDashboard.custom-trash-mode-navigation.example";
-import DefaultExample_code from "!!raw-loader!./examples/CrudDashboard.default.example";
-import NoFilterExample_code from "!!raw-loader!./examples/CrudDashboard.no-filter.example";
-import NoTrashExample_code from "!!raw-loader!./examples/CrudDashboard.no-trash.example";
-import BuildInHeaderFilterExample from "./examples/CrudDashboard.build-in-header-filter.example";
-import CustomContentExample from "./examples/CrudDashboard.custom-content.example";
-import CustomFooterPerPageExample from "./examples/CrudDashboard.custom-footer-per-page.example";
-import CustomFooterPaginationExample from "./examples/CrudDashboard.custom-footer-pagination.example";
-import CustomFooterStatisticExample from "./examples/CrudDashboard.custom-footer-statistic.example";
-import CustomFooterExample from "./examples/CrudDashboard.custom-footer.example";
-import CustomHeaderActionsExample from "./examples/CrudDashboard.custom-header-actions.example";
-import CustomHeaderFilterExample from "./examples/CrudDashboard.custom-header-filter.example";
-import CustomHeaderTitleExample from "./examples/CrudDashboard.custom-header-title.example";
-import CustomTrashModeNavigationExample from "./examples/CrudDashboard.custom-trash-mode-navigation.example";
-import DefaultExample from "./examples/CrudDashboard.default.example";
-import NofilterExample from "./examples/CrudDashboard.no-filter.example";
-import NoTrashExample from "./examples/CrudDashboard.no-trash.example";
+import BuildInHeaderFilterExample_code from "!!raw-loader!./examples/build-in-header-filter.example";
+import CustomContentExample_code from "!!raw-loader!./examples/custom-content.example";
+import CustomFooterPerPageExample_code from "!!raw-loader!./examples/custom-footer-per-page.example";
+import CustomFooterPaginationExample_code from "!!raw-loader!./examples/custom-footer-pagination.example";
+import CustomFooterStatisticExample_code from "!!raw-loader!./examples/custom-footer-statistic.example";
+import CustomFooterExample_code from "!!raw-loader!./examples/custom-footer.example";
+import CustomHeaderActionsExample_code from "!!raw-loader!./examples/custom-header-actions.example";
+import CustomHeaderFilterExample_code from "!!raw-loader!./examples/custom-header-filter.example";
+import CustomHeaderTitleExample_code from "!!raw-loader!./examples/custom-header-title.example";
+import CustomTrashModeNavigationExample_code from "!!raw-loader!./examples/custom-trash-mode-navigation.example";
+import DefaultExample_code from "!!raw-loader!./examples/default.example";
+import NoFilterExample_code from "!!raw-loader!./examples/no-filter.example";
+import NoTrashExample_code from "!!raw-loader!./examples/no-trash.example";
+import BuildInHeaderFilterExample from "./examples/build-in-header-filter.example";
+import CustomContentExample from "./examples/custom-content.example";
+import CustomFooterPerPageExample from "./examples/custom-footer-per-page.example";
+import CustomFooterPaginationExample from "./examples/custom-footer-pagination.example";
+import CustomFooterStatisticExample from "./examples/custom-footer-statistic.example";
+import CustomFooterExample from "./examples/custom-footer.example";
+import CustomHeaderActionsExample from "./examples/custom-header-actions.example";
+import CustomHeaderFilterExample from "./examples/custom-header-filter.example";
+import CustomHeaderTitleExample from "./examples/custom-header-title.example";
+import CustomTrashModeNavigationExample from "./examples/custom-trash-mode-navigation.example";
+import DefaultExample from "./examples/default.example";
+import NofilterExample from "./examples/no-filter.example";
+import NoTrashExample from "./examples/no-trash.example";
 import CrudDashboard from "./index.vue";
 
-import CustomTextExample from "./examples/CrudDashboard.custom-text.example";
-import CustomTextExample_code from "!!raw-loader!./examples/CrudDashboard.custom-text.example";
+import CustomTextExample from "./examples/custom-text.example";
+import CustomTextExample_code from "!!raw-loader!./examples/custom-text.example";
 
-import WithRouterExample from "./examples/CrudDashboard.with-router.example";
-import WithRouterExample_code from "!!raw-loader!./examples/CrudDashboard.with-router.example";
+import WithRouterExample from "./examples/with-router.example";
+import WithRouterExample_code from "!!raw-loader!./examples/with-router.example";
 
-import WithErrorExample from "./examples/CrudDashboard.with-error.example";
-import WithErrorExample_code from "!!raw-loader!./examples/CrudDashboard.with-error.example";
+import WithErrorExample from "./examples/with-error.example";
+import WithErrorExample_code from "!!raw-loader!./examples/with-error.example";
 
-import CustomErrorExample from "./examples/CrudDashboard.custom-error.example";
-import CustomErrorExample_code from "!!raw-loader!./examples/CrudDashboard.custom-error.example";
+import CustomErrorExample from "./examples/custom-error.example";
+import CustomErrorExample_code from "!!raw-loader!./examples/custom-error.example";
 
 export default {
   title: "CRUD/Dashboard",
