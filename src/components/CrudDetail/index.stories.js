@@ -35,12 +35,12 @@ export default {
       //   options: [null, "0", "1", "2"],
       // },
     },
-    apiGetOne: {
+    apiDetail: {
       description:
         "This is function that fetch item data by `id`, it can be async when return a `Promise`",
     },
     getErrorMessage: {
-      description: "Function get error message when `apiGetOne` throw an error",
+      description: "Function get error message when `apiDetail` throw an error",
     },
     card: {
       control: {

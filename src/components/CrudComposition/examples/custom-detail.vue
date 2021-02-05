@@ -52,13 +52,13 @@
       #detail="{
         detailId,
         detailConfig,
-        apiGetOne,
+        apiDetail,
         viewCreateDetailUpdateConfig,
       }"
     >
       <crud-detail
         :id="detailId"
-        :api-get-one="apiGetOne"
+        :api-detail="apiDetail"
         :card="viewCreateDetailUpdateConfig.dialog"
         :card-props="detailConfig.cardProps"
         @close="bus.$emit('close-detail')"
@@ -164,7 +164,7 @@ export default {
       apiTrashPagination: postsApi.getTrashPagination,
       apiNormalCount: postsApi.normalCount,
       apiTrashCount: postsApi.trashCount,
-      apiGetOne: postsApi.getOne,
+      apiDetail: postsApi.getOne,
       apiCreate: postsApi.create,
       apiUpdate: postsApi.update,
       apiRemove: postsApi.remove,

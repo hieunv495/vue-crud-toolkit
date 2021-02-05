@@ -7,7 +7,7 @@
     <crud-detail
       title="Post detail"
       :id="id"
-      :api-get-one="apiGetOne"
+      :api-detail="apiDetail"
       :card="card"
       :card-props="{
         maxWidth: 600,
@@ -48,7 +48,7 @@ export default {
     };
   },
   methods: {
-    apiGetOne: () => new Promise(() => {}),
+    apiDetail: () => new Promise(() => {}),
   },
 };
 </script>

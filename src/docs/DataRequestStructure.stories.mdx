@@ -12,7 +12,7 @@ Your apis should have the following structure:
 
 ```typescript
 // Get list items with pagination
-type GetPaginationApi = ({
+type ApiPagination = ({
   page,
   perPage,
   filter,
@@ -36,7 +36,7 @@ type GetPaginationApi = ({
 }>;
 
 // Get list items with pagination in the trash
-type GetTrashPaginationApi = ({
+type ApiTrashPagination = ({
   page,
   perPage,
   filter,
@@ -60,26 +60,29 @@ type GetTrashPaginationApi = ({
 }>;
 
 // Count items
-type NormalCountApi = (filter: any) => Promise<number>;
+type ApiNormalCount = (filter: any) => Promise<number>;
 
 // Count items in the trash
-type TrashCountApi = (filter) => Promise<number>;
+type ApiTrashCount = (filter) => Promise<number>;
 
 // Create new item
-type CreateApi = (data: any) => Promise<any>;
+type ApiCreate = (data: any) => Promise<{ id }>;
+
+// Get item detail
+type ApiDetail = (id: string | number) => Promise<any>;
 
 // Update item
-type UpdateApi = (id: string | number, data: any) => Promise<any>;
+type ApiUpdate = (id: string | number, data: any) => Promise<{ id }>;
 
 // Remove item
-type RemoveApi = (id: string | number) => Promise<any>;
+type ApiRemove = (id: string | number) => Promise<any>;
 
 // Restore item
-type RestoreApi = (id: string | number) => Promise<any>;
+type ApiRestore = (id: string | number) => Promise<any>;
 
 // Purge item
-type PurgeApi = (id: string | number) => Promise<any>;
+type ApiPurge = (id: string | number) => Promise<any>;
 
 // Empty trash
-type EmptyTrashApi = () => Promise<any>;
+type ApiEmptyTrash = () => Promise<any>;
 ```

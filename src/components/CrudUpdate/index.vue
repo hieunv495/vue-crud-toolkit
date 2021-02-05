@@ -80,7 +80,7 @@ export default {
       type: [String, Number],
       default: null,
     },
-    apiGetOne: {
+    apiDetail: {
       type: Function,
       required: true,
     },
@@ -165,7 +165,7 @@ export default {
       this.fetchLoading = true;
       this.fetchError = null;
       try {
-        const result = await this.apiGetOne(this.id);
+        const result = await this.apiDetail(this.id);
         if (requestId === this.requestId) {
           this.fetchedData = result;
           this.beginFormData = this.getBeginFormData(this.fetchedData);

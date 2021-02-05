@@ -175,7 +175,7 @@ export default {
         }
         return postsApi.trashCount(...args);
       },
-      apiGetOne: (...args) => {
+      apiDetail: (...args) => {
         if (this.getOneError) {
           return this.getApiError("Get one error")();
         }

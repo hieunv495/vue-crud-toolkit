@@ -8,7 +8,7 @@
       ref="crudUpdate"
       :id="id"
       title="Update post"
-      :api-get-one="apiGetOne"
+      :api-detail="apiDetail"
       :api-update="apiUpdate"
       :get-error-message="getErrorMessage"
       :get-begin-form-data="getBeginFormData"
@@ -61,7 +61,7 @@ export default {
   },
 
   methods: {
-    apiGetOne: postsApi.getOne,
+    apiDetail: postsApi.getOne,
     apiUpdate: () =>
       new Promise((resolve, reject) => {
         setTimeout(() => {

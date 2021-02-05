@@ -33,7 +33,7 @@
           v-if="$scopedSlots['detail-default']"
           :bus="bus"
           :id="detailId"
-          :api-get-one="apiGetOne"
+          :api-detail="apiDetail"
           :get-error-message="getErrorMessage"
           :card="true"
           :card-props="detailConfig.dialogProps"
@@ -50,7 +50,7 @@
         <crud-update
           v-if="$scopedSlots['update-default']"
           :id="updateId"
-          :api-get-one="apiGetOne"
+          :api-detail="apiDetail"
           :api-update="apiUpdate"
           :get-error-message="getErrorMessage"
           :get-begin-form-data="updateConfig.getBeginFormData"
@@ -214,7 +214,7 @@
             v-if="$scopedSlots['detail-default']"
             :bus="bus"
             :id="detailId"
-            :api-get-one="apiGetOne"
+            :api-detail="apiDetail"
             :get-error-message="getErrorMessage"
             :card="false"
             @close="bus.$emit('close-detail')"
@@ -230,7 +230,7 @@
           <crud-update
             v-if="$scopedSlots['update-default']"
             :id="updateId"
-            :api-get-one="apiGetOne"
+            :api-detail="apiDetail"
             :api-update="apiUpdate"
             :get-error-message="getErrorMessage"
             :get-begin-form-data="updateConfig.getBeginFormData"
@@ -345,7 +345,7 @@ export default {
     apiTrashPagination: { default: null },
     apiNormalCount: { default: null },
     apiTrashCount: { default: null },
-    apiGetOne: { default: null },
+    apiDetail: { default: null },
     apiCreate: { default: null },
     apiUpdate: { default: null },
     apiRemove: { default: null },

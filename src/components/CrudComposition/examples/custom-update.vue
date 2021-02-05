@@ -68,7 +68,7 @@
       #update="{
         updateId,
         updateConfig,
-        apiGetOne,
+        apiDetail,
         apiUpdate,
         viewCreateDetailUpdateConfig,
       }"
@@ -76,7 +76,7 @@
       <crud-update
         :id="updateId"
         title="Update post"
-        :api-get-one="apiGetOne"
+        :api-detail="apiDetail"
         :api-update="apiUpdate"
         :get-begin-form-data="updateConfig.getBeginFormData"
         :card="viewCreateDetailUpdateConfig.dialog"
@@ -176,7 +176,7 @@ export default {
       apiTrashPagination: postsApi.getTrashPagination,
       apiNormalCount: postsApi.normalCount,
       apiTrashCount: postsApi.trashCount,
-      apiGetOne: postsApi.getOne,
+      apiDetail: postsApi.getOne,
       apiCreate: postsApi.create,
       apiUpdate: postsApi.update,
       apiRemove: postsApi.remove,

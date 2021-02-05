@@ -7,7 +7,7 @@
     <crud-update
       :id="id"
       title="Update post"
-      :api-get-one="apiGetOne"
+      :api-detail="apiDetail"
       :api-update="apiUpdate"
       :get-begin-form-data="getBeginFormData"
       :get-error-message="getErrorMessage"
@@ -64,7 +64,7 @@ export default {
   },
 
   methods: {
-    apiGetOne: () =>
+    apiDetail: () =>
       new Promise((resolve, reject) => {
         setTimeout(() => {
           reject(new Error("Not found"));

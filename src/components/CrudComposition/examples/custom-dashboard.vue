@@ -204,7 +204,7 @@ export default {
       apiTrashPagination: postsApi.getTrashPagination,
       apiNormalCount: postsApi.normalCount,
       apiTrashCount: postsApi.trashCount,
-      apiGetOne: postsApi.getOne,
+      apiDetail: postsApi.getOne,
       apiCreate: postsApi.create,
       apiUpdate: postsApi.update,
       apiRemove: postsApi.remove,

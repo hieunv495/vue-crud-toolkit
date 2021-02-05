@@ -7,7 +7,7 @@
     <crud-detail
       title="Post detail"
       :id="id"
-      :api-get-one="apiGetOne"
+      :api-detail="apiDetail"
       :get-error-message="getErrorMessage"
       :card="card"
       :card-props="{
@@ -43,7 +43,7 @@ export default {
     };
   },
   methods: {
-    apiGetOne: postsApi.getOne,
+    apiDetail: postsApi.getOne,
     getErrorMessage: (e) => "Error occurred. " + e.message,
   },
 };

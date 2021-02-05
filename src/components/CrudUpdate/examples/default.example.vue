@@ -7,7 +7,7 @@
     <crud-update
       :id="id"
       title="Update post"
-      :api-get-one="apiGetOne"
+      :api-detail="apiDetail"
       :api-update="apiUpdate"
       :get-begin-form-data="getBeginFormData"
       :card="card"
@@ -52,7 +52,7 @@ export default {
 
   methods: {
     apiUpdate: postsApi.update,
-    apiGetOne: postsApi.getOne,
+    apiDetail: postsApi.getOne,
 
     getBeginFormData(fetchedData) {
       return JSON.parse(JSON.stringify(fetchedData));

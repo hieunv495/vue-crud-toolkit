@@ -1,6 +1,6 @@
 <template>
   <crud-composition :bus="bus">
-   <template
+    <template
       #dashboard-normal-header-filter="{ loading, filter, updateFilter }"
     >
       <default-search-text-filter
@@ -130,7 +130,7 @@ export default {
       apiTrashPagination: postsApi.getTrashPagination,
       apiNormalCount: postsApi.normalCount,
       apiTrashCount: postsApi.trashCount,
-      apiGetOne: postsApi.getOne,
+      apiDetail: postsApi.getOne,
       apiCreate: postsApi.create,
       apiUpdate: postsApi.update,
       apiRemove: postsApi.remove,
@@ -203,7 +203,7 @@ export default {
     apiTrashPagination: postsApi.getTrashPagination,
     apiNormalCount: postsApi.normalCount,
     apiTrashCount: postsApi.trashCount,
-    apiGetOne: postsApi.getOne,
+    apiDetail: postsApi.getOne,
     apiCreate: postsApi.create,
     apiUpdate: postsApi.update,
     apiRemove: postsApi.remove,

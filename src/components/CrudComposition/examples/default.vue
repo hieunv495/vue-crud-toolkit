@@ -95,6 +95,16 @@ export default {
       router: false,
       hasTrash: true,
 
+      access: {
+        create: false,
+        detail: false,
+        update: false,
+        remove: false,
+        restore: false,
+        purge: false,
+        emptyTrash: false,
+      },
+
       viewCreateDetailUpdateConfig: {
         dialog: this.dialog,
       },
@@ -130,7 +140,7 @@ export default {
       apiTrashPagination: postsApi.getTrashPagination,
       apiNormalCount: postsApi.normalCount,
       apiTrashCount: postsApi.trashCount,
-      apiGetOne: postsApi.getOne,
+      apiDetail: postsApi.getOne,
       apiCreate: postsApi.create,
       apiUpdate: postsApi.update,
       apiRemove: postsApi.remove,
