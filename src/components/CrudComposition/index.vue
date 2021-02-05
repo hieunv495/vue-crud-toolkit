@@ -6,7 +6,11 @@
       @input="onClickCloseDetailCreateUpdate"
       v-bind="dialogProps"
     >
-      <slot v-if="!detailId && !updateId" name="create" v-bind="self">
+      <slot
+        v-if="access.create && !detailId && !updateId"
+        name="create"
+        v-bind="self"
+      >
         <crud-create
           v-if="$scopedSlots['create-default']"
           :visible="createVisible"
@@ -24,7 +28,7 @@
         </crud-create>
       </slot>
 
-      <slot v-if="!updateId" name="detail" v-bind="self">
+      <slot v-if="access.detail && !updateId" name="detail" v-bind="self">
         <crud-detail
           v-if="$scopedSlots['detail-default']"
           :bus="bus"
@@ -42,7 +46,7 @@
         </crud-detail>
       </slot>
 
-      <slot name="update" v-bind="self">
+      <slot v-if="access.update" name="update" v-bind="self">
         <crud-update
           v-if="$scopedSlots['update-default']"
           :id="updateId"
@@ -79,7 +83,7 @@
       />
     </slot>
 
-    <slot name="remove" v-bind="self">
+    <slot v-if="access.remove" name="remove" v-bind="self">
       <crud-confirm-dialog
         :id="removeId"
         :visible="!!removeId"
@@ -98,7 +102,7 @@
       />
     </slot>
 
-    <slot name="restore" v-bind="self">
+    <slot v-if="access.restore" name="restore" v-bind="self">
       <crud-confirm-dialog
         :id="restoreId"
         :visible="!!restoreId"
@@ -115,7 +119,7 @@
         "
       />
     </slot>
-    <slot name="purge" v-bind="self">
+    <slot v-if="access.purge" name="purge" v-bind="self">
       <crud-confirm-dialog
         :id="purgeId"
         :visible="!!purgeId"
@@ -133,7 +137,7 @@
       />
     </slot>
 
-    <slot name="empty-trash" v-bind="self">
+    <slot v-if="access.emptyTrash" name="empty-trash" v-bind="self">
       <crud-confirm-dialog
         :visible="emptyTrashVisible"
         :api-request="apiEmptyTrash"
@@ -184,7 +188,11 @@
         v-if="!viewCreateDetailUpdateConfig.dialog"
         value="DETAIL_CREATE_UPDATE"
       >
-        <slot v-if="!detailId && !updateId" name="create" v-bind="self">
+        <slot
+          v-if="access.create && !detailId && !updateId"
+          name="create"
+          v-bind="self"
+        >
           <crud-create
             v-if="$scopedSlots['create-default']"
             :visible="createVisible"
@@ -201,7 +209,7 @@
           </crud-create>
         </slot>
 
-        <slot v-if="!updateId" name="detail" v-bind="self">
+        <slot v-if="access.detail && !updateId" name="detail" v-bind="self">
           <crud-detail
             v-if="$scopedSlots['detail-default']"
             :bus="bus"
@@ -218,7 +226,7 @@
           </crud-detail>
         </slot>
 
-        <slot name="update" v-bind="self">
+        <slot v-if="access.update" name="update" v-bind="self">
           <crud-update
             v-if="$scopedSlots['update-default']"
             :id="updateId"
@@ -275,6 +283,18 @@ export default {
       default: false,
     },
     hasTrash: { default: true },
+
+    access: {
+      default: {
+        create: true,
+        detail: true,
+        update: true,
+        remove: true,
+        restore: true,
+        purge: true,
+        emptyTrash: true,
+      },
+    },
 
     viewCreateDetailUpdateConfig: {
       default: {
@@ -577,6 +597,7 @@ export default {
     },
 
     openDetail(id) {
+      if (!this.access.detail) return;
       this.detailId = id;
       if (this.router) {
         this.syncSearchParams.push();
@@ -591,6 +612,7 @@ export default {
     },
 
     openCreate() {
+      if (!this.access.create) return;
       this.createVisible = true;
       if (this.router) {
         this.syncSearchParams.push();
@@ -615,6 +637,7 @@ export default {
     },
 
     openUpdate(id) {
+      if (!this.access.update) return;
       this.updateId = id;
       if (this.router) {
         this.syncSearchParams.push();
@@ -639,6 +662,7 @@ export default {
     },
 
     openRemove(id) {
+      if (!this.access.remove) return;
       this.removeId = id;
       if (this.router) {
         this.syncSearchParams.push();
@@ -653,6 +677,7 @@ export default {
     },
 
     openRestore(id) {
+      if (!this.access.restore) return;
       this.restoreId = id;
       if (this.router) {
         this.syncSearchParams.push();
@@ -667,6 +692,7 @@ export default {
     },
 
     openPurge(id) {
+      if (!this.access.purge) return;
       this.purgeId = id;
       if (this.router) {
         this.syncSearchParams.push();
@@ -681,6 +707,7 @@ export default {
     },
 
     openEmptyTrash() {
+      if (!this.access.emptyTrash) return;
       this.emptyTrashVisible = true;
       if (this.router) {
         this.syncSearchParams.push();

@@ -4,6 +4,9 @@ import DefaultExample from "./examples/default.vue";
 import WithRouterExample_code from "!!raw-loader!./examples/with-router.vue";
 import WithRouterExample from "./examples/with-router.vue";
 
+import LimitAccessExample_code from "!!raw-loader!./examples/limit-access.vue";
+import LimitAccessExample from "./examples/limit-access.vue";
+
 import CustomDashboardExample from "./examples/custom-dashboard.vue";
 import CustomDashboardExample_code from "!!raw-loader!./examples/custom-dashboard.vue";
 
@@ -68,6 +71,19 @@ WithDialog.parameters = {
   docs: {
     source: {
       code: DefaultExample_code,
+    },
+  },
+};
+
+// ------------ LIMIT ACCESS ------------
+export const LimitAccess = () => LimitAccessExample;
+LimitAccess.args = {
+  dialog: true,
+};
+LimitAccess.parameters = {
+  docs: {
+    source: {
+      code: LimitAccessExample_code,
     },
   },
 };

@@ -1,6 +1,7 @@
 <template>
+  <v-alert v-if="!access.update" type="warning">Access denied!</v-alert>
   <smart-window
-    v-if="!!id"
+    v-else-if="!!id"
     :title="title || textUpdateTitle"
     :card="card"
     :card-props="cardProps"
@@ -69,6 +70,7 @@ export default {
   name: "crud-update",
   components: { SmartWindow, ErrorReport },
   inject: {
+    access: { default: { update: true } },
     textCancel: { default: "Cancel" },
     textUpdateSubmit: { default: "Save change" },
     textUpdateTitle: { default: "Update" },

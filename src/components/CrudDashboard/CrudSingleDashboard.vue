@@ -31,7 +31,7 @@
         <v-flex shrink>
           <!-- @slot header-actions -->
           <slot name="header-actions" v-bind="self">
-            <v-btn color="success" @click="clickCreate">
+            <v-btn v-if="access.create" color="success" @click="clickCreate">
               <v-icon left>mdi-plus</v-icon>{{ textCreateActivator }}
             </v-btn>
           </slot>
@@ -125,6 +125,7 @@ export default {
     ErrorReport,
   },
   inject: {
+    access: { default: { create: true } },
     textDashboardTitle: { default: "Dashboard" },
     textCreateActivator: { default: "Create" },
   },

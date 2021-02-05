@@ -1,6 +1,7 @@
 <template>
+  <v-alert v-if="!access.create" type="warning">Access denied!</v-alert>
   <smart-window
-    v-if="visible"
+    v-else-if="visible"
     :title="title || textCreateTitle"
     :card="card"
     :card-props="cardProps"
@@ -43,6 +44,7 @@ export default {
   name: "crud-create",
   components: { SmartWindow },
   inject: {
+    access: { default: { create: true } },
     textCreateTitle: { default: "Create" },
     textCreateSubmit: { default: "Save" },
   },

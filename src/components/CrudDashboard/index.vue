@@ -64,7 +64,11 @@
     </template>
     <template #header-actions="dashboard">
       <slot name="trash-header-actions" v-bind="dashboard">
-        <v-btn color="warning" @click="$emit('click-empty-trash')">
+        <v-btn
+          v-if="access.emptyTrash"
+          color="warning"
+          @click="$emit('click-empty-trash')"
+        >
           <v-icon left>mdi-delete</v-icon>{{ textEmptyTrashActivator }}
         </v-btn>
         <v-divider />
@@ -86,6 +90,7 @@ export default {
     CrudSingleDashboard,
   },
   inject: {
+    access: { default: { emptyTrash: true } },
     textEmptyTrashActivator: { default: "Empty trash" },
   },
   props: {

@@ -7,14 +7,14 @@
     </template>
     <v-list>
       <template v-if="trashMode">
-        <v-list-item @click="$emit('click-restore')">
+        <v-list-item v-if="access.restore" @click="$emit('click-restore')">
           <v-list-item-icon>
             <v-icon>mdi-restore</v-icon>
           </v-list-item-icon>
           <v-list-item-title>{{ textRestoreActivator }}</v-list-item-title>
         </v-list-item>
 
-        <v-list-item @click="$emit('click-purge')">
+        <v-list-item v-if="access.purge" @click="$emit('click-purge')">
           <v-list-item-icon>
             <v-icon>mdi-close</v-icon>
           </v-list-item-icon>
@@ -22,21 +22,21 @@
         </v-list-item>
       </template>
       <template v-else>
-        <v-list-item @click="$emit('click-detail')">
+        <v-list-item v-if="access.detail" @click="$emit('click-detail')">
           <v-list-item-icon>
             <v-icon>mdi-eye</v-icon>
           </v-list-item-icon>
           <v-list-item-title>{{ textDetailActivator }}</v-list-item-title>
         </v-list-item>
 
-        <v-list-item @click="$emit('click-update')">
+        <v-list-item v-if="access.update" @click="$emit('click-update')">
           <v-list-item-icon>
             <v-icon>mdi-pencil</v-icon>
           </v-list-item-icon>
           <v-list-item-title>{{ textUpdateActivator }}</v-list-item-title>
         </v-list-item>
 
-        <v-list-item @click="$emit('click-remove')">
+        <v-list-item v-if="access.remove" @click="$emit('click-remove')">
           <v-list-item-icon>
             <v-icon>mdi-delete</v-icon>
           </v-list-item-icon>
@@ -50,6 +50,15 @@
 <script>
 export default {
   inject: {
+    access: {
+      default: {
+        detail: true,
+        update: true,
+        remove: true,
+        restore: true,
+        purge: true,
+      },
+    },
     textDetailActivator: { default: "View detail" },
     textUpdateActivator: { default: "Update" },
     textRemoveActivator: { default: "Remove" },

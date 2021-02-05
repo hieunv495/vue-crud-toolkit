@@ -1,6 +1,7 @@
 <template>
+  <v-alert v-if="!access.detail" type="warning">Access denied!</v-alert>
   <smart-window
-    v-if="!!id"
+    v-else-if="!!id"
     :title="title || textDetailTitle"
     :card="card"
     :card-props="cardProps"
@@ -18,6 +19,7 @@
     <template #actions>
       <slot name="actions" v-bind="self">
         <v-btn
+          v-if="access.update"
           :disabled="!data"
           :title="textUpdateActivator"
           large
@@ -67,6 +69,7 @@ export default {
   name: "crud-detail",
   components: { SmartWindow, ErrorReport },
   inject: {
+    access: { default: { detail: true, update: true } },
     textDetailTitle: { default: "Detail" },
     textUpdateActivator: { default: "Update" },
   },
