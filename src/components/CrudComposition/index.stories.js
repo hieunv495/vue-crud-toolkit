@@ -48,6 +48,7 @@ export default {
     },
     dialog: {
       type: "boolean",
+      control: "boolean",
     },
   },
 };

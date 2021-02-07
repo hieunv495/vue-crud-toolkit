@@ -96,13 +96,13 @@ export default {
       hasTrash: true,
 
       access: {
-        create: false,
-        detail: false,
-        update: false,
-        remove: false,
-        restore: false,
-        purge: false,
-        emptyTrash: false,
+        create: true,
+        detail: true,
+        update: true,
+        remove: true,
+        restore: true,
+        purge: true,
+        emptyTrash: true,
       },
 
       viewCreateDetailUpdateConfig: {
@@ -124,15 +124,17 @@ export default {
 
       createConfig: {
         getBeginFormData,
-        dialogProps: { maxWidth: 800 },
+        dialogProps: { maxWidth: 800, persistent: true },
         onSuccess: "DETAIL",
       },
 
       updateConfig: {
         getBeginFormData,
-        dialogProps: { maxWidth: 800 },
+        dialogProps: { maxWidth: 800, persistent: true },
         onSuccess: "DETAIL",
       },
+
+      getObjectId: (item) => item.id,
 
       getErrorMessage: (e) => e.message,
 

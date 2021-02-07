@@ -149,6 +149,8 @@ export default {
         onSuccess: "DETAIL",
       },
 
+      getObjectId: (item) => item.id,
+
       getErrorMessage: (e) => "An error occurred. " + e.message,
 
       apiNormalPagination: (...args) => {

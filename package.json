@@ -1,9 +1,9 @@
 {
   "name": "vue-crud-toolkit",
-  "version": "3.3.0",
+  "version": "4.0.0",
   "private": false,
   "description": "Vue crud toolkit",
-  "author": "Hieunv495",
+  "author": "hieunv495",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "yarn build-lib && yarn build-storybook",

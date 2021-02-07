@@ -7,7 +7,7 @@ export default {
     },
     sendRequest: {
       type: Function,
-      required: true,
+      default: null,
     },
   },
   data() {
@@ -36,7 +36,7 @@ export default {
     submit() {
       this.$refs.form.validate();
       if (this.valid) {
-        this.sendRequest(this.formData);
+        this.sendRequest && this.sendRequest(this.formData);
       }
     },
   },

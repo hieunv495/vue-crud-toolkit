@@ -131,6 +131,8 @@ export default {
         onSuccess: "DETAIL",
       },
 
+      getObjectId: (item) => item.id,
+
       getErrorMessage: (e) => e.message,
 
       apiNormalPagination: postsApi.getPagination,

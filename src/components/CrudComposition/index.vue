@@ -36,7 +36,7 @@
           :api-detail="apiDetail"
           :get-error-message="getErrorMessage"
           :card="true"
-          :card-props="detailConfig.dialogProps"
+          :card-props="detailConfig.cardProps"
           @close="bus.$emit('close-detail')"
           @open-update="bus.$emit('open-update', detailId)"
         >
@@ -55,7 +55,7 @@
           :get-error-message="getErrorMessage"
           :get-begin-form-data="updateConfig.getBeginFormData"
           :card="true"
-          :card-props="updateConfig.dialogProps"
+          :card-props="updateConfig.cardProps"
           @close="bus.$emit('close-update')"
           @success="onUpdateSuccess"
         >
@@ -446,15 +446,17 @@ export default {
     },
     dialogProps() {
       const dialogProps = this.viewCreateDetailUpdateConfig.dialogProps;
-      if (this.createVisible) {
-        return { ...dialogProps, ...this.createConfig.dialogProps };
+
+      if (this.updateId) {
+        return { ...dialogProps, ...this.updateConfig.dialogProps };
       }
       if (this.detailId) {
         return { ...dialogProps, ...this.detailConfig.dialogProps };
       }
-      if (this.updateId) {
-        return { ...dialogProps, ...this.updateConfig.dialogProps };
+      if (this.createVisible) {
+        return { ...dialogProps, ...this.createConfig.dialogProps };
       }
+
       return dialogProps;
     },
   },
