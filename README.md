@@ -64,6 +64,10 @@ git clone git@github.com:hieunv495/vue-crud-toolkit.git
 
 ## Changelog
 
+### 4.0.1
+
+- Fix touchless composition window
+
 ### 4.0.0
 
 - Add detail create update in one view

@@ -154,7 +154,7 @@
       />
     </slot>
 
-    <v-window :value="page">
+    <v-window :value="page" touchless >
       <v-window-item :value="DASHBOARD">
         <slot name="dashboard" v-bind="self">
           <crud-dashboard
